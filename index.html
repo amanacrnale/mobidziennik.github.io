@@ -6,6 +6,7 @@
 <title>mobiDziennik</title>
 
 <style>
+
 *{
     margin:0;
     padding:0;
@@ -21,48 +22,150 @@ body{
 
 #loginScreen{
     width:100%;
-    height:100vh;
+    min-height:100vh;
     display:flex;
     justify-content:center;
+    align-items:flex-start;
+    padding-top:85px;
+    background:#dcdcdc;
+}
+
+.login-panel{
+    width:600px;
+    background:#fff;
+    border:1px solid #d0d0d0;
+    border-radius:4px;
+    box-shadow:0 1px 8px rgba(0,0,0,0.15);
+    overflow:hidden;
+}
+
+.login-header{
+    border-bottom:1px solid #e2e2e2;
+    text-align:center;
+    padding:18px 0 14px 0;
+    background:#fff;
+}
+
+.mobid-logo{
+    font-size:28px;
+    font-weight:bold;
+    color:#0d5d9c;
+}
+
+.mobid-logo span{
+    color:#e5a032;
+}
+
+.mobid-logo sup{
+    color:#999;
+    font-size:12px;
+    top:-10px;
+    position:relative;
+}
+
+.login-body{
+    display:grid;
+    grid-template-columns:220px 1fr;
+    gap:25px;
+    padding:28px 34px 34px 34px;
     align-items:center;
 }
 
-.login-box{
-    width:350px;
-    background:white;
-    padding:30px;
-    border-radius:12px;
-    box-shadow:0 0 10px rgba(0,0,0,0.2);
-}
-
-.login-box h1{
+.login-left{
     text-align:center;
-    color:#0072d6;
-    margin-bottom:20px;
 }
 
-.login-box input{
-    width:100%;
-    padding:12px;
-    margin-bottom:15px;
-    border:1px solid #ccc;
-    border-radius:8px;
+.school-avatar{
+    width:110px;
+    height:110px;
+    object-fit:cover;
+    display:block;
+    margin:0 auto 18px auto;
 }
 
-.login-box button{
+.school-name{
+    font-size:16px;
+    font-weight:bold;
+    color:#222;
+    line-height:1.3;
+    text-align:left;
+}
+
+.login-right{
     width:100%;
-    padding:12px;
+}
+
+.login-row{
+    display:grid;
+    grid-template-columns:100px 1fr;
+    align-items:center;
+    gap:14px;
+    margin-bottom:14px;
+}
+
+.login-row label{
+    font-size:16px;
+    color:#333;
+    text-align:right;
+    font-weight:bold;
+}
+
+.login-row input{
+    width:100%;
+    height:34px;
+    padding:6px 10px;
+    border:1px solid #b7c3d0;
+    border-radius:3px;
+    background:#eef4fb;
+    outline:none;
+}
+
+.login-row input:focus{
+    border-color:#6ea7dd;
+    box-shadow:0 0 4px rgba(80,140,210,0.35);
+    background:#fff;
+}
+
+.login-main-btn{
+    width:100%;
+    height:38px;
     border:none;
-    background:#0072d6;
-    color:white;
-    border-radius:8px;
+    border-radius:4px;
+    background:linear-gradient(#3f8dd3, #2167a8);
+    color:#fff;
+    font-size:16px;
+    font-weight:bold;
     cursor:pointer;
-    margin-bottom:10px;
+    margin-top:2px;
+    margin-bottom:12px;
+}
+
+.login-main-btn:hover{
+    opacity:0.95;
+}
+
+.login-links{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    font-size:12px;
+}
+
+.login-links a{
+    color:#4e83be;
+    text-decoration:none;
+}
+
+.login-links a:hover{
+    text-decoration:underline;
 }
 
 .message{
     text-align:center;
     color:red;
+    margin-top:12px;
+    min-height:18px;
+    font-size:14px;
 }
 
 /* MAIN */
@@ -75,12 +178,13 @@ body{
 
 .topbar{
     background:#0b71c8;
-    height:50px;
+    min-height:50px;
     display:flex;
     justify-content:space-between;
     align-items:center;
     padding:0 20px;
     color:white;
+    gap:10px;
 }
 
 .logo{
@@ -90,6 +194,11 @@ body{
 
 .logo span{
     color:yellow;
+}
+
+#loggedUser{
+    font-size:14px;
+    text-align:right;
 }
 
 /* NAVBAR */
@@ -150,76 +259,58 @@ body{
     border-bottom:none;
 }
 
-.note-card{
-    display:flex;
-    gap:15px;
-    align-items:flex-start;
-    padding:15px;
-    margin-bottom:12px;
+/* FORMS */
+
+.panel{
+    margin-top:20px;
+    background:white;
+    padding:20px;
     border-radius:10px;
-    border-left:7px solid #ccc;
-    background:#fafafa;
+    box-shadow:0 2px 5px rgba(0,0,0,0.08);
 }
 
-.note-icon{
-    width:48px;
-    height:48px;
-    border-radius:50%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-size:28px;
-    color:white;
-    flex-shrink:0;
+.panel h2{
+    margin-bottom:10px;
 }
 
-.note-positive{
-    border-left-color:#2ecc71;
-}
-
-.note-positive .note-icon{
-    background:#2ecc71;
-}
-
-.note-neutral{
-    border-left-color:#3498db;
-}
-
-.note-neutral .note-icon{
-    background:#3498db;
-}
-
-.note-negative{
-    border-left-color:#e74c3c;
-}
-
-.note-negative .note-icon{
-    background:#e74c3c;
-}
-
-.note-title{
-    font-size:20px;
-    font-weight:bold;
-    margin-bottom:6px;
-}
-
-.note-text{
-    font-size:18px;
-    color:#444;
-}
-
-.delete-note-btn{
+.panel input,
+.panel select,
+.panel textarea,
+.panel button{
+    padding:10px;
+    margin-right:10px;
     margin-top:10px;
-    padding:8px 12px;
-    background:#e74c3c;
+}
+
+.panel input,
+.panel select,
+.panel textarea{
+    border:1px solid #ccc;
+    border-radius:6px;
+}
+
+.panel textarea{
+    width:100%;
+    min-height:90px;
+    resize:vertical;
+}
+
+.panel button{
+    background:#0072d6;
     color:white;
     border:none;
     border-radius:6px;
     cursor:pointer;
 }
 
-.delete-note-btn:hover{
-    background:#c0392b;
+.panel button:hover{
+    background:#005fae;
+}
+
+.small-info{
+    font-size:13px;
+    color:#666;
+    margin-top:8px;
 }
 
 /* OCENY JAK W MOBIDZIENNIKU */
@@ -285,845 +376,292 @@ body{
     transform:translateY(-7px);
 }
 
-.grade-green{
-    background:#55df5b;
-}
+.grade-green{ background:#55df5b; }
+.grade-blue{ background:#46bedb; }
+.grade-orange{ background:#ff8b35; }
+.grade-yellow{ background:#f5dc51; }
+.grade-red{ background:#ff5b70; }
+.grade-purple{ background:#c9c9ee; }
+.grade-mint{ background:#9ee5cf; }
+.grade-gray{ background:#e8e8d8; }
+.grade-pinkgray{ background:#c8b2b5; }
 
-.grade-blue{
-    background:#46bedb;
-}
+/* UWAGI */
 
-.grade-orange{
-    background:#ff8b35;
-}
-
-.grade-yellow{
-    background:#f5dc51;
-}
-
-.grade-red{
-    background:#ff5b70;
-}
-
-.grade-purple{
-    background:#c9c9ee;
-}
-
-.grade-mint{
-    background:#9ee5cf;
-}
-
-.grade-gray{
-    background:#e8e8d8;
-}
-
-.grade-pinkgray{
-    background:#c8b2b5;
-}
-
-@media(max-width:650px){
-    .content{
-        padding:0;
-    }
-
-    .grades-header{
-        border-radius:0;
-        margin-top:0;
-    }
-
-    .subject-row{
-        grid-template-columns:150px 1fr;
-    }
-
-    .subject-name{
-        font-size:18px;
-        padding:14px 12px;
-    }
-
-    .grade-tile{
-        min-width:48px;
-        height:48px;
-        font-size:23px;
-    }
-}
-
-/* FORMS */
-
-.panel{
-    margin-top:20px;
-    background:white;
-    padding:20px;
+.note-card{
+    display:flex;
+    gap:15px;
+    align-items:flex-start;
+    padding:15px;
+    margin-bottom:12px;
     border-radius:10px;
-    box-shadow:0 2px 5px rgba(0,0,0,0.08);
+    border-left:7px solid #ccc;
+    background:#fafafa;
 }
 
-.panel h2{
-    margin-bottom:10px;
+.note-icon{
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:28px;
+    color:white;
+    flex-shrink:0;
 }
 
-.panel input,
-.panel select,
-.panel textarea,
-.panel button{
-    padding:10px;
-    margin-right:10px;
+.note-positive{ border-left-color:#2ecc71; }
+.note-positive .note-icon{ background:#2ecc71; }
+
+.note-neutral{ border-left-color:#3498db; }
+.note-neutral .note-icon{ background:#3498db; }
+
+.note-negative{ border-left-color:#e74c3c; }
+.note-negative .note-icon{ background:#e74c3c; }
+
+.note-title{
+    font-size:20px;
+    font-weight:bold;
+    margin-bottom:6px;
+}
+
+.note-text{
+    font-size:18px;
+    color:#444;
+}
+
+.delete-note-btn{
     margin-top:10px;
-}
-
-.panel input,
-.panel select,
-.panel textarea{
-    border:1px solid #ccc;
-    border-radius:6px;
-}
-
-.panel textarea{
-    width:100%;
-    min-height:90px;
-    resize:vertical;
-}
-
-.panel button{
-    background:#0072d6;
+    padding:8px 12px;
+    background:#e74c3c;
     color:white;
     border:none;
     border-radius:6px;
     cursor:pointer;
 }
 
-.panel button:hover{
-    background:#005fae;
+.delete-note-btn:hover{
+    background:#c0392b;
 }
 
-.small-info{
-    font-size:13px;
-    color:#666;
-    margin-top:8px;
-}
-
-</style>
-</head>
-<body>
-
-<!-- LOGIN -->
-
-<div id="loginScreen">
-    <div class="login-box">
-        <h1>mobiDziennik</h1>
-
-        <input type="text" id="username" placeholder="Login">
-        <input type="password" id="password" placeholder="Hasło">
-
-        <button onclick="login()">Zaloguj się</button>
-        <button onclick="register()">Zarejestruj się</button>
-
-        <div class="message" id="message"></div>
-    </div>
-</div>
-
-<!-- MAIN -->
-
-<div id="mainPage">
-
-    <div class="topbar">
-        <div class="logo">mobi<span>Dziennik</span></div>
-        <div id="loggedUser"></div>
-    </div>
-
-    <div class="navbar">
-        <button onclick="showPage('plan')">Plan lekcji</button>
-        <button onclick="showPage('oceny')">Oceny</button>
-        <button onclick="showPage('uwagi')">Uwagi</button>
-        <button onclick="showPage('wiadomosci')">Wiadomości</button>
-        <button onclick="logout()">Wyloguj</button>
-    </div>
-
-    <div class="content">
-
-        <!-- PLAN -->
-
-        <div id="plan" class="page active">
-            <h1>Plan lekcji</h1>
-
-            <div class="box" id="lessonsBox">
-                Brak lekcji w planie.
-            </div>
-
-
-            <!-- PANEL DODAWANIA LEKCJI -->
-
-            <div class="panel" id="lessonPanel" style="display:none;">
-                <h2>Dodaj lekcję do planu</h2>
-
-                <select id="lessonDay">
-                    <option>Poniedziałek</option>
-                    <option>Wtorek</option>
-                    <option>Środa</option>
-                    <option>Czwartek</option>
-                    <option>Piątek</option>
-                </select>
-
-                <input type="text" id="lessonHour" placeholder="Godzina, np. 8:00">
-                <input type="text" id="lessonSubject" placeholder="Przedmiot">
-                <input type="text" id="lessonRoom" placeholder="Sala, np. 24">
-
-                <button onclick="addLesson()">Dodaj lekcję</button>
-            </div>
-        </div>
-
-        <!-- OCENY -->
-
-        <div id="oceny" class="page">
-            <h1>Oceny</h1>
-
-            <div class="box" id="gradesBox">
-                Brak ocen
-            </div>
-
-            <!-- PANEL NAUCZYCIELA -->
-
-            <div class="panel" id="teacherPanel" style="display:none;">
-                <h2>Nowa ocena</h2>
-
-                <select id="studentSelectGrades"></select>
-
-                <select id="subjectSelect">
-                    <option>Matematyka</option>
-                    <option>Polski</option>
-                    <option>Angielski</option>
-                    <option>Informatyka</option>
-                    <option>Chemia</option>
-                    <option>Biologia</option>
-                    <option>Historia</option>
-                </select>
-
-                <select id="gradeSelect">
-                    <option>1</option>
-                    <option>1+</option>
-                    <option>1-</option>
-                    <option>2</option>
-                    <option>2+</option>
-                    <option>2-</option>
-                    <option>3</option>
-                    <option>3+</option>
-                    <option>3-</option>
-                    <option>4</option>
-                    <option>4+</option>
-                    <option>4-</option>
-                    <option>5</option>
-                    <option>5+</option>
-                    <option>5-</option>
-                    <option>6</option>
-                    <option>6-</option>
-                    <option>nb</option>
-                    <option>.</option>
-                </select>
-
-                <select id="weightSelect">
-                    <option value="1">waga 1</option>
-                    <option value="2">waga 2</option>
-                    <option value="3">waga 3</option>
-                </select>
-
-                <select id="colorSelect">
-                    <option value="grade-green">zielona</option>
-                    <option value="grade-blue">niebieska</option>
-                    <option value="grade-orange">pomarańczowa</option>
-                    <option value="grade-yellow">żółta</option>
-                    <option value="grade-red">czerwona</option>
-                    <option value="grade-purple">fioletowa</option>
-                    <option value="grade-mint">miętowa</option>
-                    <option value="grade-gray">szara</option>
-                    <option value="grade-pinkgray">różowo-szara</option>
-                </select>
-
-                <button onclick="addGrade()">Dodaj ocenę</button>
-            </div>
-        </div>
-
-        <!-- UWAGI -->
-
-        <div id="uwagi" class="page">
-            <h1>Uwagi</h1>
-
-            <div class="panel" id="notesViewPanel" style="display:none;">
-                <h2>Zobacz uwagi ucznia</h2>
-                <select id="studentSelectViewNotes" onchange="viewStudentNotes()"></select>
-                <button onclick="viewStudentNotes()">Zobacz uwagi</button>
-            </div>
-
-            <div class="box" id="notesBox">
-                Brak uwag.
-            </div>
-
-            <!-- PANEL DODAWANIA UWAG -->
-
-            <div class="panel" id="notesPanel" style="display:none;">
-                <h2>Dodaj uwagę</h2>
-
-                <select id="studentSelectNotes"></select>
-
-                <select id="noteType">
-                    <option value="positive">Pozytywna ✅</option>
-                    <option value="neutral">Neutralna ℹ️</option>
-                    <option value="negative">Negatywna ❗</option>
-                </select>
-
-                <textarea id="noteText" placeholder="Wpisz treść uwagi"></textarea>
-
-                <button onclick="addNote()">Dodaj uwagę</button>
-            </div>
-        </div>
-
-        <!-- WIADOMOŚCI -->
-
-        <div id="wiadomosci" class="page">
-            <h1>Wiadomości</h1>
-
-            <div class="box" id="messagesBox">
-                Brak wiadomości.
-            </div>
-
-            <div class="panel">
-                <h2>Napisz wiadomość</h2>
-
-                <select id="messageReceiver"></select>
-
-                <textarea id="messageText" placeholder="Wpisz wiadomość"></textarea>
-
-                <button onclick="sendMessage()">Wyślij wiadomość</button>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-<script>
-
-/* KONTA */
-
-let users = JSON.parse(localStorage.getItem("users")) || {
-    "jhjkls":{
-        password:"szkoła123",
-        role:"teacher",
-        grades:[],
-        notes:[],
-        messages:[]
-    },
-
-    "admin":{
-        password:"admin123",
-        role:"admin",
-        grades:[],
-        notes:[],
-        messages:[]
-    },
-
-    "zanetka":{
-        password:"chemia",
-        role:"student",
-        grades:[
-            {subject:"Chemia", grade:"4+", weight:"1", color:"grade-gray"},
-            {subject:"Chemia", grade:"2+", weight:"1", color:"grade-pinkgray"},
-            {subject:"Chemia", grade:"4", weight:"1", color:"grade-gray"},
-            {subject:"Chemia", grade:"5+", weight:"1", color:"grade-green"},
-            {subject:"Chemia", grade:"4", weight:"1", color:"grade-pinkgray"},
-
-            {subject:"Fizyka", grade:"3", weight:"1", color:"grade-orange"},
-            {subject:"Fizyka", grade:"4+", weight:"1", color:"grade-green"},
-            {subject:"Fizyka", grade:"4+", weight:"1", color:"grade-orange"},
-
-            {subject:"Geografia", grade:"5", weight:"2", color:"grade-green"},
-            {subject:"Geografia", grade:"4", weight:"1", color:"grade-purple"},
-            {subject:"Geografia", grade:"3", weight:"1", color:"grade-orange"},
-
-            {subject:"Godzina wychowawcza", grade:"2", weight:"3", color:"grade-blue"},
-
-            {subject:"Historia", grade:"5", weight:"3", color:"grade-red"},
-            {subject:"Historia", grade:"4+", weight:"2", color:"grade-mint"},
-            {subject:"Historia", grade:"4", weight:"1", color:"grade-yellow"},
-            {subject:"Historia", grade:"4+", weight:"1", color:"grade-red"},
-            {subject:"Historia", grade:"3", weight:"2", color:"grade-green"},
-            {subject:"Historia", grade:"3", weight:"3", color:"grade-blue"},
-            {subject:"Historia", grade:"5+", weight:"3", color:"grade-blue"},
-            {subject:"Historia", grade:"2+", weight:"3", color:"grade-blue"},
-            {subject:"Historia", grade:"3", weight:"3", color:"grade-purple"},
-            {subject:"Historia", grade:"1+", weight:"3", color:"grade-purple"},
-            {subject:"Historia", grade:"1+", weight:"3", color:"grade-purple"},
-            {subject:"Historia", grade:"5", weight:"2", color:"grade-blue"},
-            {subject:"Historia", grade:"1+", weight:"3", color:"grade-blue"},
-            {subject:"Historia", grade:"5", weight:"3", color:"grade-blue"},
-            {subject:"Historia", grade:"3", weight:"2", color:"grade-mint"},
-            {subject:"Historia", grade:"4", weight:"2", color:"grade-green"},
-            {subject:"Historia", grade:".", weight:"2", color:"grade-mint"},
-            {subject:"Historia", grade:"4", weight:"2", color:"grade-green"},
-            {subject:"Historia", grade:"2+", weight:"2", color:"grade-green"},
-            {subject:"Historia", grade:"5+", weight:"2", color:"grade-mint"},
-            {subject:"Historia", grade:"6", weight:"2", color:"grade-green"},
-            {subject:"Historia", grade:"3", weight:"2", color:"grade-mint"},
-            {subject:"Historia", grade:"2", weight:"2", color:"grade-mint"},
-            {subject:"Historia", grade:"2", weight:"1", color:"grade-yellow"},
-            {subject:"Historia", grade:"nb", weight:"2", color:"grade-green"},
-            {subject:"Historia", grade:"4", weight:"3", color:"grade-purple"},
-
-            {subject:"Informatyka", grade:"4", weight:"1", color:"grade-blue"},
-            {subject:"Informatyka", grade:"4+", weight:"1", color:"grade-blue"},
-            {subject:"Informatyka", grade:"5", weight:"1", color:"grade-yellow"}
-        ],
-        notes:[],
-        messages:[]
-    }
-};
-
-/* PLAN LEKCJI */
-
-let lessons = JSON.parse(localStorage.getItem("lessons")) || [
-    {
-        day:"Poniedziałek",
-        hour:"8:00",
-        subject:"Matematyka",
-        room:"12"
-    },
-    {
-        day:"Poniedziałek",
-        hour:"8:55",
-        subject:"Polski",
-        room:"18"
-    },
-    {
-        day:"Wtorek",
-        hour:"9:50",
-        subject:"Angielski",
-        room:"21"
-    },
-    {
-        day:"Środa",
-        hour:"10:45",
-        subject:"Informatyka",
-        room:"30"
-    }
-];
-
-/* UZUPEŁNIENIE STARYCH KONT */
-
-for(let login in users){
-    if(!users[login].grades){
-        users[login].grades = [];
-    }
-    if(!users[login].notes){
-        users[login].notes = [];
-    }
-    if(!users[login].messages){
-        users[login].messages = [];
-    }
-}
-
-/* ZAPIS */
-
-function saveUsers(){
-    localStorage.setItem("users", JSON.stringify(users));
-}
-
-function saveLessons(){
-    localStorage.setItem("lessons", JSON.stringify(lessons));
-}
-
-/* REJESTRACJA */
-
-function register(){
-    let username = document.getElementById("username").value.trim();
-    let password = document.getElementById("password").value.trim();
-
-    if(username === "" || password === ""){
-        document.getElementById("message").innerText = "Wpisz login i hasło";
-        return;
+/* HISTORIA */
+
+function formatHistoryDay(timestamp){
+    if(!timestamp){
+        return "Bez daty";
     }
 
-    if(users[username]){
-        document.getElementById("message").innerText = "Takie konto już istnieje";
-        return;
-    }
-
-    users[username] = {
-        password:password,
-        role:"student",
-        grades:[],
-        notes:[],
-        messages:[]
-    };
-
-    saveUsers();
-
-    document.getElementById("message").innerText = "Konto utworzone!";
-}
-
-/* LOGIN */
-
-function login(){
-    let username = document.getElementById("username").value.trim();
-    let password = document.getElementById("password").value.trim();
-
-    if(users[username] && users[username].password === password){
-        localStorage.setItem("loggedUser", username);
-        openAccount(username);
-    }else{
-        document.getElementById("message").innerText = "Zły login lub hasło";
-    }
-}
-
-/* OTWÓRZ KONTO */
-
-function openAccount(username){
-    document.getElementById("loginScreen").style.display = "none";
-    document.getElementById("mainPage").style.display = "block";
-
-    document.getElementById("loggedUser").innerText =
-    "Zalogowano jako: " + username + " (" + users[username].role + ")";
-
-    let user = users[username];
-
-    loadLessons();
-    loadMessages(username);
-    fillStudentSelects();
-    fillMessageReceivers(username);
-
-    if(user.role === "teacher" || user.role === "admin"){
-        document.getElementById("teacherPanel").style.display = "block";
-        document.getElementById("lessonPanel").style.display = "block";
-        document.getElementById("notesPanel").style.display = "block";
-        document.getElementById("notesViewPanel").style.display = "block";
-
-        document.getElementById("gradesBox").style.display = "none";
-        document.getElementById("notesBox").style.display = "none";
-    }else{
-        document.getElementById("teacherPanel").style.display = "none";
-        document.getElementById("lessonPanel").style.display = "none";
-        document.getElementById("notesPanel").style.display = "none";
-        document.getElementById("notesViewPanel").style.display = "none";
-
-        document.getElementById("gradesBox").style.display = "block";
-        document.getElementById("notesBox").style.display = "block";
-
-        loadGrades(username);
-        loadNotes(username);
-    }
-}
-
-/* LISTA UCZNIÓW */
-
-function getStudents(){
-    let students = [];
-
-    for(let login in users){
-        if(users[login].role === "student"){
-            students.push(login);
-        }
-    }
-
-    return students;
-}
-
-function fillStudentSelects(){
-    let students = getStudents();
-    let selects = [
-        document.getElementById("studentSelectGrades"),
-        document.getElementById("studentSelectNotes"),
-        document.getElementById("studentSelectViewNotes")
-    ];
-
-    selects.forEach(select => {
-        if(!select){
-            return;
-        }
-
-        select.innerHTML = "";
-
-        students.forEach(student => {
-            let option = document.createElement("option");
-            option.value = student;
-            option.innerText = student;
-            select.appendChild(option);
-        });
+    return new Date(timestamp).toLocaleDateString("pl-PL", {
+        weekday:"long",
+        day:"numeric",
+        month:"long",
+        year:"numeric"
     });
 }
 
-/* PLAN LEKCJI */
-
-function loadLessons(){
-    let html = "";
-
-    let dayOrder = {
-        "Poniedziałek":1,
-        "Wtorek":2,
-        "Środa":3,
-        "Czwartek":4,
-        "Piątek":5
-    };
-
-    lessons.sort((a, b) => {
-        let dayA = dayOrder[a.day] || 99;
-        let dayB = dayOrder[b.day] || 99;
-
-        if(dayA !== dayB){
-            return dayA - dayB;
-        }
-
-        return a.hour.localeCompare(b.hour, "pl", {numeric:true});
-    });
-
-    saveLessons();
-
-    if(lessons.length === 0){
-        html = "Brak lekcji w planie.";
-    }else{
-        lessons.forEach((lesson, index) => {
-            html += `
-            <div class="lesson">
-                <b>${lesson.day}</b>, ${lesson.hour}<br>
-                ${lesson.subject}, sala ${lesson.room}
-                ${canManage() ? `<br><button onclick="deleteLesson(${index})">Usuń</button>` : ""}
+function buildHistoryEntry(entry){
+    if(entry.kind === "grade"){
+        return `
+            <div class="history-entry history-grade">
+                <div class="history-left">
+                    <div class="history-icon">📝</div>
+                    <div class="history-label">OCENA</div>
+                </div>
+                <div class="history-right">
+                    <div class="history-title">
+                        ${entry.subject}: ${entry.grade}<sup>${entry.weight}</sup>
+                    </div>
+                    <div class="history-meta">
+                        Wpisał nauczyciel: ${entry.teacher || "-"}<br>
+                        Data wpisu: ${entry.date || "-"}
+                    </div>
+                </div>
             </div>
-            `;
-        });
+        `;
     }
 
-    document.getElementById("lessonsBox").innerHTML = html;
-}
+    let noteClass = "history-note-negative";
+    let icon = "❗";
+    let noteTypeText = "negatywna";
 
-function addLesson(){
-    if(!canManage()){
-        alert("Nie masz uprawnień.");
-        return;
+    if(entry.type === "positive"){
+        noteClass = "history-note-positive";
+        icon = "✅";
+        noteTypeText = "pozytywna";
     }
 
-    let day = document.getElementById("lessonDay").value;
-    let hour = document.getElementById("lessonHour").value.trim();
-    let subject = document.getElementById("lessonSubject").value.trim();
-    let room = document.getElementById("lessonRoom").value.trim();
-
-    if(hour === "" || subject === "" || room === ""){
-        alert("Uzupełnij godzinę, przedmiot i salę.");
-        return;
+    if(entry.type === "neutral"){
+        noteClass = "history-note-neutral";
+        icon = "ℹ️";
+        noteTypeText = "neutralna";
     }
 
-    lessons.push({
-        day:day,
-        hour:hour,
-        subject:subject,
-        room:room
-    });
-
-    saveLessons();
-    loadLessons();
-
-    document.getElementById("lessonHour").value = "";
-    document.getElementById("lessonSubject").value = "";
-    document.getElementById("lessonRoom").value = "";
-
-    alert("Dodano lekcję do planu!");
-}
-
-function deleteLesson(index){
-    if(!canManage()){
-        alert("Nie masz uprawnień.");
-        return;
-    }
-
-    lessons.splice(index, 1);
-    saveLessons();
-    loadLessons();
-}
-
-/* OCENY */
-
-function loadGrades(username){
-    let user = users[username];
-
-    let subjects = [
-        "Biologia",
-        "Chemia",
-        "Etyka",
-        "Fizyka",
-        "Geografia",
-        "Godzina wychowawcza",
-        "Historia",
-        "Informatyka",
-        "Matematyka",
-        "Polski",
-        "Angielski"
-    ];
-
-    user.grades.forEach(item => {
-        if(!subjects.includes(item.subject)){
-            subjects.push(item.subject);
-        }
-    });
-
-    let html = `
-        <div class="grades-header">
-            <div class="student-name">👤 ${username}</div>
+    return `
+        <div class="history-entry ${noteClass}">
+            <div class="history-left">
+                <div class="history-icon">${icon}</div>
+                <div class="history-label">ZACHOWANIE</div>
+            </div>
+            <div class="history-right">
+                <div class="history-text">${entry.text}</div>
+                <div class="history-meta">
+                    Rodzaj: ${noteTypeText}<br>
+                    Wpisał nauczyciel: ${entry.author || "-"}<br>
+                    Data wpisu: ${entry.date || "-"}
+                </div>
+            </div>
+        </div>
     `;
-
-    subjects.forEach(subject => {
-        let subjectGrades = user.grades.filter(item => item.subject === subject);
-
-        html += `
-            <div class="subject-row">
-                <div class="subject-name">${subject}</div>
-                <div class="grade-tiles">
-        `;
-
-        subjectGrades.forEach(item => {
-            let color = item.color || "grade-green";
-            let weight = item.weight || "1";
-
-            html += `
-                <div class="grade-tile ${color}">
-                    ${item.grade}<sup>${weight}</sup>
-                </div>
-            `;
-        });
-
-        html += `
-                </div>
-            </div>
-        `;
-    });
-
-    html += `</div>`;
-
-    document.getElementById("gradesBox").innerHTML = html;
 }
 
-function addGrade(){
-    if(!canManage()){
-        alert("Nie masz uprawnień.");
-        return;
+function renderHistoryEntriesGrouped(entries){
+    if(entries.length === 0){
+        return `<div class="history-small-line">Brak wpisów.</div>`;
     }
 
-    let student = document.getElementById("studentSelectGrades").value;
-    let subject = document.getElementById("subjectSelect").value;
-    let grade = document.getElementById("gradeSelect").value;
-    let weight = document.getElementById("weightSelect").value;
-    let color = document.getElementById("colorSelect").value;
+    let html = "";
+    let lastDay = "";
 
-    users[student].grades.push({
-        subject:subject,
-        grade:grade,
-        weight:weight,
-        color:color
+    entries.forEach(entry => {
+        let currentDay = formatHistoryDay(entry.timestamp);
+
+        if(currentDay !== lastDay){
+            html += `<div class="history-day">Wpisane w dniu: ${currentDay}</div>`;
+            lastDay = currentDay;
+        }
+
+        html += buildHistoryEntry(entry);
     });
 
-    saveUsers();
-
-    alert("Dodano ocenę!");
+    return html;
 }
 
-/* UWAGI */
-
-function loadNotes(username){
+function loadHistory(username){
     let user = users[username];
-    let html = "";
 
     if(!user){
-        document.getElementById("notesBox").innerHTML = "Nie znaleziono ucznia.";
+        document.getElementById("historyInfoBox").innerHTML = "";
+        document.getElementById("historyBox").innerHTML = "Brak wpisów.";
         return;
     }
 
-    if(user.notes.length === 0){
-        html = "Brak uwag.";
-    }else{
-        user.notes.slice().reverse().forEach(item => {
-            let type = item.type || "negative";
-            let typeText = "Negatywna";
-            let icon = "❗";
-            let cssClass = "note-negative";
+    let entries = [];
 
-            if(type === "positive"){
-                typeText = "Pozytywna";
-                icon = "✅";
-                cssClass = "note-positive";
-            }
-
-            if(type === "neutral"){
-                typeText = "Neutralna";
-                icon = "ℹ️";
-                cssClass = "note-neutral";
-            }
-
-            let realIndex = user.notes.indexOf(item);
-
-            html += `
-            <div class="note-card ${cssClass}">
-                <div class="note-icon">${icon}</div>
-                <div style="width:100%;">
-                    <div class="note-title">Uwaga: ${typeText}</div>
-                    <div class="note-text"><b>Treść:</b> ${item.text}</div>
-                    <div class="small-info">Wpisał: ${item.author} | ${item.date}</div>
-                    ${canManage() ? `<button class="delete-note-btn" onclick="deleteNote('${username}', ${realIndex})">Usuń uwagę</button>` : ""}
-                </div>
-            </div>
-            `;
+    (user.grades || []).forEach(item => {
+        entries.push({
+            kind:"grade",
+            subject:item.subject || "",
+            grade:item.grade || "",
+            weight:item.weight || "1",
+            teacher:item.teacher || "",
+            date:item.date || "",
+            timestamp:item.timestamp || 0
         });
-    }
-
-    document.getElementById("notesBox").innerHTML = html;
-}
-
-function addNote(){
-    if(!canManage()){
-        alert("Nie masz uprawnień.");
-        return;
-    }
-
-    let loggedUser = localStorage.getItem("loggedUser");
-    let student = document.getElementById("studentSelectNotes").value;
-    let type = document.getElementById("noteType").value;
-    let text = document.getElementById("noteText").value.trim();
-
-    if(text === ""){
-        alert("Wpisz treść uwagi.");
-        return;
-    }
-
-    users[student].notes.push({
-        type:type,
-        text:text,
-        author:loggedUser,
-        date:new Date().toLocaleString("pl-PL")
     });
 
-    saveUsers();
+    (user.notes || []).forEach(item => {
+        entries.push({
+            kind:"note",
+            type:item.type || "negative",
+            text:item.text || "",
+            author:item.author || "",
+            date:item.date || "",
+            timestamp:item.timestamp || 0
+        });
+    });
 
-    document.getElementById("noteText").value = "";
+    entries.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
 
-    alert("Dodano uwagę!");
+    let previousLoginRef = parseInt(localStorage.getItem("previousLoginRef_" + username) || "0", 10);
+    let fourteenDaysAgo = Date.now() - (14 * 24 * 60 * 60 * 1000);
+
+    let sinceLastLogin = [];
+    let previous14Days = [];
+
+    if(previousLoginRef > 0){
+        sinceLastLogin = entries.filter(entry => (entry.timestamp || 0) > previousLoginRef);
+        previous14Days = entries.filter(entry => {
+            let t = entry.timestamp || 0;
+            return t >= fourteenDaysAgo && t <= previousLoginRef;
+        });
+    }else{
+        previous14Days = entries.filter(entry => (entry.timestamp || 0) >= fourteenDaysAgo);
+    }
+
+    let infoHtml = `
+        <div class="history-small-line">
+            ${sinceLastLogin.length === 0 ? "Brak wpisów od ostatniego logowania" : "Wpisy od ostatniego logowania"}
+        </div>
+        <div class="history-section-title">Wpisy z poprzednich 14 dni</div>
+    `;
+
+    document.getElementById("historyInfoBox").innerHTML = infoHtml;
+
+    let mainHtml = "";
+
+    if(sinceLastLogin.length > 0){
+        mainHtml += renderHistoryEntriesGrouped(sinceLastLogin);
+    }
+
+    mainHtml += renderHistoryEntriesGrouped(previous14Days);
+
+    document.getElementById("historyBox").innerHTML = mainHtml;
 }
 
-function deleteNote(student, index){
-    if(!canManage()){
-        alert("Nie masz uprawnień.");
-        return;
-    }
+/* WIADOMOŚCI */tory-icon">📝</div>
+                        <div class="history-label">OCENA</div>
+                    </div>
+                    <div class="history-right">
+                        <div class="history-title">
+                            ${entry.subject}: ${entry.grade}<sup>${entry.weight}</sup>
+                        </div>
+                        <div class="history-meta">
+                            Wpisał nauczyciel: ${entry.teacher || "-"}<br>
+                            Data wpisu: ${entry.date || "-"}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
 
-    if(confirm("Czy na pewno chcesz usunąć tę uwagę?")){
-        users[student].notes.splice(index, 1);
-        saveUsers();
+        if(entry.kind === "note"){
+            let noteClass = "history-note-negative";
+            let icon = "❗";
+            let noteTypeText = "negatywna";
 
-        loadNotes(student);
+            if(entry.type === "positive"){
+                noteClass = "history-note-positive";
+                icon = "✅";
+                noteTypeText = "pozytywna";
+            }
 
-        alert("Uwaga została usunięta.");
-    }
-}
+            if(entry.type === "neutral"){
+                noteClass = "history-note-neutral";
+                icon = "ℹ️";
+                noteTypeText = "neutralna";
+            }
 
-function viewStudentNotes(){
-    if(!canManage()){
-        return;
-    }
+            html += `
+                <div class="history-entry ${noteClass}">
+                    <div class="history-left">
+                        <div class="history-icon">${icon}</div>
+                        <div class="history-label">ZACHOWANIE</div>
+                    </div>
+                    <div class="history-right">
+                        <div class="history-text">${entry.text}</div>
+                        <div class="history-meta">
+                            Rodzaj: ${noteTypeText}<br>
+                            Wpisał nauczyciel: ${entry.author || "-"}<br>
+                            Data wpisu: ${entry.date || "-"}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+    });
 
-    let student = document.getElementById("studentSelectViewNotes").value;
-    document.getElementById("notesBox").style.display = "block";
-    loadNotes(student);
+    document.getElementById("historyBox").innerHTML = html;
 }
 
 /* WIADOMOŚCI */
@@ -1200,8 +738,12 @@ function canManage(){
 
 /* ZMIANA STRON */
 
-function showPage(pageId){
+function showPage(pageId, savePage = true){
     let pages = document.querySelectorAll(".page");
+
+    if(savePage){
+        localStorage.setItem("lastPage", pageId);
+    }
 
     pages.forEach(page => {
         page.classList.remove("active");
@@ -1217,11 +759,14 @@ function showPage(pageId){
         if(canManage()){
             document.getElementById("gradesBox").style.display = "none";
             document.getElementById("notesBox").style.display = "none";
+            document.getElementById("historyBox").style.display = "none";
         }else{
             document.getElementById("gradesBox").style.display = "block";
             document.getElementById("notesBox").style.display = "block";
+            document.getElementById("historyBox").style.display = "block";
             loadGrades(loggedUser);
             loadNotes(loggedUser);
+            loadHistory(loggedUser);
         }
 
         loadMessages(loggedUser);
@@ -1232,6 +777,7 @@ function showPage(pageId){
 
 function logout(){
     localStorage.removeItem("loggedUser");
+    localStorage.removeItem("lastPage");
 
     document.getElementById("mainPage").style.display = "none";
     document.getElementById("loginScreen").style.display = "flex";
@@ -1240,17 +786,6 @@ function logout(){
     document.getElementById("password").value = "";
     document.getElementById("message").innerText = "";
 }
-
-/* AUTO LOGIN */
-
-let loggedUser = localStorage.getItem("loggedUser");
-
-if(loggedUser && users[loggedUser]){
-    openAccount(loggedUser);
-}
-
-saveUsers();
-saveLessons();
 
 /* ENTER = ZALOGUJ */
 
@@ -1265,6 +800,17 @@ document.getElementById("password").addEventListener("keydown", function(event){
         login();
     }
 });
+
+/* AUTO LOGIN */
+
+let loggedUser = localStorage.getItem("loggedUser");
+
+if(loggedUser && users[loggedUser]){
+    openAccount(loggedUser);
+}
+
+saveUsers();
+saveLessons();
 
 </script>
 
