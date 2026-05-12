@@ -108,6 +108,19 @@ const subjects = ["Biologia","Chemia","Etyka","Fizyka","Geografia","Godzina wych
 
 const defaultUsers = {
     agrest:{password:"szkoła123",role:"teacher",grades:[],notes:[],messages:[]},
+    porzeczka:{password:"szkoła123",role:"teacher",grades:[],notes:[],messages:[]},
+    jeżyna:{password:"szkoła123",role:"teacher",grades:[],notes:[],messages:[]},
+    ząbek:{password:"szkoła123",role:"teacher",grades:[],notes:[],messages:[]},
+    truskaweczka:{password:"szkoła123",role:"teacher",grades:[],notes:[],messages:[]},
+    arbuz:{password:"szkoła123",role:"teacher",grades:[],notes:[],messages:[]},
+    przyjaźń:{password:"szkoła123",role:"teacher",grades:[],notes:[],messages:[]},
+    kwiatuszek:{password:"szkoła123",role:"teacher",grades:[],notes:[],messages:[]},
+    figa:{password:"szkoła123",role:"teacher",grades:[],notes:[],messages:[]},
+    sweterek:{password:"szkoła123",role:"teacher",grades:[],notes:[],messages:[]},
+    palec:{password:"szkoła123",role:"teacher",grades:[],notes:[],messages:[]},
+    woda:{password:"szkoła123",role:"teacher",grades:[],notes:[],messages:[]},
+    chata:{password:"szkoła123",role:"teacher",grades:[],notes:[],messages:[]},
+    kreda:{password:"szkoła123",role:"teacher",grades:[],notes:[],messages:[]},
     admin:{password:"admin123",role:"admin",grades:[],notes:[],messages:[]},
     zanetka:{
         password:"chemia",
@@ -194,6 +207,14 @@ function listenToDatabase(){
                 db.collection("users").doc("agrest").set(users["jhjkls"]);
                 db.collection("users").doc("jhjkls").delete();
             }
+
+            const teacherNames = ["porzeczka","jeżyna","ząbek","truskaweczka","arbuz","przyjaźń","kwiatuszek","figa","sweterek","palec","woda","chata","kreda"];
+            teacherNames.forEach(name => {
+                if(!users[name]){
+                    users[name] = {password:"szkoła123",role:"teacher",grades:[],notes:[],messages:[]};
+                    db.collection("users").doc(name).set(users[name]);
+                }
+            });
 
             usersLoaded = true;
             fillStudentSelects();
