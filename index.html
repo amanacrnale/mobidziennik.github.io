@@ -739,17 +739,16 @@ document.getElementById("username").addEventListener("keydown", e => {if(e.key =
 document.getElementById("password").addEventListener("keydown", e => {if(e.key === "Enter") login();});
 
 window.addEventListener("load", async () => {
+    localStorage.removeItem("loggedUser");
+    loggedUser = null;
+
+    document.getElementById("mainPage").style.display = "none";
+    document.getElementById("loginScreen").style.display = "flex";
+
     const ok = await startApp();
 
     if(!ok){
         return;
-    }
-
-    const saved = localStorage.getItem("loggedUser");
-
-    if(saved && users[saved]){
-        loggedUser = saved;
-        openAccount(saved);
     }
 });
 </script>
