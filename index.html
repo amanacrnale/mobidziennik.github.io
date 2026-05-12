@@ -150,6 +150,78 @@ body{
     border-bottom:none;
 }
 
+.note-card{
+    display:flex;
+    gap:15px;
+    align-items:flex-start;
+    padding:15px;
+    margin-bottom:12px;
+    border-radius:10px;
+    border-left:7px solid #ccc;
+    background:#fafafa;
+}
+
+.note-icon{
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:28px;
+    color:white;
+    flex-shrink:0;
+}
+
+.note-positive{
+    border-left-color:#2ecc71;
+}
+
+.note-positive .note-icon{
+    background:#2ecc71;
+}
+
+.note-neutral{
+    border-left-color:#3498db;
+}
+
+.note-neutral .note-icon{
+    background:#3498db;
+}
+
+.note-negative{
+    border-left-color:#e74c3c;
+}
+
+.note-negative .note-icon{
+    background:#e74c3c;
+}
+
+.note-title{
+    font-size:20px;
+    font-weight:bold;
+    margin-bottom:6px;
+}
+
+.note-text{
+    font-size:18px;
+    color:#444;
+}
+
+.delete-note-btn{
+    margin-top:10px;
+    padding:8px 12px;
+    background:#e74c3c;
+    color:white;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.delete-note-btn:hover{
+    background:#c0392b;
+}
+
 /* OCENY JAK W MOBIDZIENNIKU */
 
 .grades-header{
@@ -377,6 +449,7 @@ body{
                 Brak lekcji w planie.
             </div>
 
+
             <!-- PANEL DODAWANIA LEKCJI -->
 
             <div class="panel" id="lessonPanel" style="display:none;">
@@ -473,6 +546,12 @@ body{
         <div id="uwagi" class="page">
             <h1>Uwagi</h1>
 
+            <div class="panel" id="notesViewPanel" style="display:none;">
+                <h2>Zobacz uwagi ucznia</h2>
+                <select id="studentSelectViewNotes" onchange="viewStudentNotes()"></select>
+                <button onclick="viewStudentNotes()">Zobacz uwagi</button>
+            </div>
+
             <div class="box" id="notesBox">
                 Brak uwag.
             </div>
@@ -483,6 +562,12 @@ body{
                 <h2>Dodaj uwagę</h2>
 
                 <select id="studentSelectNotes"></select>
+
+                <select id="noteType">
+                    <option value="positive">Pozytywna ✅</option>
+                    <option value="neutral">Neutralna ℹ️</option>
+                    <option value="negative">Negatywna ❗</option>
+                </select>
 
                 <textarea id="noteText" placeholder="Wpisz treść uwagi"></textarea>
 
@@ -507,10 +592,6 @@ body{
                 <textarea id="messageText" placeholder="Wpisz wiadomość"></textarea>
 
                 <button onclick="sendMessage()">Wyślij wiadomość</button>
-
-                <div class="small-info">
-                    Wiadomości zapisują się w pamięci przeglądarki, czyli localStorage.
-                </div>
             </div>
         </div>
 
@@ -712,10 +793,12 @@ function openAccount(username){
         document.getElementById("teacherPanel").style.display = "block";
         document.getElementById("lessonPanel").style.display = "block";
         document.getElementById("notesPanel").style.display = "block";
+        document.getElementById("notesViewPanel").style.display = "block";
     }else{
         document.getElementById("teacherPanel").style.display = "none";
         document.getElementById("lessonPanel").style.display = "none";
         document.getElementById("notesPanel").style.display = "none";
+        document.getElementById("notesViewPanel").style.display = "none";
     }
 }
 
@@ -737,10 +820,15 @@ function fillStudentSelects(){
     let students = getStudents();
     let selects = [
         document.getElementById("studentSelectGrades"),
-        document.getElementById("studentSelectNotes")
+        document.getElementById("studentSelectNotes"),
+        document.getElementById("studentSelectViewNotes")
     ];
 
     selects.forEach(select => {
+        if(!select){
+            return;
+        }
+
         select.innerHTML = "";
 
         students.forEach(student => {
@@ -756,6 +844,27 @@ function fillStudentSelects(){
 
 function loadLessons(){
     let html = "";
+
+    let dayOrder = {
+        "Poniedziałek":1,
+        "Wtorek":2,
+        "Środa":3,
+        "Czwartek":4,
+        "Piątek":5
+    };
+
+    lessons.sort((a, b) => {
+        let dayA = dayOrder[a.day] || 99;
+        let dayB = dayOrder[b.day] || 99;
+
+        if(dayA !== dayB){
+            return dayA - dayB;
+        }
+
+        return a.hour.localeCompare(b.hour, "pl", {numeric:true});
+    });
+
+    saveLessons();
 
     if(lessons.length === 0){
         html = "Brak lekcji w planie.";
@@ -909,15 +1018,43 @@ function loadNotes(username){
     let user = users[username];
     let html = "";
 
+    if(!user){
+        document.getElementById("notesBox").innerHTML = "Nie znaleziono ucznia.";
+        return;
+    }
+
     if(user.notes.length === 0){
         html = "Brak uwag.";
     }else{
-        user.notes.forEach(item => {
+        user.notes.slice().reverse().forEach(item => {
+            let type = item.type || "negative";
+            let typeText = "Negatywna";
+            let icon = "❗";
+            let cssClass = "note-negative";
+
+            if(type === "positive"){
+                typeText = "Pozytywna";
+                icon = "✅";
+                cssClass = "note-positive";
+            }
+
+            if(type === "neutral"){
+                typeText = "Neutralna";
+                icon = "ℹ️";
+                cssClass = "note-neutral";
+            }
+
+            let realIndex = user.notes.indexOf(item);
+
             html += `
-            <div class="note">
-                <b>${item.date}</b><br>
-                ${item.text}<br>
-                <span class="small-info">Wpisał: ${item.author}</span>
+            <div class="note-card ${cssClass}">
+                <div class="note-icon">${icon}</div>
+                <div style="width:100%;">
+                    <div class="note-title">Uwaga: ${typeText}</div>
+                    <div class="note-text"><b>Treść:</b> ${item.text}</div>
+                    <div class="small-info">Wpisał: ${item.author} | ${item.date}</div>
+                    ${canManage() ? `<button class="delete-note-btn" onclick="deleteNote('${username}', ${realIndex})">Usuń uwagę</button>` : ""}
+                </div>
             </div>
             `;
         });
@@ -934,6 +1071,7 @@ function addNote(){
 
     let loggedUser = localStorage.getItem("loggedUser");
     let student = document.getElementById("studentSelectNotes").value;
+    let type = document.getElementById("noteType").value;
     let text = document.getElementById("noteText").value.trim();
 
     if(text === ""){
@@ -942,6 +1080,7 @@ function addNote(){
     }
 
     users[student].notes.push({
+        type:type,
         text:text,
         author:loggedUser,
         date:new Date().toLocaleString("pl-PL")
@@ -952,6 +1091,31 @@ function addNote(){
     document.getElementById("noteText").value = "";
 
     alert("Dodano uwagę!");
+}
+
+function deleteNote(student, index){
+    if(!canManage()){
+        alert("Nie masz uprawnień.");
+        return;
+    }
+
+    if(confirm("Czy na pewno chcesz usunąć tę uwagę?")){
+        users[student].notes.splice(index, 1);
+        saveUsers();
+
+        loadNotes(student);
+
+        alert("Uwaga została usunięta.");
+    }
+}
+
+function viewStudentNotes(){
+    if(!canManage()){
+        return;
+    }
+
+    let student = document.getElementById("studentSelectViewNotes").value;
+    loadNotes(student);
 }
 
 /* WIADOMOŚCI */
@@ -1042,7 +1206,13 @@ function showPage(pageId){
     if(loggedUser && users[loggedUser]){
         loadLessons();
         loadGrades(loggedUser);
-        loadNotes(loggedUser);
+
+        if(canManage() && document.getElementById("studentSelectViewNotes") && document.getElementById("studentSelectViewNotes").value){
+            viewStudentNotes();
+        }else{
+            loadNotes(loggedUser);
+        }
+
         loadMessages(loggedUser);
     }
 }
@@ -1070,6 +1240,20 @@ if(loggedUser && users[loggedUser]){
 
 saveUsers();
 saveLessons();
+
+/* ENTER = ZALOGUJ */
+
+document.getElementById("username").addEventListener("keydown", function(event){
+    if(event.key === "Enter"){
+        login();
+    }
+});
+
+document.getElementById("password").addEventListener("keydown", function(event){
+    if(event.key === "Enter"){
+        login();
+    }
+});
 
 </script>
 
