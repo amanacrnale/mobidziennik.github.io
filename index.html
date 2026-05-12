@@ -1,3 +1,4 @@
+```html id="k8s9pl"
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -18,6 +19,66 @@ body{
     background:#efefef;
 }
 
+/* LOGIN */
+
+#loginScreen{
+    width:100%;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.login-box{
+    width:350px;
+    background:white;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+.login-box h1{
+    text-align:center;
+    margin-bottom:20px;
+    color:#0072d6;
+}
+
+.login-box input{
+    width:100%;
+    padding:12px;
+    margin-bottom:15px;
+    border:1px solid #ccc;
+    border-radius:8px;
+}
+
+.login-box button{
+    width:100%;
+    padding:12px;
+    border:none;
+    background:#0072d6;
+    color:white;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+    margin-bottom:10px;
+}
+
+.login-box button:hover{
+    background:#005db3;
+}
+
+.message{
+    text-align:center;
+    color:red;
+    margin-top:10px;
+}
+
+/* MAIN */
+
+#mainPage{
+    display:none;
+}
+
 /* TOP */
 
 .topbar{
@@ -30,44 +91,17 @@ body{
     color:white;
 }
 
-.left-top{
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
-
 .logo{
-    font-size:34px;
+    font-size:32px;
     font-weight:bold;
 }
 
 .logo span{
-    color:#ffd400;
+    color:yellow;
 }
 
-.version{
-    font-size:13px;
-}
-
-.days{
-    background:yellow;
-    color:black;
-    padding:2px 10px;
-    border-radius:20px;
-    font-weight:bold;
-}
-
-.right-top{
-    display:flex;
-    gap:25px;
-    align-items:center;
-}
-
-.avatar{
-    width:35px;
-    height:35px;
-    background:white;
-    border-radius:4px;
+.user{
+    font-size:16px;
 }
 
 /* NAVBAR */
@@ -75,86 +109,33 @@ body{
 .navbar{
     background:#d8d8d8;
     display:flex;
-    align-items:center;
-    gap:25px;
-    padding-left:20px;
-    height:40px;
-    border-bottom:1px solid #b5b5b5;
+    gap:20px;
+    padding:10px 20px;
+    overflow:auto;
 }
 
-.nav-item{
-    position:relative;
-}
-
-.nav-item a{
-    text-decoration:none;
-    color:black;
+.navbar button{
+    border:none;
+    background:none;
+    cursor:pointer;
     font-size:15px;
-    padding:10px 5px;
-    display:block;
-    transition:0.2s;
 }
 
-.nav-item a:hover{
-    color:#0066cc;
-}
-
-.active{
-    background:white;
-    border-left:1px solid #bdbdbd;
-    border-right:1px solid #bdbdbd;
-    padding:0 8px;
-    height:40px;
-    display:flex;
-    align-items:center;
-}
-
-.badge{
-    position:absolute;
-    top:-10px;
-    right:-12px;
-    width:22px;
-    height:22px;
-    border-radius:50%;
-    background:red;
-    color:white;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:12px;
-    font-weight:bold;
+.navbar button:hover{
+    color:#0072d6;
 }
 
 /* CONTENT */
 
 .content{
-    padding:35px;
+    padding:30px;
 }
-
-h1{
-    color:#0072d6;
-    font-size:24px;
-    margin-bottom:20px;
-}
-
-.line{
-    width:100%;
-    height:1px;
-    background:#cfcfcf;
-    margin-bottom:25px;
-}
-
-.text{
-    font-size:18px;
-}
-
-/* PAGES */
 
 .page{
     display:none;
 }
 
-.page.active-page{
+.active{
     display:block;
 }
 
@@ -163,233 +144,318 @@ h1{
     padding:20px;
     border-radius:10px;
     margin-top:15px;
-    box-shadow:0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* TEACHER PANEL */
+
+.teacher-panel{
+    margin-top:20px;
+}
+
+.teacher-panel input{
+    padding:10px;
+    margin-right:10px;
+    margin-bottom:10px;
+}
+
+.teacher-panel button{
+    padding:10px;
+    background:#0072d6;
+    color:white;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
 }
 
 </style>
 </head>
-
 <body>
 
-<!-- TOP -->
+<!-- LOGIN -->
 
-<div class="topbar">
+<div id="loginScreen">
 
-    <div class="left-top">
+    <div class="login-box">
+
+        <h1>mobiDziennik</h1>
+
+        <input type="text" id="username" placeholder="Login">
+
+        <input type="password" id="password" placeholder="Hasło">
+
+        <button onclick="login()">Zaloguj się</button>
+
+        <button onclick="register()">Zarejestruj się</button>
+
+        <div class="message" id="message"></div>
+
+    </div>
+
+</div>
+
+<!-- MAIN -->
+
+<div id="mainPage">
+
+    <div class="topbar">
         <div class="logo">mobi<span>Dziennik</span></div>
 
-        <div class="version">ver. 19.1, 2025/2026</div>
-
-        <div class="days">17/7</div>
+        <div class="user" id="loggedUser"></div>
     </div>
 
-    <div class="right-top">
-        <div>Instrukcje</div>
-        <div>Powiadomienia</div>
-        <div>Uczeń ▼</div>
-        <div class="avatar"></div>
+    <div class="navbar">
+        <button onclick="showPage('plan')">Plan lekcji</button>
+        <button onclick="showPage('oceny')">Oceny</button>
+        <button onclick="showPage('wiadomosci')">Wiadomości</button>
+        <button onclick="showPage('logout')">Wyloguj</button>
     </div>
 
-</div>
+    <div class="content">
 
-<!-- NAVBAR -->
+        <!-- PLAN -->
 
-<div class="navbar">
+        <div id="plan" class="page active">
+            <h1>Plan lekcji</h1>
 
-    <div class="nav-item">
-        <a href="#" onclick="showPage('historia')">Historia</a>
-    </div>
-
-    <div class="nav-item">
-        <a href="#" onclick="showPage('wiadomosci')">Wiadomości</a>
-        <div class="badge">22</div>
-    </div>
-
-    <div class="nav-item">
-        <a href="#" onclick="showPage('plan')">Plan lekcji</a>
-    </div>
-
-    <div class="nav-item">
-        <a href="#" onclick="showPage('zastepstwa')">Zastępstwa</a>
-        <div class="badge">1</div>
-    </div>
-
-    <div class="nav-item">
-        <a href="#" onclick="showPage('oceny')">Oceny</a>
-    </div>
-
-    <div class="nav-item">
-        <a href="#" onclick="showPage('zachowanie')">Zachowanie</a>
-    </div>
-
-    <div class="nav-item">
-        <a href="#" onclick="showPage('frekwencja')">Frekwencja</a>
-    </div>
-
-    <div class="nav-item">
-        <a href="#" onclick="showPage('zadania')">Zadania</a>
-    </div>
-
-    <div class="nav-item">
-        <a href="#" onclick="showPage('sprawdziany')">Sprawdziany</a>
-    </div>
-
-    <div class="nav-item">
-        <a href="#" onclick="showPage('kalendarz')">Kalendarz</a>
-    </div>
-
-    <div class="nav-item active">
-        <a href="#" onclick="showPage('pliki')">Pliki</a>
-    </div>
-
-</div>
-
-<!-- CONTENT -->
-
-<div class="content">
-
-    <!-- PLIKI -->
-
-    <div id="pliki" class="page active-page">
-        <h1>Baza plików - elementy udostępnione Tobie przez innych użytkowników</h1>
-        <div class="line"></div>
-
-        <div class="text">
-            Aktualnie nie posiadasz udostępnionych plików.
+            <div class="box">
+                1. Matematyka<br><br>
+                2. Polski<br><br>
+                3. Angielski<br><br>
+                4. Informatyka
+            </div>
         </div>
-    </div>
 
-    <!-- PLAN -->
+        <!-- OCENY -->
 
-    <div id="plan" class="page">
-        <h1>Plan lekcji</h1>
-        <div class="line"></div>
+        <div id="oceny" class="page">
 
-        <div class="box">
-            1. Matematyka<br><br>
-            2. Polski<br><br>
-            3. Angielski<br><br>
-            4. Informatyka
+            <h1>Oceny</h1>
+
+            <div class="box" id="gradesBox">
+                Brak ocen
+            </div>
+
+            <!-- PANEL NAUCZYCIELA -->
+
+            <div class="teacher-panel" id="teacherPanel" style="display:none;">
+
+                <h2>Panel nauczyciela</h2><br>
+
+                <input type="text" id="studentName" placeholder="Login ucznia">
+
+                <input type="text" id="newGrade" placeholder="Ocena">
+
+                <button onclick="addGrade()">
+                    Dodaj ocenę
+                </button>
+
+            </div>
+
         </div>
-    </div>
 
-    <!-- OCENY -->
+        <!-- WIADOMOSCI -->
 
-    <div id="oceny" class="page">
-        <h1>Oceny</h1>
-        <div class="line"></div>
+        <div id="wiadomosci" class="page">
 
-        <div class="box">
-            Matematyka: 5<br><br>
-            Polski: 4<br><br>
-            Angielski: 5
+            <h1>Wiadomości</h1>
+
+            <div class="box">
+                Nie masz nowych wiadomości.
+            </div>
+
         </div>
-    </div>
 
-    <!-- WIADOMOSCI -->
-
-    <div id="wiadomosci" class="page">
-        <h1>Wiadomości</h1>
-        <div class="line"></div>
-
-        <div class="box">
-            Nie masz nowych wiadomości.
-        </div>
-    </div>
-
-    <!-- HISTORIA -->
-
-    <div id="historia" class="page">
-        <h1>Historia</h1>
-        <div class="line"></div>
-
-        <div class="box">
-            Ostatnie logowanie: dzisiaj
-        </div>
-    </div>
-
-    <!-- ZASTE PSTWA -->
-
-    <div id="zastepstwa" class="page">
-        <h1>Zastępstwa</h1>
-        <div class="line"></div>
-
-        <div class="box">
-            Jutro zastępstwo za matematykę.
-        </div>
-    </div>
-
-    <!-- ZACHOWANIE -->
-
-    <div id="zachowanie" class="page">
-        <h1>Zachowanie</h1>
-        <div class="line"></div>
-
-        <div class="box">
-            Zachowanie: bardzo dobre
-        </div>
-    </div>
-
-    <!-- FREKWENCJA -->
-
-    <div id="frekwencja" class="page">
-        <h1>Frekwencja</h1>
-        <div class="line"></div>
-
-        <div class="box">
-            Frekwencja: 96%
-        </div>
-    </div>
-
-    <!-- ZADANIA -->
-
-    <div id="zadania" class="page">
-        <h1>Zadania</h1>
-        <div class="line"></div>
-
-        <div class="box">
-            Brak zadań domowych.
-        </div>
-    </div>
-
-    <!-- SPRAWDZIANY -->
-
-    <div id="sprawdziany" class="page">
-        <h1>Sprawdziany</h1>
-        <div class="line"></div>
-
-        <div class="box">
-            Piątek - matematyka
-        </div>
-    </div>
-
-    <!-- KALENDARZ -->
-
-    <div id="kalendarz" class="page">
-        <h1>Kalendarz</h1>
-        <div class="line"></div>
-
-        <div class="box">
-            20 września - zebranie
-        </div>
     </div>
 
 </div>
 
 <script>
 
+/* DOMYŚLNE KONTA */
+
+let users = JSON.parse(localStorage.getItem("users")) || {
+
+    "jhjkls":{
+        password:"szkoła123",
+        role:"teacher",
+        grades:[]
+    },
+
+    "zanetka":{
+        password:"chemia",
+        role:"student",
+        grades:["5 z matematyki"]
+    }
+
+};
+
+/* ZAPIS */
+
+function saveUsers(){
+    localStorage.setItem("users", JSON.stringify(users));
+}
+
+/* REJESTRACJA */
+
+function register(){
+
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+
+    if(users[username]){
+        document.getElementById("message").innerText =
+        "Takie konto już istnieje";
+        return;
+    }
+
+    users[username] = {
+        password:password,
+        role:"student",
+        grades:[]
+    };
+
+    saveUsers();
+
+    document.getElementById("message").innerText =
+    "Konto utworzone!";
+}
+
+/* LOGIN */
+
+function login(){
+
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+
+    if(users[username] &&
+       users[username].password === password){
+
+        localStorage.setItem("loggedUser", username);
+
+        openAccount(username);
+
+    }else{
+
+        document.getElementById("message").innerText =
+        "Zły login lub hasło";
+
+    }
+
+}
+
+/* OTWORZ KONTO */
+
+function openAccount(username){
+
+    document.getElementById("loginScreen").style.display =
+    "none";
+
+    document.getElementById("mainPage").style.display =
+    "block";
+
+    document.getElementById("loggedUser").innerText =
+    "Zalogowano jako: " + username;
+
+    let user = users[username];
+
+    /* OCENY */
+
+    let gradesHTML = "";
+
+    if(user.grades.length === 0){
+
+        gradesHTML = "Brak ocen";
+
+    }else{
+
+        user.grades.forEach(g => {
+            gradesHTML += g + "<br><br>";
+        });
+
+    }
+
+    document.getElementById("gradesBox").innerHTML =
+    gradesHTML;
+
+    /* PANEL NAUCZYCIELA */
+
+    if(user.role === "teacher"){
+
+        document.getElementById("teacherPanel").style.display =
+        "block";
+
+    }else{
+
+        document.getElementById("teacherPanel").style.display =
+        "none";
+
+    }
+
+}
+
+/* ZMIANA STRON */
+
 function showPage(pageId){
+
+    if(pageId === "logout"){
+
+        localStorage.removeItem("loggedUser");
+
+        location.reload();
+
+        return;
+    }
 
     let pages = document.querySelectorAll(".page");
 
     pages.forEach(page => {
-        page.classList.remove("active-page");
+        page.classList.remove("active");
     });
 
-    document.getElementById(pageId).classList.add("active-page");
+    document.getElementById(pageId).classList.add("active");
+
 }
+
+/* DODAJ OCENĘ */
+
+function addGrade(){
+
+    let student =
+    document.getElementById("studentName").value;
+
+    let grade =
+    document.getElementById("newGrade").value;
+
+    if(users[student]){
+
+        users[student].grades.push(grade);
+
+        saveUsers();
+
+        alert("Dodano ocenę!");
+
+    }else{
+
+        alert("Nie znaleziono ucznia");
+
+    }
+
+}
+
+/* AUTOMATYCZNE LOGOWANIE */
+
+let loggedUser = localStorage.getItem("loggedUser");
+
+if(loggedUser && users[loggedUser]){
+
+    openAccount(loggedUser);
+
+}
+
+saveUsers();
 
 </script>
 
 </body>
 </html>
+```
