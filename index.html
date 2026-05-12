@@ -135,7 +135,6 @@ body{
     box-shadow:0 2px 5px rgba(0,0,0,0.08);
 }
 
-.grade,
 .lesson,
 .note,
 .chat-message{
@@ -146,10 +145,134 @@ body{
 }
 
 .lesson:last-child,
-.grade:last-child,
 .note:last-child,
 .chat-message:last-child{
     border-bottom:none;
+}
+
+/* OCENY JAK W MOBIDZIENNIKU */
+
+.grades-header{
+    background:white;
+    border-radius:10px;
+    margin-top:15px;
+    overflow:hidden;
+    box-shadow:0 2px 5px rgba(0,0,0,0.08);
+}
+
+.student-name{
+    padding:18px 20px;
+    font-size:20px;
+    font-weight:bold;
+    color:#555;
+    border-bottom:1px solid #eee;
+}
+
+.subject-row{
+    display:grid;
+    grid-template-columns:160px 1fr;
+    align-items:center;
+    min-height:78px;
+    border-bottom:1px solid #eee;
+    background:white;
+}
+
+.subject-row:last-child{
+    border-bottom:none;
+}
+
+.subject-name{
+    padding:18px 20px;
+    font-size:20px;
+    color:#666;
+}
+
+.grade-tiles{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    padding:12px 12px;
+}
+
+.grade-tile{
+    min-width:54px;
+    height:54px;
+    border-radius:6px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:25px;
+    font-weight:bold;
+    color:#444;
+    box-shadow:0 1px 3px rgba(0,0,0,0.15);
+}
+
+.grade-tile sup{
+    font-size:13px;
+    margin-left:1px;
+    transform:translateY(-7px);
+}
+
+.grade-green{
+    background:#55df5b;
+}
+
+.grade-blue{
+    background:#46bedb;
+}
+
+.grade-orange{
+    background:#ff8b35;
+}
+
+.grade-yellow{
+    background:#f5dc51;
+}
+
+.grade-red{
+    background:#ff5b70;
+}
+
+.grade-purple{
+    background:#c9c9ee;
+}
+
+.grade-mint{
+    background:#9ee5cf;
+}
+
+.grade-gray{
+    background:#e8e8d8;
+}
+
+.grade-pinkgray{
+    background:#c8b2b5;
+}
+
+@media(max-width:650px){
+    .content{
+        padding:0;
+    }
+
+    .grades-header{
+        border-radius:0;
+        margin-top:0;
+    }
+
+    .subject-row{
+        grid-template-columns:150px 1fr;
+    }
+
+    .subject-name{
+        font-size:18px;
+        padding:14px 12px;
+    }
+
+    .grade-tile{
+        min-width:48px;
+        height:48px;
+        font-size:23px;
+    }
 }
 
 /* FORMS */
@@ -319,6 +442,26 @@ body{
                     <option>5-</option>
                     <option>6</option>
                     <option>6-</option>
+                    <option>nb</option>
+                    <option>.</option>
+                </select>
+
+                <select id="weightSelect">
+                    <option value="1">waga 1</option>
+                    <option value="2">waga 2</option>
+                    <option value="3">waga 3</option>
+                </select>
+
+                <select id="colorSelect">
+                    <option value="grade-green">zielona</option>
+                    <option value="grade-blue">niebieska</option>
+                    <option value="grade-orange">pomarańczowa</option>
+                    <option value="grade-yellow">żółta</option>
+                    <option value="grade-red">czerwona</option>
+                    <option value="grade-purple">fioletowa</option>
+                    <option value="grade-mint">miętowa</option>
+                    <option value="grade-gray">szara</option>
+                    <option value="grade-pinkgray">różowo-szara</option>
                 </select>
 
                 <button onclick="addGrade()">Dodaj ocenę</button>
@@ -398,7 +541,54 @@ let users = JSON.parse(localStorage.getItem("users")) || {
     "zanetka":{
         password:"chemia",
         role:"student",
-        grades:[],
+        grades:[
+            {subject:"Chemia", grade:"4+", weight:"1", color:"grade-gray"},
+            {subject:"Chemia", grade:"2+", weight:"1", color:"grade-pinkgray"},
+            {subject:"Chemia", grade:"4", weight:"1", color:"grade-gray"},
+            {subject:"Chemia", grade:"5+", weight:"1", color:"grade-green"},
+            {subject:"Chemia", grade:"4", weight:"1", color:"grade-pinkgray"},
+
+            {subject:"Fizyka", grade:"3", weight:"1", color:"grade-orange"},
+            {subject:"Fizyka", grade:"4+", weight:"1", color:"grade-green"},
+            {subject:"Fizyka", grade:"4+", weight:"1", color:"grade-orange"},
+
+            {subject:"Geografia", grade:"5", weight:"2", color:"grade-green"},
+            {subject:"Geografia", grade:"4", weight:"1", color:"grade-purple"},
+            {subject:"Geografia", grade:"3", weight:"1", color:"grade-orange"},
+
+            {subject:"Godzina wychowawcza", grade:"2", weight:"3", color:"grade-blue"},
+
+            {subject:"Historia", grade:"5", weight:"3", color:"grade-red"},
+            {subject:"Historia", grade:"4+", weight:"2", color:"grade-mint"},
+            {subject:"Historia", grade:"4", weight:"1", color:"grade-yellow"},
+            {subject:"Historia", grade:"4+", weight:"1", color:"grade-red"},
+            {subject:"Historia", grade:"3", weight:"2", color:"grade-green"},
+            {subject:"Historia", grade:"3", weight:"3", color:"grade-blue"},
+            {subject:"Historia", grade:"5+", weight:"3", color:"grade-blue"},
+            {subject:"Historia", grade:"2+", weight:"3", color:"grade-blue"},
+            {subject:"Historia", grade:"3", weight:"3", color:"grade-purple"},
+            {subject:"Historia", grade:"1+", weight:"3", color:"grade-purple"},
+            {subject:"Historia", grade:"1+", weight:"3", color:"grade-purple"},
+            {subject:"Historia", grade:"5", weight:"2", color:"grade-blue"},
+            {subject:"Historia", grade:"1+", weight:"3", color:"grade-blue"},
+            {subject:"Historia", grade:"5", weight:"3", color:"grade-blue"},
+            {subject:"Historia", grade:"3", weight:"2", color:"grade-mint"},
+            {subject:"Historia", grade:"4", weight:"2", color:"grade-green"},
+            {subject:"Historia", grade:".", weight:"2", color:"grade-mint"},
+            {subject:"Historia", grade:"4", weight:"2", color:"grade-green"},
+            {subject:"Historia", grade:"2+", weight:"2", color:"grade-green"},
+            {subject:"Historia", grade:"5+", weight:"2", color:"grade-mint"},
+            {subject:"Historia", grade:"6", weight:"2", color:"grade-green"},
+            {subject:"Historia", grade:"3", weight:"2", color:"grade-mint"},
+            {subject:"Historia", grade:"2", weight:"2", color:"grade-mint"},
+            {subject:"Historia", grade:"2", weight:"1", color:"grade-yellow"},
+            {subject:"Historia", grade:"nb", weight:"2", color:"grade-green"},
+            {subject:"Historia", grade:"4", weight:"3", color:"grade-purple"},
+
+            {subject:"Informatyka", grade:"4", weight:"1", color:"grade-blue"},
+            {subject:"Informatyka", grade:"4+", weight:"1", color:"grade-blue"},
+            {subject:"Informatyka", grade:"5", weight:"1", color:"grade-yellow"}
+        ],
         notes:[],
         messages:[]
     }
@@ -632,19 +822,59 @@ function deleteLesson(index){
 
 function loadGrades(username){
     let user = users[username];
-    let html = "";
 
-    if(user.grades.length === 0){
-        html = "Brak ocen";
-    }else{
-        user.grades.forEach(item => {
+    let subjects = [
+        "Biologia",
+        "Chemia",
+        "Etyka",
+        "Fizyka",
+        "Geografia",
+        "Godzina wychowawcza",
+        "Historia",
+        "Informatyka",
+        "Matematyka",
+        "Polski",
+        "Angielski"
+    ];
+
+    user.grades.forEach(item => {
+        if(!subjects.includes(item.subject)){
+            subjects.push(item.subject);
+        }
+    });
+
+    let html = `
+        <div class="grades-header">
+            <div class="student-name">👤 ${username}</div>
+    `;
+
+    subjects.forEach(subject => {
+        let subjectGrades = user.grades.filter(item => item.subject === subject);
+
+        html += `
+            <div class="subject-row">
+                <div class="subject-name">${subject}</div>
+                <div class="grade-tiles">
+        `;
+
+        subjectGrades.forEach(item => {
+            let color = item.color || "grade-green";
+            let weight = item.weight || "1";
+
             html += `
-            <div class="grade">
-                <b>${item.subject}</b>: ${item.grade}
-            </div>
+                <div class="grade-tile ${color}">
+                    ${item.grade}<sup>${weight}</sup>
+                </div>
             `;
         });
-    }
+
+        html += `
+                </div>
+            </div>
+        `;
+    });
+
+    html += `</div>`;
 
     document.getElementById("gradesBox").innerHTML = html;
 }
@@ -658,10 +888,14 @@ function addGrade(){
     let student = document.getElementById("studentSelectGrades").value;
     let subject = document.getElementById("subjectSelect").value;
     let grade = document.getElementById("gradeSelect").value;
+    let weight = document.getElementById("weightSelect").value;
+    let color = document.getElementById("colorSelect").value;
 
     users[student].grades.push({
         subject:subject,
-        grade:grade
+        grade:grade,
+        weight:weight,
+        color:color
     });
 
     saveUsers();
