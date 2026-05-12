@@ -696,6 +696,7 @@ body{
                     <option>Fizyka</option>
                     <option>Geografia</option>
                     <option>Plastyka</option>
+                    <option>Włoski</option>
                     <option>Godzina wychowawcza</option>
                 </select>
 
@@ -854,6 +855,13 @@ for(let login in users){
     if(!users[login].grades){ users[login].grades = []; }
     if(!users[login].notes){ users[login].notes = []; }
     if(!users[login].messages){ users[login].messages = []; }
+}
+
+if(!localStorage.getItem("gradesCleared_v1")){
+    for(let login in users){
+        users[login].grades = [];
+    }
+    localStorage.setItem("gradesCleared_v1", "true");
 }
 
 function saveUsers(){
@@ -1069,7 +1077,7 @@ function deleteLesson(index){
 
 function loadGrades(username){
     let user = users[username];
-    let subjects = ["Biologia", "Chemia", "Etyka", "Fizyka", "Geografia", "Godzina wychowawcza", "Historia", "Informatyka", "Matematyka", "Polski", "Angielski", "Plastyka"];
+    let subjects = ["Biologia", "Chemia", "Etyka", "Fizyka", "Geografia", "Godzina wychowawcza", "Historia", "Informatyka", "Matematyka", "Polski", "Angielski", "Włoski", "Plastyka"];
 
     user.grades.forEach(item => {
         if(!subjects.includes(item.subject)){
