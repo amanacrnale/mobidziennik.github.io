@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>mobiDziennik</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#efefef;
+}
+
+/* TOP */
+
+.topbar{
+    background:#0b71c8;
+    height:50px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 20px;
+    color:white;
+}
+
+.left-top{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.logo{
+    font-size:34px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:#ffd400;
+}
+
+.version{
+    font-size:13px;
+}
+
+.days{
+    background:yellow;
+    color:black;
+    padding:2px 10px;
+    border-radius:20px;
+    font-weight:bold;
+}
+
+.right-top{
+    display:flex;
+    gap:25px;
+    align-items:center;
+}
+
+.avatar{
+    width:35px;
+    height:35px;
+    background:white;
+    border-radius:4px;
+}
+
+/* NAVBAR */
+
+.navbar{
+    background:#d8d8d8;
+    display:flex;
+    align-items:center;
+    gap:25px;
+    padding-left:20px;
+    height:40px;
+    border-bottom:1px solid #b5b5b5;
+}
+
+.nav-item{
+    position:relative;
+}
+
+.nav-item a{
+    text-decoration:none;
+    color:black;
+    font-size:15px;
+    padding:10px 5px;
+    display:block;
+    transition:0.2s;
+}
+
+.nav-item a:hover{
+    color:#0066cc;
+}
+
+.active{
+    background:white;
+    border-left:1px solid #bdbdbd;
+    border-right:1px solid #bdbdbd;
+    padding:0 8px;
+    height:40px;
+    display:flex;
+    align-items:center;
+}
+
+.badge{
+    position:absolute;
+    top:-10px;
+    right:-12px;
+    width:22px;
+    height:22px;
+    border-radius:50%;
+    background:red;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:12px;
+    font-weight:bold;
+}
+
+/* CONTENT */
+
+.content{
+    padding:35px;
+}
+
+h1{
+    color:#0072d6;
+    font-size:24px;
+    margin-bottom:20px;
+}
+
+.line{
+    width:100%;
+    height:1px;
+    background:#cfcfcf;
+    margin-bottom:25px;
+}
+
+.text{
+    font-size:18px;
+}
+
+/* PAGES */
+
+.page{
+    display:none;
+}
+
+.page.active-page{
+    display:block;
+}
+
+.box{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    margin-top:15px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.1);
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- TOP -->
+
+<div class="topbar">
+
+    <div class="left-top">
+        <div class="logo">mobi<span>Dziennik</span></div>
+
+        <div class="version">ver. 19.1, 2025/2026</div>
+
+        <div class="days">17/7</div>
+    </div>
+
+    <div class="right-top">
+        <div>Instrukcje</div>
+        <div>Powiadomienia</div>
+        <div>Uczeń ▼</div>
+        <div class="avatar"></div>
+    </div>
+
+</div>
+
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+    <div class="nav-item">
+        <a href="#" onclick="showPage('historia')">Historia</a>
+    </div>
+
+    <div class="nav-item">
+        <a href="#" onclick="showPage('wiadomosci')">Wiadomości</a>
+        <div class="badge">22</div>
+    </div>
+
+    <div class="nav-item">
+        <a href="#" onclick="showPage('plan')">Plan lekcji</a>
+    </div>
+
+    <div class="nav-item">
+        <a href="#" onclick="showPage('zastepstwa')">Zastępstwa</a>
+        <div class="badge">1</div>
+    </div>
+
+    <div class="nav-item">
+        <a href="#" onclick="showPage('oceny')">Oceny</a>
+    </div>
+
+    <div class="nav-item">
+        <a href="#" onclick="showPage('zachowanie')">Zachowanie</a>
+    </div>
+
+    <div class="nav-item">
+        <a href="#" onclick="showPage('frekwencja')">Frekwencja</a>
+    </div>
+
+    <div class="nav-item">
+        <a href="#" onclick="showPage('zadania')">Zadania</a>
+    </div>
+
+    <div class="nav-item">
+        <a href="#" onclick="showPage('sprawdziany')">Sprawdziany</a>
+    </div>
+
+    <div class="nav-item">
+        <a href="#" onclick="showPage('kalendarz')">Kalendarz</a>
+    </div>
+
+    <div class="nav-item active">
+        <a href="#" onclick="showPage('pliki')">Pliki</a>
+    </div>
+
+</div>
+
+<!-- CONTENT -->
+
+<div class="content">
+
+    <!-- PLIKI -->
+
+    <div id="pliki" class="page active-page">
+        <h1>Baza plików - elementy udostępnione Tobie przez innych użytkowników</h1>
+        <div class="line"></div>
+
+        <div class="text">
+            Aktualnie nie posiadasz udostępnionych plików.
+        </div>
+    </div>
+
+    <!-- PLAN -->
+
+    <div id="plan" class="page">
+        <h1>Plan lekcji</h1>
+        <div class="line"></div>
+
+        <div class="box">
+            1. Matematyka<br><br>
+            2. Polski<br><br>
+            3. Angielski<br><br>
+            4. Informatyka
+        </div>
+    </div>
+
+    <!-- OCENY -->
+
+    <div id="oceny" class="page">
+        <h1>Oceny</h1>
+        <div class="line"></div>
+
+        <div class="box">
+            Matematyka: 5<br><br>
+            Polski: 4<br><br>
+            Angielski: 5
+        </div>
+    </div>
+
+    <!-- WIADOMOSCI -->
+
+    <div id="wiadomosci" class="page">
+        <h1>Wiadomości</h1>
+        <div class="line"></div>
+
+        <div class="box">
+            Nie masz nowych wiadomości.
+        </div>
+    </div>
+
+    <!-- HISTORIA -->
+
+    <div id="historia" class="page">
+        <h1>Historia</h1>
+        <div class="line"></div>
+
+        <div class="box">
+            Ostatnie logowanie: dzisiaj
+        </div>
+    </div>
+
+    <!-- ZASTE PSTWA -->
+
+    <div id="zastepstwa" class="page">
+        <h1>Zastępstwa</h1>
+        <div class="line"></div>
+
+        <div class="box">
+            Jutro zastępstwo za matematykę.
+        </div>
+    </div>
+
+    <!-- ZACHOWANIE -->
+
+    <div id="zachowanie" class="page">
+        <h1>Zachowanie</h1>
+        <div class="line"></div>
+
+        <div class="box">
+            Zachowanie: bardzo dobre
+        </div>
+    </div>
+
+    <!-- FREKWENCJA -->
+
+    <div id="frekwencja" class="page">
+        <h1>Frekwencja</h1>
+        <div class="line"></div>
+
+        <div class="box">
+            Frekwencja: 96%
+        </div>
+    </div>
+
+    <!-- ZADANIA -->
+
+    <div id="zadania" class="page">
+        <h1>Zadania</h1>
+        <div class="line"></div>
+
+        <div class="box">
+            Brak zadań domowych.
+        </div>
+    </div>
+
+    <!-- SPRAWDZIANY -->
+
+    <div id="sprawdziany" class="page">
+        <h1>Sprawdziany</h1>
+        <div class="line"></div>
+
+        <div class="box">
+            Piątek - matematyka
+        </div>
+    </div>
+
+    <!-- KALENDARZ -->
+
+    <div id="kalendarz" class="page">
+        <h1>Kalendarz</h1>
+        <div class="line"></div>
+
+        <div class="box">
+            20 września - zebranie
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+function showPage(pageId){
+
+    let pages = document.querySelectorAll(".page");
+
+    pages.forEach(page => {
+        page.classList.remove("active-page");
+    });
+
+    document.getElementById(pageId).classList.add("active-page");
+}
+
+</script>
+
+</body>
+</html>
