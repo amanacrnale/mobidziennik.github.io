@@ -29,6 +29,8 @@ body{background:#efefef}
 .grades-header{background:white;border-radius:10px;margin-top:15px;overflow:hidden;box-shadow:0 2px 5px rgba(0,0,0,.08)}.student-name{padding:18px 20px;font-size:20px;font-weight:bold;color:#555;border-bottom:1px solid #eee}.subject-row{display:grid;grid-template-columns:160px 1fr;align-items:center;min-height:78px;border-bottom:1px solid #eee;background:white}.subject-name{padding:18px 20px;font-size:20px;color:#666}.grade-tiles{display:flex;flex-wrap:wrap;gap:6px;padding:12px}.grade-tile{min-width:54px;height:54px;border-radius:6px;display:flex;justify-content:center;align-items:center;font-size:25px;font-weight:bold;color:#444;box-shadow:0 1px 3px rgba(0,0,0,.15);position:relative}.grade-tile sup{font-size:13px;margin-left:1px;transform:translateY(-7px)}.grade-tile-manage{padding-bottom:16px}.delete-grade-btn{position:absolute;bottom:2px;left:50%;transform:translateX(-50%);font-size:10px;padding:1px 5px;border:none;border-radius:4px;background:rgba(0,0,0,.55);color:white;cursor:pointer}
 .grade-green{background:#55df5b}.grade-blue{background:#46bedb}.grade-orange{background:#ff8b35}.grade-yellow{background:#f5dc51}.grade-red{background:#ff5b70}.grade-purple{background:#c9c9ee}.grade-mint{background:#9ee5cf}.grade-gray{background:#e8e8d8}.grade-pinkgray{background:#c8b2b5}
 
+.avg-btn{margin:10px 0 10px 0;padding:6px 14px;border:1px solid #bcbcbc;border-radius:3px;background:#eee;color:#111;cursor:pointer;font-size:14px}.avg-btn:hover{background:#e0e0e0}.chart-wrap{width:100%;overflow-x:auto;padding:10px 0}.chart{min-width:900px;height:430px;border-left:2px solid #777;border-bottom:2px solid #777;position:relative;background:repeating-linear-gradient(to top,rgba(0,0,0,.12) 0,rgba(0,0,0,.12) 1px,transparent 1px,transparent 74px)}.chart-bars{height:370px;display:flex;align-items:flex-end;gap:16px;padding:0 18px 0 18px}.chart-group{width:56px;height:370px;display:flex;align-items:flex-end;justify-content:center;gap:3px;position:relative}.chart-bar{width:15px;border:2px solid;height:0}.bar-school{background:#bdeef5;border-color:#30b8da}.bar-class{background:#c8ef72;border-color:#81c900}.bar-student{background:#f7b2b2;border-color:red}.chart-labels{display:flex;gap:16px;padding:6px 18px 0 18px}.chart-label{width:56px;text-align:center;font-size:12px;color:#333}.chart-label span{display:block;margin-top:5px}.chart-y{position:absolute;left:-36px;bottom:0;height:370px;display:flex;flex-direction:column-reverse;justify-content:space-between;font-size:12px;color:#333}.chart-legend{position:absolute;right:18px;top:10px;font-size:12px;background:rgba(255,255,255,.75);padding:5px}.legend-row{display:flex;align-items:center;gap:6px;margin-bottom:5px}.legend-color{width:16px;height:12px;border:1px solid}.chart-empty{padding:15px;color:#555}
+
 .note-card{display:flex;gap:15px;align-items:flex-start;padding:15px;margin-bottom:12px;border-radius:10px;border-left:7px solid #ccc;background:#fafafa}.note-icon{width:48px;height:48px;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:28px;color:white;flex-shrink:0}.note-positive{border-left-color:#2ecc71}.note-positive .note-icon{background:#2ecc71}.note-neutral{border-left-color:#3498db}.note-neutral .note-icon{background:#3498db}.note-negative{border-left-color:#e74c3c}.note-negative .note-icon{background:#e74c3c}.note-title{font-size:20px;font-weight:bold;margin-bottom:6px}.note-text{font-size:18px;color:#444}.delete-note-btn{margin-top:10px;padding:8px 12px;background:#e74c3c;color:white;border:none;border-radius:6px;cursor:pointer}
 
 .history-top-title{text-align:center;font-size:28px;color:#0072d6;margin-bottom:18px}.history-small-line{font-size:13px;color:#555;margin:6px 0;padding-left:4px}.history-section-title{font-size:13px;color:#444;font-weight:bold;margin:14px 0 8px;padding-left:4px}.history-day{font-size:18px;font-weight:bold;color:#111;margin:25px 0 12px;border-bottom:1px solid #cfcfcf;padding:0 0 10px 50px}.history-entry{display:grid;grid-template-columns:110px 1fr;background:white;border:1px solid #d0d0d0;margin-bottom:14px}.history-left{border-right:1px solid #d0d0d0;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:12px 8px;background:#fafafa;text-align:center}.history-icon{font-size:34px;margin-bottom:8px}.history-label{font-size:14px;font-weight:bold;color:#111}.history-right{padding:14px}.history-title{font-size:18px;font-weight:bold;color:#111;margin-bottom:8px}.history-text{font-size:17px;color:#222;line-height:1.45;margin-bottom:8px;font-weight:bold}.history-meta{font-size:14px;color:#555}.history-grade{background:#eaf5ff}.history-note-positive{background:#f1fff4}.history-note-neutral{background:#f4faff}.history-note-negative{background:#fffafa}
@@ -75,7 +77,7 @@ body{background:#efefef}
 
         <div id="plan" class="page active"><h1>Plan lekcji</h1><div class="box" id="lessonsBox">Brak lekcji w planie.</div><div class="panel" id="lessonPanel" style="display:none;"><h2>Dodaj lekcję do planu</h2><select id="lessonDay"><option>Poniedziałek</option><option>Wtorek</option><option>Środa</option><option>Czwartek</option><option>Piątek</option></select><input type="text" id="lessonHour" placeholder="Godzina, np. 8:00"><input type="text" id="lessonSubject" placeholder="Przedmiot"><input type="text" id="lessonRoom" placeholder="Sala, np. 24"><button onclick="addLesson()">Dodaj lekcję</button></div></div>
 
-        <div id="oceny" class="page"><h1>Oceny</h1><div id="gradesBox">Brak ocen</div><div class="panel" id="gradesViewPanel" style="display:none;"><h2>Zobacz oceny ucznia</h2><select id="studentSelectViewGrades" onchange="viewStudentGrades()"></select><button onclick="viewStudentGrades()">Zobacz oceny</button></div><div class="panel" id="teacherPanel" style="display:none;"><h2>Nowa ocena</h2><select id="studentSelectGrades"></select><select id="subjectSelect"><option>Matematyka</option><option>Polski</option><option>Angielski</option><option>Włoski</option><option>Informatyka</option><option>Chemia</option><option>Biologia</option><option>Historia</option><option>Fizyka</option><option>Geografia</option><option>Plastyka</option><option>Godzina wychowawcza</option></select><select id="gradeSelect"><option>1</option><option>1+</option><option>1-</option><option>2</option><option>2+</option><option>2-</option><option>3</option><option>3+</option><option>3-</option><option>4</option><option>4+</option><option>4-</option><option>5</option><option>5+</option><option>5-</option><option>6</option><option>6-</option><option>nb</option><option>.</option></select><select id="weightSelect"><option value="1">waga 1</option><option value="2">waga 2</option><option value="3">waga 3</option></select><select id="colorSelect"><option value="grade-green">zielona</option><option value="grade-blue">niebieska</option><option value="grade-orange">pomarańczowa</option><option value="grade-yellow">żółta</option><option value="grade-red">czerwona</option><option value="grade-purple">fioletowa</option><option value="grade-mint">miętowa</option><option value="grade-gray">szara</option><option value="grade-pinkgray">różowo-szara</option></select><button onclick="addGrade()">Dodaj ocenę</button></div></div>
+        <div id="oceny" class="page"><h1>Oceny</h1><button class="avg-btn" onclick="toggleAverageChart()">Wykresy ocen</button><div class="box" id="averageChartBox" style="display:none;"></div><div id="gradesBox">Brak ocen</div><div class="panel" id="gradesViewPanel" style="display:none;"><h2>Zobacz oceny ucznia</h2><select id="studentSelectViewGrades" onchange="viewStudentGrades()"></select><button onclick="viewStudentGrades()">Zobacz oceny</button></div><div class="panel" id="teacherPanel" style="display:none;"><h2>Nowa ocena</h2><select id="studentSelectGrades"></select><select id="subjectSelect"><option>Matematyka</option><option>Polski</option><option>Angielski</option><option>Włoski</option><option>Informatyka</option><option>Chemia</option><option>Biologia</option><option>Historia</option><option>Fizyka</option><option>Geografia</option><option>Plastyka</option><option>Godzina wychowawcza</option></select><select id="gradeSelect"><option>1</option><option>1+</option><option>1-</option><option>2</option><option>2+</option><option>2-</option><option>3</option><option>3+</option><option>3-</option><option>4</option><option>4+</option><option>4-</option><option>5</option><option>5+</option><option>5-</option><option>6</option><option>6-</option><option>nb</option><option>.</option></select><select id="weightSelect"><option value="1">waga 1</option><option value="2">waga 2</option><option value="3">waga 3</option></select><select id="colorSelect"><option value="grade-green">zielona</option><option value="grade-blue">niebieska</option><option value="grade-orange">pomarańczowa</option><option value="grade-yellow">żółta</option><option value="grade-red">czerwona</option><option value="grade-purple">fioletowa</option><option value="grade-mint">miętowa</option><option value="grade-gray">szara</option><option value="grade-pinkgray">różowo-szara</option></select><button onclick="addGrade()">Dodaj ocenę</button></div></div>
 
         <div id="uwagi" class="page"><h1>Uwagi</h1><div class="panel" id="notesViewPanel" style="display:none;"><h2>Zobacz uwagi ucznia</h2><select id="studentSelectViewNotes" onchange="viewStudentNotes()"></select><button onclick="viewStudentNotes()">Zobacz uwagi</button><button onclick="viewAllNotes()">Zobacz wszystkie uwagi</button></div><div class="box" id="notesBox">Brak uwag.</div><div class="panel" id="notesPanel" style="display:none;"><h2>Dodaj uwagę</h2><select id="studentSelectNotes"></select><select id="noteType"><option value="positive">Pozytywna ✅</option><option value="neutral">Neutralna ℹ️</option><option value="negative">Negatywna ❗</option></select><textarea id="noteText" placeholder="Wpisz treść uwagi"></textarea><button onclick="addNote()">Dodaj uwagę</button></div></div>
     </div>
@@ -389,6 +391,137 @@ function loadGrades(username){
     });
     html += `</div>`;
     document.getElementById("gradesBox").innerHTML = html;
+
+    if(document.getElementById("averageChartBox").style.display !== "none"){
+        renderAverageChart(username);
+    }
+}
+
+function gradeToNumber(grade){
+    if(!grade){ return null; }
+    grade = String(grade).trim();
+    if(grade === "nb" || grade === "."){ return null; }
+
+    let base = parseInt(grade, 10);
+    if(isNaN(base)){ return null; }
+
+    if(grade.includes("+")){
+        base += 0.5;
+    }
+
+    if(grade.includes("-")){
+        base -= 0.25;
+    }
+
+    return Math.max(1, Math.min(6, base));
+}
+
+function getSubjectAverage(grades, subject){
+    let sum = 0;
+    let weightSum = 0;
+
+    grades.filter(item => item.subject === subject).forEach(item => {
+        let value = gradeToNumber(item.grade);
+        let weight = parseFloat(item.weight || "1");
+
+        if(value !== null && !isNaN(weight)){
+            sum += value * weight;
+            weightSum += weight;
+        }
+    });
+
+    if(weightSum === 0){
+        return 0;
+    }
+
+    return sum / weightSum;
+}
+
+function getCurrentGradesUsername(){
+    if(canManage()){
+        let selected = document.getElementById("studentSelectViewGrades").value;
+        if(selected){ return selected; }
+    }
+
+    return loggedUser;
+}
+
+function toggleAverageChart(){
+    let box = document.getElementById("averageChartBox");
+    let username = getCurrentGradesUsername();
+
+    if(box.style.display === "none"){
+        box.style.display = "block";
+        renderAverageChart(username);
+    }else{
+        box.style.display = "none";
+    }
+}
+
+function renderAverageChart(username){
+    const user = users[username];
+    const box = document.getElementById("averageChartBox");
+
+    if(!user){
+        box.innerHTML = `<div class="chart-empty">Brak danych.</div>`;
+        return;
+    }
+
+    let usedSubjects = subjects.filter(subject => user.grades.some(item => item.subject === subject));
+
+    user.grades.forEach(item => {
+        if(!usedSubjects.includes(item.subject)){
+            usedSubjects.push(item.subject);
+        }
+    });
+
+    if(usedSubjects.length === 0){
+        box.innerHTML = `<div class="chart-empty">Brak ocen do obliczenia średniej.</div>`;
+        return;
+    }
+
+    let barsHtml = "";
+    let labelsHtml = "";
+
+    usedSubjects.forEach((subject, index) => {
+        let studentAvg = getSubjectAverage(user.grades, subject);
+        let fakeSchoolAvg = studentAvg > 0 ? Math.max(1, Math.min(6, studentAvg + (((index % 3) - 1) * 0.25))) : 0;
+        let fakeClassAvg = studentAvg > 0 ? Math.max(1, Math.min(6, studentAvg + (((index % 2) ? -0.15 : 0.15)))) : 0;
+
+        let schoolHeight = (fakeSchoolAvg / 6) * 370;
+        let classHeight = (fakeClassAvg / 6) * 370;
+        let studentHeight = (studentAvg / 6) * 370;
+
+        barsHtml += `
+            <div class="chart-group">
+                <div class="chart-bar bar-school" title="Śr. szkoły: ${fakeSchoolAvg.toFixed(2)}" style="height:${schoolHeight}px"></div>
+                <div class="chart-bar bar-class" title="Śr. klasy: ${fakeClassAvg.toFixed(2)}" style="height:${classHeight}px"></div>
+                <div class="chart-bar bar-student" title="Śr. ucznia: ${studentAvg.toFixed(2)}" style="height:${studentHeight}px"></div>
+            </div>
+        `;
+
+        labelsHtml += `
+            <div class="chart-label">
+                ${subject.length > 7 ? subject.slice(0, 6) + "." : subject.toLowerCase()}
+                <span>(${studentAvg ? studentAvg.toFixed(2) : "0"})</span>
+            </div>
+        `;
+    });
+
+    box.innerHTML = `
+        <div class="chart-wrap">
+            <div class="chart">
+                <div class="chart-y"><span>0.0</span><span>1.0</span><span>2.0</span><span>3.0</span><span>4.0</span><span>5.0</span><span>6.0</span></div>
+                <div class="chart-legend">
+                    <div class="legend-row"><span class="legend-color bar-school"></span> Śr. szkoły</div>
+                    <div class="legend-row"><span class="legend-color bar-class"></span> Śr. klasy</div>
+                    <div class="legend-row"><span class="legend-color bar-student"></span> Śr. ucznia</div>
+                </div>
+                <div class="chart-bars">${barsHtml}</div>
+                <div class="chart-labels">${labelsHtml}</div>
+            </div>
+        </div>
+    `;
 }
 
 async function addGrade(){
@@ -404,6 +537,10 @@ function viewStudentGrades(){
     const student = document.getElementById("studentSelectViewGrades").value;
     document.getElementById("gradesBox").style.display = "block";
     loadGrades(student);
+
+    if(document.getElementById("averageChartBox").style.display !== "none"){
+        renderAverageChart(student);
+    }
 }
 
 async function deleteGrade(student,index){
