@@ -6,7 +6,6 @@
 <title>mobiDziennik</title>
 
 <style>
-
 *{
     margin:0;
     padding:0;
@@ -100,6 +99,7 @@ body{
     padding:10px 20px;
     display:flex;
     gap:20px;
+    flex-wrap:wrap;
 }
 
 .navbar button{
@@ -132,32 +132,78 @@ body{
     padding:20px;
     border-radius:10px;
     margin-top:15px;
+    box-shadow:0 2px 5px rgba(0,0,0,0.08);
 }
 
-.grade{
-    font-size:22px;
+.grade,
+.lesson,
+.note,
+.chat-message{
+    font-size:18px;
+    margin-bottom:12px;
+    padding:10px;
+    border-bottom:1px solid #eee;
+}
+
+.lesson:last-child,
+.grade:last-child,
+.note:last-child,
+.chat-message:last-child{
+    border-bottom:none;
+}
+
+/* FORMS */
+
+.panel{
+    margin-top:20px;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 2px 5px rgba(0,0,0,0.08);
+}
+
+.panel h2{
     margin-bottom:10px;
 }
 
-/* TEACHER PANEL */
-
-.teacher-panel{
-    margin-top:20px;
-}
-
-.teacher-panel select,
-.teacher-panel button{
+.panel input,
+.panel select,
+.panel textarea,
+.panel button{
     padding:10px;
     margin-right:10px;
     margin-top:10px;
 }
 
-.teacher-panel button{
+.panel input,
+.panel select,
+.panel textarea{
+    border:1px solid #ccc;
+    border-radius:6px;
+}
+
+.panel textarea{
+    width:100%;
+    min-height:90px;
+    resize:vertical;
+}
+
+.panel button{
     background:#0072d6;
     color:white;
     border:none;
     border-radius:6px;
     cursor:pointer;
+}
+
+.panel button:hover{
+    background:#005fae;
+}
+
+.small-info{
+    font-size:13px;
+    color:#666;
+    margin-top:8px;
 }
 
 </style>
@@ -167,32 +213,17 @@ body{
 <!-- LOGIN -->
 
 <div id="loginScreen">
-
     <div class="login-box">
-
         <h1>mobiDziennik</h1>
 
-        <input type="text"
-               id="username"
-               placeholder="Login">
+        <input type="text" id="username" placeholder="Login">
+        <input type="password" id="password" placeholder="Hasło">
 
-        <input type="password"
-               id="password"
-               placeholder="Hasło">
+        <button onclick="login()">Zaloguj się</button>
+        <button onclick="register()">Zarejestruj się</button>
 
-        <button onclick="login()">
-            Zaloguj się
-        </button>
-
-        <button onclick="register()">
-            Zarejestruj się
-        </button>
-
-        <div class="message"
-             id="message"></div>
-
+        <div class="message" id="message"></div>
     </div>
-
 </div>
 
 <!-- MAIN -->
@@ -200,91 +231,67 @@ body{
 <div id="mainPage">
 
     <div class="topbar">
-
-        <div class="logo">
-            mobi<span>Dziennik</span>
-        </div>
-
+        <div class="logo">mobi<span>Dziennik</span></div>
         <div id="loggedUser"></div>
-
     </div>
 
     <div class="navbar">
-
-        <button onclick="showPage('plan')">
-            Plan lekcji
-        </button>
-
-        <button onclick="showPage('oceny')">
-            Oceny
-        </button>
-
-        <button onclick="showPage('wiadomosci')">
-            Wiadomości
-        </button>
-
-        <button onclick="logout()">
-            Wyloguj
-        </button>
-
+        <button onclick="showPage('plan')">Plan lekcji</button>
+        <button onclick="showPage('oceny')">Oceny</button>
+        <button onclick="showPage('uwagi')">Uwagi</button>
+        <button onclick="showPage('wiadomosci')">Wiadomości</button>
+        <button onclick="logout()">Wyloguj</button>
     </div>
 
     <div class="content">
 
         <!-- PLAN -->
 
-        <div id="plan"
-             class="page active">
-
+        <div id="plan" class="page active">
             <h1>Plan lekcji</h1>
 
-            <div class="box">
-
-                1. Matematyka<br><br>
-                2. Polski<br><br>
-                3. Angielski<br><br>
-                4. Informatyka
-
+            <div class="box" id="lessonsBox">
+                Brak lekcji w planie.
             </div>
 
+            <!-- PANEL DODAWANIA LEKCJI -->
+
+            <div class="panel" id="lessonPanel" style="display:none;">
+                <h2>Dodaj lekcję do planu</h2>
+
+                <select id="lessonDay">
+                    <option>Poniedziałek</option>
+                    <option>Wtorek</option>
+                    <option>Środa</option>
+                    <option>Czwartek</option>
+                    <option>Piątek</option>
+                </select>
+
+                <input type="text" id="lessonHour" placeholder="Godzina, np. 8:00">
+                <input type="text" id="lessonSubject" placeholder="Przedmiot">
+                <input type="text" id="lessonRoom" placeholder="Sala, np. 24">
+
+                <button onclick="addLesson()">Dodaj lekcję</button>
+            </div>
         </div>
 
         <!-- OCENY -->
 
-        <div id="oceny"
-             class="page">
-
+        <div id="oceny" class="page">
             <h1>Oceny</h1>
 
-            <div class="box"
-                 id="gradesBox">
-
+            <div class="box" id="gradesBox">
                 Brak ocen
-
             </div>
 
             <!-- PANEL NAUCZYCIELA -->
 
-            <div class="teacher-panel"
-                 id="teacherPanel"
-                 style="display:none;">
-
+            <div class="panel" id="teacherPanel" style="display:none;">
                 <h2>Nowa ocena</h2>
 
-                <!-- UCZEŃ -->
-
-                <select id="studentSelect">
-
-                    <option value="zanetka">
-                        zanetka
-                    </option>
-
-                </select>
-
-                <!-- PRZEDMIOT -->
+                <select id="studentSelectGrades"></select>
 
                 <select id="subjectSelect">
-
                     <option>Matematyka</option>
                     <option>Polski</option>
                     <option>Angielski</option>
@@ -292,63 +299,79 @@ body{
                     <option>Chemia</option>
                     <option>Biologia</option>
                     <option>Historia</option>
-
                 </select>
 
-                <!-- OCENA -->
-
                 <select id="gradeSelect">
-
                     <option>1</option>
                     <option>1+</option>
                     <option>1-</option>
-
                     <option>2</option>
                     <option>2+</option>
                     <option>2-</option>
-
                     <option>3</option>
                     <option>3+</option>
                     <option>3-</option>
-
                     <option>4</option>
                     <option>4+</option>
                     <option>4-</option>
-
                     <option>5</option>
                     <option>5+</option>
                     <option>5-</option>
-
                     <option>6</option>
                     <option>6-</option>
-
                 </select>
 
-                <button onclick="addGrade()">
-                    Dodaj ocenę
-                </button>
+                <button onclick="addGrade()">Dodaj ocenę</button>
+            </div>
+        </div>
 
+        <!-- UWAGI -->
+
+        <div id="uwagi" class="page">
+            <h1>Uwagi</h1>
+
+            <div class="box" id="notesBox">
+                Brak uwag.
             </div>
 
+            <!-- PANEL DODAWANIA UWAG -->
+
+            <div class="panel" id="notesPanel" style="display:none;">
+                <h2>Dodaj uwagę</h2>
+
+                <select id="studentSelectNotes"></select>
+
+                <textarea id="noteText" placeholder="Wpisz treść uwagi"></textarea>
+
+                <button onclick="addNote()">Dodaj uwagę</button>
+            </div>
         </div>
 
         <!-- WIADOMOŚCI -->
 
-        <div id="wiadomosci"
-             class="page">
-
+        <div id="wiadomosci" class="page">
             <h1>Wiadomości</h1>
 
-            <div class="box">
-
-                Nie masz nowych wiadomości.
-
+            <div class="box" id="messagesBox">
+                Brak wiadomości.
             </div>
 
+            <div class="panel">
+                <h2>Napisz wiadomość</h2>
+
+                <select id="messageReceiver"></select>
+
+                <textarea id="messageText" placeholder="Wpisz wiadomość"></textarea>
+
+                <button onclick="sendMessage()">Wyślij wiadomość</button>
+
+                <div class="small-info">
+                    Wiadomości zapisują się w pamięci przeglądarki, czyli localStorage.
+                </div>
+            </div>
         </div>
 
     </div>
-
 </div>
 
 <script>
@@ -356,232 +379,463 @@ body{
 /* KONTA */
 
 let users = JSON.parse(localStorage.getItem("users")) || {
-
     "jhjkls":{
         password:"szkoła123",
         role:"teacher",
-        grades:[]
+        grades:[],
+        notes:[],
+        messages:[]
+    },
+
+    "admin":{
+        password:"admin123",
+        role:"admin",
+        grades:[],
+        notes:[],
+        messages:[]
     },
 
     "zanetka":{
         password:"chemia",
         role:"student",
-        grades:[]
+        grades:[],
+        notes:[],
+        messages:[]
     }
-
 };
+
+/* PLAN LEKCJI */
+
+let lessons = JSON.parse(localStorage.getItem("lessons")) || [
+    {
+        day:"Poniedziałek",
+        hour:"8:00",
+        subject:"Matematyka",
+        room:"12"
+    },
+    {
+        day:"Poniedziałek",
+        hour:"8:55",
+        subject:"Polski",
+        room:"18"
+    },
+    {
+        day:"Wtorek",
+        hour:"9:50",
+        subject:"Angielski",
+        room:"21"
+    },
+    {
+        day:"Środa",
+        hour:"10:45",
+        subject:"Informatyka",
+        room:"30"
+    }
+];
+
+/* UZUPEŁNIENIE STARYCH KONT */
+
+for(let login in users){
+    if(!users[login].grades){
+        users[login].grades = [];
+    }
+    if(!users[login].notes){
+        users[login].notes = [];
+    }
+    if(!users[login].messages){
+        users[login].messages = [];
+    }
+}
 
 /* ZAPIS */
 
 function saveUsers(){
+    localStorage.setItem("users", JSON.stringify(users));
+}
 
-    localStorage.setItem(
-        "users",
-        JSON.stringify(users)
-    );
-
+function saveLessons(){
+    localStorage.setItem("lessons", JSON.stringify(lessons));
 }
 
 /* REJESTRACJA */
 
 function register(){
+    let username = document.getElementById("username").value.trim();
+    let password = document.getElementById("password").value.trim();
 
-    let username =
-    document.getElementById("username").value;
-
-    let password =
-    document.getElementById("password").value;
+    if(username === "" || password === ""){
+        document.getElementById("message").innerText = "Wpisz login i hasło";
+        return;
+    }
 
     if(users[username]){
-
-        document.getElementById("message").innerText =
-        "Takie konto już istnieje";
-
+        document.getElementById("message").innerText = "Takie konto już istnieje";
         return;
-
     }
 
     users[username] = {
-
         password:password,
         role:"student",
-        grades:[]
-
+        grades:[],
+        notes:[],
+        messages:[]
     };
 
     saveUsers();
 
-    document.getElementById("message").innerText =
-    "Konto utworzone!";
-
+    document.getElementById("message").innerText = "Konto utworzone!";
 }
 
 /* LOGIN */
 
 function login(){
+    let username = document.getElementById("username").value.trim();
+    let password = document.getElementById("password").value.trim();
 
-    let username =
-    document.getElementById("username").value;
-
-    let password =
-    document.getElementById("password").value;
-
-    if(users[username] &&
-       users[username].password === password){
-
-        localStorage.setItem(
-            "loggedUser",
-            username
-        );
-
+    if(users[username] && users[username].password === password){
+        localStorage.setItem("loggedUser", username);
         openAccount(username);
-
     }else{
-
-        document.getElementById("message").innerText =
-        "Zły login lub hasło";
-
+        document.getElementById("message").innerText = "Zły login lub hasło";
     }
-
 }
 
 /* OTWÓRZ KONTO */
 
 function openAccount(username){
+    document.getElementById("loginScreen").style.display = "none";
+    document.getElementById("mainPage").style.display = "block";
 
-    document.getElementById("loginScreen")
-    .style.display = "none";
-
-    document.getElementById("mainPage")
-    .style.display = "block";
-
-    document.getElementById("loggedUser")
-    .innerText =
-    "Zalogowano jako: " + username;
+    document.getElementById("loggedUser").innerText =
+    "Zalogowano jako: " + username + " (" + users[username].role + ")";
 
     let user = users[username];
 
+    loadLessons();
     loadGrades(username);
+    loadNotes(username);
+    loadMessages(username);
+    fillStudentSelects();
+    fillMessageReceivers(username);
 
-    if(user.role === "teacher"){
-
-        document.getElementById("teacherPanel")
-        .style.display = "block";
-
+    if(user.role === "teacher" || user.role === "admin"){
+        document.getElementById("teacherPanel").style.display = "block";
+        document.getElementById("lessonPanel").style.display = "block";
+        document.getElementById("notesPanel").style.display = "block";
     }else{
-
-        document.getElementById("teacherPanel")
-        .style.display = "none";
-
+        document.getElementById("teacherPanel").style.display = "none";
+        document.getElementById("lessonPanel").style.display = "none";
+        document.getElementById("notesPanel").style.display = "none";
     }
-
 }
 
-/* WCZYTAJ OCENY */
+/* LISTA UCZNIÓW */
+
+function getStudents(){
+    let students = [];
+
+    for(let login in users){
+        if(users[login].role === "student"){
+            students.push(login);
+        }
+    }
+
+    return students;
+}
+
+function fillStudentSelects(){
+    let students = getStudents();
+    let selects = [
+        document.getElementById("studentSelectGrades"),
+        document.getElementById("studentSelectNotes")
+    ];
+
+    selects.forEach(select => {
+        select.innerHTML = "";
+
+        students.forEach(student => {
+            let option = document.createElement("option");
+            option.value = student;
+            option.innerText = student;
+            select.appendChild(option);
+        });
+    });
+}
+
+/* PLAN LEKCJI */
+
+function loadLessons(){
+    let html = "";
+
+    if(lessons.length === 0){
+        html = "Brak lekcji w planie.";
+    }else{
+        lessons.forEach((lesson, index) => {
+            html += `
+            <div class="lesson">
+                <b>${lesson.day}</b>, ${lesson.hour}<br>
+                ${lesson.subject}, sala ${lesson.room}
+                ${canManage() ? `<br><button onclick="deleteLesson(${index})">Usuń</button>` : ""}
+            </div>
+            `;
+        });
+    }
+
+    document.getElementById("lessonsBox").innerHTML = html;
+}
+
+function addLesson(){
+    if(!canManage()){
+        alert("Nie masz uprawnień.");
+        return;
+    }
+
+    let day = document.getElementById("lessonDay").value;
+    let hour = document.getElementById("lessonHour").value.trim();
+    let subject = document.getElementById("lessonSubject").value.trim();
+    let room = document.getElementById("lessonRoom").value.trim();
+
+    if(hour === "" || subject === "" || room === ""){
+        alert("Uzupełnij godzinę, przedmiot i salę.");
+        return;
+    }
+
+    lessons.push({
+        day:day,
+        hour:hour,
+        subject:subject,
+        room:room
+    });
+
+    saveLessons();
+    loadLessons();
+
+    document.getElementById("lessonHour").value = "";
+    document.getElementById("lessonSubject").value = "";
+    document.getElementById("lessonRoom").value = "";
+
+    alert("Dodano lekcję do planu!");
+}
+
+function deleteLesson(index){
+    if(!canManage()){
+        alert("Nie masz uprawnień.");
+        return;
+    }
+
+    lessons.splice(index, 1);
+    saveLessons();
+    loadLessons();
+}
+
+/* OCENY */
 
 function loadGrades(username){
-
     let user = users[username];
-
     let html = "";
 
     if(user.grades.length === 0){
-
         html = "Brak ocen";
-
     }else{
-
         user.grades.forEach(item => {
-
             html += `
             <div class="grade">
                 <b>${item.subject}</b>: ${item.grade}
             </div>
             `;
-
         });
-
     }
 
-    document.getElementById("gradesBox")
-    .innerHTML = html;
-
+    document.getElementById("gradesBox").innerHTML = html;
 }
 
-/* DODAJ OCENĘ */
-
 function addGrade(){
+    if(!canManage()){
+        alert("Nie masz uprawnień.");
+        return;
+    }
 
-    let student =
-    document.getElementById("studentSelect").value;
-
-    let subject =
-    document.getElementById("subjectSelect").value;
-
-    let grade =
-    document.getElementById("gradeSelect").value;
+    let student = document.getElementById("studentSelectGrades").value;
+    let subject = document.getElementById("subjectSelect").value;
+    let grade = document.getElementById("gradeSelect").value;
 
     users[student].grades.push({
-
         subject:subject,
         grade:grade
-
     });
 
     saveUsers();
 
     alert("Dodano ocenę!");
+}
 
+/* UWAGI */
+
+function loadNotes(username){
+    let user = users[username];
+    let html = "";
+
+    if(user.notes.length === 0){
+        html = "Brak uwag.";
+    }else{
+        user.notes.forEach(item => {
+            html += `
+            <div class="note">
+                <b>${item.date}</b><br>
+                ${item.text}<br>
+                <span class="small-info">Wpisał: ${item.author}</span>
+            </div>
+            `;
+        });
+    }
+
+    document.getElementById("notesBox").innerHTML = html;
+}
+
+function addNote(){
+    if(!canManage()){
+        alert("Nie masz uprawnień.");
+        return;
+    }
+
+    let loggedUser = localStorage.getItem("loggedUser");
+    let student = document.getElementById("studentSelectNotes").value;
+    let text = document.getElementById("noteText").value.trim();
+
+    if(text === ""){
+        alert("Wpisz treść uwagi.");
+        return;
+    }
+
+    users[student].notes.push({
+        text:text,
+        author:loggedUser,
+        date:new Date().toLocaleString("pl-PL")
+    });
+
+    saveUsers();
+
+    document.getElementById("noteText").value = "";
+
+    alert("Dodano uwagę!");
+}
+
+/* WIADOMOŚCI */
+
+function fillMessageReceivers(loggedUser){
+    let select = document.getElementById("messageReceiver");
+    select.innerHTML = "";
+
+    for(let login in users){
+        if(login !== loggedUser){
+            let option = document.createElement("option");
+            option.value = login;
+            option.innerText = login + " (" + users[login].role + ")";
+            select.appendChild(option);
+        }
+    }
+}
+
+function loadMessages(username){
+    let user = users[username];
+    let html = "";
+
+    if(user.messages.length === 0){
+        html = "Brak wiadomości.";
+    }else{
+        user.messages.slice().reverse().forEach(item => {
+            html += `
+            <div class="chat-message">
+                <b>Od: ${item.from}</b><br>
+                ${item.text}<br>
+                <span class="small-info">${item.date}</span>
+            </div>
+            `;
+        });
+    }
+
+    document.getElementById("messagesBox").innerHTML = html;
+}
+
+function sendMessage(){
+    let loggedUser = localStorage.getItem("loggedUser");
+    let receiver = document.getElementById("messageReceiver").value;
+    let text = document.getElementById("messageText").value.trim();
+
+    if(text === ""){
+        alert("Wpisz wiadomość.");
+        return;
+    }
+
+    users[receiver].messages.push({
+        from:loggedUser,
+        text:text,
+        date:new Date().toLocaleString("pl-PL")
+    });
+
+    saveUsers();
+
+    document.getElementById("messageText").value = "";
+
+    alert("Wiadomość wysłana!");
+}
+
+/* UPRAWNIENIA */
+
+function canManage(){
+    let loggedUser = localStorage.getItem("loggedUser");
+
+    if(!loggedUser || !users[loggedUser]){
+        return false;
+    }
+
+    return users[loggedUser].role === "teacher" || users[loggedUser].role === "admin";
 }
 
 /* ZMIANA STRON */
 
 function showPage(pageId){
-
-    let pages =
-    document.querySelectorAll(".page");
+    let pages = document.querySelectorAll(".page");
 
     pages.forEach(page => {
-
         page.classList.remove("active");
-
     });
 
-    document.getElementById(pageId)
-    .classList.add("active");
+    document.getElementById(pageId).classList.add("active");
 
+    let loggedUser = localStorage.getItem("loggedUser");
+
+    if(loggedUser && users[loggedUser]){
+        loadLessons();
+        loadGrades(loggedUser);
+        loadNotes(loggedUser);
+        loadMessages(loggedUser);
+    }
 }
 
 /* WYLOGUJ */
 
 function logout(){
-
     localStorage.removeItem("loggedUser");
 
-    document.getElementById("mainPage")
-    .style.display = "none";
-
-    document.getElementById("loginScreen")
-    .style.display = "flex";
+    document.getElementById("mainPage").style.display = "none";
+    document.getElementById("loginScreen").style.display = "flex";
 
     document.getElementById("username").value = "";
     document.getElementById("password").value = "";
     document.getElementById("message").innerText = "";
-
 }
 
 /* AUTO LOGIN */
 
-let loggedUser =
-localStorage.getItem("loggedUser");
+let loggedUser = localStorage.getItem("loggedUser");
 
 if(loggedUser && users[loggedUser]){
-
     openAccount(loggedUser);
-
 }
 
 saveUsers();
+saveLessons();
 
 </script>
 
