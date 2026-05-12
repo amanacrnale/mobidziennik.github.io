@@ -1,4 +1,3 @@
-```html id="k8s9pl"
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -39,8 +38,8 @@ body{
 
 .login-box h1{
     text-align:center;
-    margin-bottom:20px;
     color:#0072d6;
+    margin-bottom:20px;
 }
 
 .login-box input{
@@ -59,18 +58,12 @@ body{
     color:white;
     border-radius:8px;
     cursor:pointer;
-    font-size:16px;
     margin-bottom:10px;
-}
-
-.login-box button:hover{
-    background:#005db3;
 }
 
 .message{
     text-align:center;
     color:red;
-    margin-top:10px;
 }
 
 /* MAIN */
@@ -79,7 +72,7 @@ body{
     display:none;
 }
 
-/* TOP */
+/* TOPBAR */
 
 .topbar{
     background:#0b71c8;
@@ -100,18 +93,13 @@ body{
     color:yellow;
 }
 
-.user{
-    font-size:16px;
-}
-
 /* NAVBAR */
 
 .navbar{
     background:#d8d8d8;
+    padding:10px 20px;
     display:flex;
     gap:20px;
-    padding:10px 20px;
-    overflow:auto;
 }
 
 .navbar button{
@@ -152,19 +140,24 @@ body{
     margin-top:20px;
 }
 
-.teacher-panel input{
+.teacher-panel select,
+.teacher-panel button{
     padding:10px;
     margin-right:10px;
-    margin-bottom:10px;
+    margin-top:10px;
 }
 
 .teacher-panel button{
-    padding:10px;
     background:#0072d6;
     color:white;
     border:none;
     border-radius:6px;
     cursor:pointer;
+}
+
+.grade{
+    font-size:22px;
+    margin-bottom:10px;
 }
 
 </style>
@@ -183,9 +176,13 @@ body{
 
         <input type="password" id="password" placeholder="Hasło">
 
-        <button onclick="login()">Zaloguj się</button>
+        <button onclick="login()">
+            Zaloguj się
+        </button>
 
-        <button onclick="register()">Zarejestruj się</button>
+        <button onclick="register()">
+            Zarejestruj się
+        </button>
 
         <div class="message" id="message"></div>
 
@@ -198,16 +195,33 @@ body{
 <div id="mainPage">
 
     <div class="topbar">
-        <div class="logo">mobi<span>Dziennik</span></div>
 
-        <div class="user" id="loggedUser"></div>
+        <div class="logo">
+            mobi<span>Dziennik</span>
+        </div>
+
+        <div id="loggedUser"></div>
+
     </div>
 
     <div class="navbar">
-        <button onclick="showPage('plan')">Plan lekcji</button>
-        <button onclick="showPage('oceny')">Oceny</button>
-        <button onclick="showPage('wiadomosci')">Wiadomości</button>
-        <button onclick="showPage('logout')">Wyloguj</button>
+
+        <button onclick="showPage('plan')">
+            Plan lekcji
+        </button>
+
+        <button onclick="showPage('oceny')">
+            Oceny
+        </button>
+
+        <button onclick="showPage('wiadomosci')">
+            Wiadomości
+        </button>
+
+        <button onclick="logout()">
+            Wyloguj
+        </button>
+
     </div>
 
     <div class="content">
@@ -215,14 +229,18 @@ body{
         <!-- PLAN -->
 
         <div id="plan" class="page active">
+
             <h1>Plan lekcji</h1>
 
             <div class="box">
+
                 1. Matematyka<br><br>
                 2. Polski<br><br>
                 3. Angielski<br><br>
                 4. Informatyka
+
             </div>
+
         </div>
 
         <!-- OCENY -->
@@ -237,13 +255,46 @@ body{
 
             <!-- PANEL NAUCZYCIELA -->
 
-            <div class="teacher-panel" id="teacherPanel" style="display:none;">
+            <div class="teacher-panel"
+                 id="teacherPanel"
+                 style="display:none;">
 
-                <h2>Panel nauczyciela</h2><br>
+                <h2>Nowa ocena</h2>
 
-                <input type="text" id="studentName" placeholder="Login ucznia">
+                <select id="studentSelect">
 
-                <input type="text" id="newGrade" placeholder="Ocena">
+                    <option value="zanetka">
+                        zanetka
+                    </option>
+
+                </select>
+
+                <select id="gradeSelect">
+
+                    <option>1</option>
+                    <option>1+</option>
+                    <option>1-</option>
+
+                    <option>2</option>
+                    <option>2+</option>
+                    <option>2-</option>
+
+                    <option>3</option>
+                    <option>3+</option>
+                    <option>3-</option>
+
+                    <option>4</option>
+                    <option>4+</option>
+                    <option>4-</option>
+
+                    <option>5</option>
+                    <option>5+</option>
+                    <option>5-</option>
+
+                    <option>6</option>
+                    <option>6-</option>
+
+                </select>
 
                 <button onclick="addGrade()">
                     Dodaj ocenę
@@ -260,7 +311,9 @@ body{
             <h1>Wiadomości</h1>
 
             <div class="box">
+
                 Nie masz nowych wiadomości.
+
             </div>
 
         </div>
@@ -271,7 +324,7 @@ body{
 
 <script>
 
-/* DOMYŚLNE KONTA */
+/* KONTA */
 
 let users = JSON.parse(localStorage.getItem("users")) || {
 
@@ -284,7 +337,7 @@ let users = JSON.parse(localStorage.getItem("users")) || {
     "zanetka":{
         password:"chemia",
         role:"student",
-        grades:["5 z matematyki"]
+        grades:[]
     }
 
 };
@@ -292,45 +345,65 @@ let users = JSON.parse(localStorage.getItem("users")) || {
 /* ZAPIS */
 
 function saveUsers(){
-    localStorage.setItem("users", JSON.stringify(users));
+
+    localStorage.setItem(
+        "users",
+        JSON.stringify(users)
+    );
+
 }
 
 /* REJESTRACJA */
 
 function register(){
 
-    let username = document.getElementById("username").value;
-    let password = document.getElementById("password").value;
+    let username =
+    document.getElementById("username").value;
+
+    let password =
+    document.getElementById("password").value;
 
     if(users[username]){
+
         document.getElementById("message").innerText =
         "Takie konto już istnieje";
+
         return;
+
     }
 
     users[username] = {
+
         password:password,
         role:"student",
         grades:[]
+
     };
 
     saveUsers();
 
     document.getElementById("message").innerText =
     "Konto utworzone!";
+
 }
 
 /* LOGIN */
 
 function login(){
 
-    let username = document.getElementById("username").value;
-    let password = document.getElementById("password").value;
+    let username =
+    document.getElementById("username").value;
+
+    let password =
+    document.getElementById("password").value;
 
     if(users[username] &&
        users[username].password === password){
 
-        localStorage.setItem("loggedUser", username);
+        localStorage.setItem(
+            "loggedUser",
+            username
+        );
 
         openAccount(username);
 
@@ -343,76 +416,65 @@ function login(){
 
 }
 
-/* OTWORZ KONTO */
+/* OTWÓRZ KONTO */
 
 function openAccount(username){
 
-    document.getElementById("loginScreen").style.display =
-    "none";
+    document.getElementById("loginScreen")
+    .style.display = "none";
 
-    document.getElementById("mainPage").style.display =
-    "block";
+    document.getElementById("mainPage")
+    .style.display = "block";
 
-    document.getElementById("loggedUser").innerText =
-    "Zalogowano jako: " + username;
+    document.getElementById("loggedUser")
+    .innerText = "Zalogowano jako: " + username;
 
     let user = users[username];
 
-    /* OCENY */
-
-    let gradesHTML = "";
-
-    if(user.grades.length === 0){
-
-        gradesHTML = "Brak ocen";
-
-    }else{
-
-        user.grades.forEach(g => {
-            gradesHTML += g + "<br><br>";
-        });
-
-    }
-
-    document.getElementById("gradesBox").innerHTML =
-    gradesHTML;
-
-    /* PANEL NAUCZYCIELA */
+    loadGrades(username);
 
     if(user.role === "teacher"){
 
-        document.getElementById("teacherPanel").style.display =
-        "block";
+        document.getElementById("teacherPanel")
+        .style.display = "block";
 
     }else{
 
-        document.getElementById("teacherPanel").style.display =
-        "none";
+        document.getElementById("teacherPanel")
+        .style.display = "none";
 
     }
 
 }
 
-/* ZMIANA STRON */
+/* POKAŻ OCENY */
 
-function showPage(pageId){
+function loadGrades(username){
 
-    if(pageId === "logout"){
+    let user = users[username];
 
-        localStorage.removeItem("loggedUser");
+    let html = "";
 
-        location.reload();
+    if(user.grades.length === 0){
 
-        return;
+        html = "Brak ocen";
+
+    }else{
+
+        user.grades.forEach(grade => {
+
+            html += `
+            <div class="grade">
+                ${grade}
+            </div>
+            `;
+
+        });
+
     }
 
-    let pages = document.querySelectorAll(".page");
-
-    pages.forEach(page => {
-        page.classList.remove("active");
-    });
-
-    document.getElementById(pageId).classList.add("active");
+    document.getElementById("gradesBox")
+    .innerHTML = html;
 
 }
 
@@ -421,30 +483,59 @@ function showPage(pageId){
 function addGrade(){
 
     let student =
-    document.getElementById("studentName").value;
+    document.getElementById("studentSelect").value;
 
     let grade =
-    document.getElementById("newGrade").value;
+    document.getElementById("gradeSelect").value;
 
-    if(users[student]){
+    users[student].grades.push(grade);
 
-        users[student].grades.push(grade);
+    saveUsers();
 
-        saveUsers();
-
-        alert("Dodano ocenę!");
-
-    }else{
-
-        alert("Nie znaleziono ucznia");
-
-    }
+    alert("Dodano ocenę!");
 
 }
 
-/* AUTOMATYCZNE LOGOWANIE */
+/* ZMIANA STRON */
 
-let loggedUser = localStorage.getItem("loggedUser");
+function showPage(pageId){
+
+    let pages =
+    document.querySelectorAll(".page");
+
+    pages.forEach(page => {
+
+        page.classList.remove("active");
+
+    });
+
+    document.getElementById(pageId)
+    .classList.add("active");
+
+}
+
+/* WYLOGUJ */
+
+function logout(){
+
+    localStorage.removeItem("loggedUser");
+
+    document.getElementById("mainPage")
+    .style.display = "none";
+
+    document.getElementById("loginScreen")
+    .style.display = "flex";
+
+    document.getElementById("username").value = "";
+    document.getElementById("password").value = "";
+    document.getElementById("message").innerText = "";
+
+}
+
+/* AUTO LOGIN */
+
+let loggedUser =
+localStorage.getItem("loggedUser");
 
 if(loggedUser && users[loggedUser]){
 
@@ -458,4 +549,3 @@ saveUsers();
 
 </body>
 </html>
-```
