@@ -134,6 +134,11 @@ body{
     margin-top:15px;
 }
 
+.grade{
+    font-size:22px;
+    margin-bottom:10px;
+}
+
 /* TEACHER PANEL */
 
 .teacher-panel{
@@ -155,11 +160,6 @@ body{
     cursor:pointer;
 }
 
-.grade{
-    font-size:22px;
-    margin-bottom:10px;
-}
-
 </style>
 </head>
 <body>
@@ -172,9 +172,13 @@ body{
 
         <h1>mobiDziennik</h1>
 
-        <input type="text" id="username" placeholder="Login">
+        <input type="text"
+               id="username"
+               placeholder="Login">
 
-        <input type="password" id="password" placeholder="Hasło">
+        <input type="password"
+               id="password"
+               placeholder="Hasło">
 
         <button onclick="login()">
             Zaloguj się
@@ -184,7 +188,8 @@ body{
             Zarejestruj się
         </button>
 
-        <div class="message" id="message"></div>
+        <div class="message"
+             id="message"></div>
 
     </div>
 
@@ -228,7 +233,8 @@ body{
 
         <!-- PLAN -->
 
-        <div id="plan" class="page active">
+        <div id="plan"
+             class="page active">
 
             <h1>Plan lekcji</h1>
 
@@ -245,12 +251,16 @@ body{
 
         <!-- OCENY -->
 
-        <div id="oceny" class="page">
+        <div id="oceny"
+             class="page">
 
             <h1>Oceny</h1>
 
-            <div class="box" id="gradesBox">
+            <div class="box"
+                 id="gradesBox">
+
                 Brak ocen
+
             </div>
 
             <!-- PANEL NAUCZYCIELA -->
@@ -261,6 +271,8 @@ body{
 
                 <h2>Nowa ocena</h2>
 
+                <!-- UCZEŃ -->
+
                 <select id="studentSelect">
 
                     <option value="zanetka">
@@ -268,6 +280,22 @@ body{
                     </option>
 
                 </select>
+
+                <!-- PRZEDMIOT -->
+
+                <select id="subjectSelect">
+
+                    <option>Matematyka</option>
+                    <option>Polski</option>
+                    <option>Angielski</option>
+                    <option>Informatyka</option>
+                    <option>Chemia</option>
+                    <option>Biologia</option>
+                    <option>Historia</option>
+
+                </select>
+
+                <!-- OCENA -->
 
                 <select id="gradeSelect">
 
@@ -304,9 +332,10 @@ body{
 
         </div>
 
-        <!-- WIADOMOSCI -->
+        <!-- WIADOMOŚCI -->
 
-        <div id="wiadomosci" class="page">
+        <div id="wiadomosci"
+             class="page">
 
             <h1>Wiadomości</h1>
 
@@ -427,7 +456,8 @@ function openAccount(username){
     .style.display = "block";
 
     document.getElementById("loggedUser")
-    .innerText = "Zalogowano jako: " + username;
+    .innerText =
+    "Zalogowano jako: " + username;
 
     let user = users[username];
 
@@ -447,7 +477,7 @@ function openAccount(username){
 
 }
 
-/* POKAŻ OCENY */
+/* WCZYTAJ OCENY */
 
 function loadGrades(username){
 
@@ -461,11 +491,11 @@ function loadGrades(username){
 
     }else{
 
-        user.grades.forEach(grade => {
+        user.grades.forEach(item => {
 
             html += `
             <div class="grade">
-                ${grade}
+                <b>${item.subject}</b>: ${item.grade}
             </div>
             `;
 
@@ -485,10 +515,18 @@ function addGrade(){
     let student =
     document.getElementById("studentSelect").value;
 
+    let subject =
+    document.getElementById("subjectSelect").value;
+
     let grade =
     document.getElementById("gradeSelect").value;
 
-    users[student].grades.push(grade);
+    users[student].grades.push({
+
+        subject:subject,
+        grade:grade
+
+    });
 
     saveUsers();
 
