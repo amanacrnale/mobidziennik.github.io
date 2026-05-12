@@ -129,17 +129,22 @@ function isFirebaseReady(){
 
 async function startApp(){
     if(!isFirebaseReady()){
-        document.getElementById("message").innerText = "Wklej firebaseConfig w kodzie, żeby dane działały na różnych urządzeniach.";
-        return;
+        document.getElementById("message").innerText = "Brak konfiguracji Firebase w kodzie.";
+        return false;
     }
 
     try{
         firebase.initializeApp(firebaseConfig);
         db = firebase.firestore();
+
         await seedDatabaseIfEmpty();
-        listenToDatabase();
+        await listenToDatabase();
+
+        document.getElementById("message").innerText = "";
+        return true;
     }catch(error){
         document.getElementById("message").innerText = "Błąd Firebase: " + error.message;
+        return false;
     }
 }
 
@@ -160,29 +165,62 @@ async function seedDatabaseIfEmpty(){
 }
 
 function listenToDatabase(){
-    unsubscribeUsers = db.collection("users").onSnapshot(snapshot => {
-        users = {};
-        snapshot.forEach(doc => {
-            users[doc.id] = doc.data();
-            if(!users[doc.id].grades) users[doc.id].grades = [];
-            if(!users[doc.id].notes) users[doc.id].notes = [];
-            if(!users[doc.id].messages) users[doc.id].messages = [];
-        });
+    return new Promise((resolve, reject) => {
+        let usersLoaded = false;
+        let lessonsLoaded = false;
+        let resolved = false;
 
-        if(users["jhjkls"] && !users["agrest"]){
-            users["agrest"] = users["jhjkls"];
-            db.collection("users").doc("agrest").set(users["jhjkls"]);
-            db.collection("users").doc("jhjkls").delete();
+        function finishLoading(){
+            if(usersLoaded && lessonsLoaded && !resolved){
+                resolved = true;
+                resolve(true);
+            }
         }
 
-        fillStudentSelects();
-        if(loggedUser && users[loggedUser]) refreshCurrentPage();
-    });
+        unsubscribeUsers = db.collection("users").onSnapshot(snapshot => {
+            users = {};
 
-    unsubscribeLessons = db.collection("lessons").onSnapshot(snapshot => {
-        lessons = [];
-        snapshot.forEach(doc => lessons.push({id:doc.id,...doc.data()}));
-        refreshCurrentPage();
+            snapshot.forEach(doc => {
+                users[doc.id] = doc.data();
+                if(!users[doc.id].grades) users[doc.id].grades = [];
+                if(!users[doc.id].notes) users[doc.id].notes = [];
+                if(!users[doc.id].messages) users[doc.id].messages = [];
+            });
+
+            if(users["jhjkls"] && !users["agrest"]){
+                users["agrest"] = users["jhjkls"];
+                db.collection("users").doc("agrest").set(users["jhjkls"]);
+                db.collection("users").doc("jhjkls").delete();
+            }
+
+            usersLoaded = true;
+            fillStudentSelects();
+
+            if(loggedUser && users[loggedUser]){
+                refreshCurrentPage();
+            }
+
+            finishLoading();
+        }, error => {
+            reject(error);
+        });
+
+        unsubscribeLessons = db.collection("lessons").onSnapshot(snapshot => {
+            lessons = [];
+            snapshot.forEach(doc => {
+                lessons.push({id:doc.id, ...doc.data()});
+            });
+
+            lessonsLoaded = true;
+
+            if(loggedUser && users[loggedUser]){
+                refreshCurrentPage();
+            }
+
+            finishLoading();
+        }, error => {
+            reject(error);
+        });
     });
 }
 
@@ -230,6 +268,11 @@ function fillMessageReceivers(currentUser){
 function login(){
     const username = document.getElementById("username").value.trim();
     const password = document.getElementById("password").value.trim();
+
+    if(!db || Object.keys(users).length === 0){
+        document.getElementById("message").innerText = "Dane jeszcze się ładują. Odczekaj chwilę i spróbuj ponownie.";
+        return;
+    }
 
     if(users[username] && users[username].password === password){
         const oldLastLogin = localStorage.getItem("lastLogin_" + username);
@@ -427,22 +470,38 @@ function renderHistoryEntriesGrouped(entries){
 }
 function loadHistory(username){
     const user = users[username];
-    let entries = [];
-    user.grades.forEach(item => entries.push({kind:"grade",...item}));
-    user.notes.forEach(item => entries.push({kind:"note",...item}));
-    entries.sort((a,b)=>(b.timestamp||0)-(a.timestamp||0));
-    const previousLoginRef = parseInt(localStorage.getItem("previousLoginRef_" + username) || "0",10);
-    const fourteenDaysAgo = Date.now() - (14*24*60*60*1000);
-    let sinceLastLogin = [];
-    let previous14Days = [];
-    if(previousLoginRef > 0){
-        sinceLastLogin = entries.filter(e => (e.timestamp || 0) > previousLoginRef);
-        previous14Days = entries.filter(e => (e.timestamp || 0) >= fourteenDaysAgo && (e.timestamp || 0) <= previousLoginRef);
-    }else{
-        previous14Days = entries.filter(e => (e.timestamp || 0) >= fourteenDaysAgo);
+
+    if(!user){
+        document.getElementById("historyInfoBox").innerHTML = "";
+        document.getElementById("historyBox").innerHTML = "Brak wpisów.";
+        return;
     }
-    document.getElementById("historyInfoBox").innerHTML = `<div class="history-small-line">${sinceLastLogin.length === 0 ? "Brak wpisów od ostatniego logowania" : "Wpisy od ostatniego logowania"}</div><div class="history-section-title">Wpisy z poprzednich 14 dni</div>`;
-    document.getElementById("historyBox").innerHTML = (sinceLastLogin.length ? renderHistoryEntriesGrouped(sinceLastLogin) : "") + renderHistoryEntriesGrouped(previous14Days);
+
+    let entries = [];
+
+    user.grades.forEach(item => {
+        entries.push({kind:"grade", ...item});
+    });
+
+    user.notes.forEach(item => {
+        entries.push({kind:"note", ...item});
+    });
+
+    entries.sort((a,b) => (b.timestamp || 0) - (a.timestamp || 0));
+
+    const previousLoginRef = parseInt(localStorage.getItem("previousLoginRef_" + username) || "0", 10);
+    const sinceLastLogin = previousLoginRef > 0
+        ? entries.filter(entry => (entry.timestamp || 0) > previousLoginRef)
+        : [];
+
+    document.getElementById("historyInfoBox").innerHTML = `
+        <div class="history-small-line">
+            ${sinceLastLogin.length === 0 ? "Brak wpisów od ostatniego logowania" : "Wpisy od ostatniego logowania: " + sinceLastLogin.length}
+        </div>
+        <div class="history-section-title">Wszystkie wpisy</div>
+    `;
+
+    document.getElementById("historyBox").innerHTML = renderHistoryEntriesGrouped(entries);
 }
 
 function loadMessages(username){
@@ -465,8 +524,14 @@ document.getElementById("username").addEventListener("keydown", e => {if(e.key =
 document.getElementById("password").addEventListener("keydown", e => {if(e.key === "Enter") login();});
 
 window.addEventListener("load", async () => {
-    await startApp();
+    const ok = await startApp();
+
+    if(!ok){
+        return;
+    }
+
     const saved = localStorage.getItem("loggedUser");
+
     if(saved && users[saved]){
         loggedUser = saved;
         openAccount(saved);
