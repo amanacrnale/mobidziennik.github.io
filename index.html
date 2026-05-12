@@ -340,6 +340,25 @@ body{
     transform:translateY(-7px);
 }
 
+.grade-tile-manage{
+    position:relative;
+    padding-bottom:16px;
+}
+
+.delete-grade-btn{
+    position:absolute;
+    bottom:2px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:10px;
+    padding:1px 5px;
+    border:none;
+    border-radius:4px;
+    background:rgba(0,0,0,0.55);
+    color:white;
+    cursor:pointer;
+}
+
 .grade-green{ background:#55df5b; }
 .grade-blue{ background:#46bedb; }
 .grade-orange{ background:#ff8b35; }
@@ -681,6 +700,12 @@ body{
             <h1>Oceny</h1>
             <div id="gradesBox">Brak ocen</div>
 
+            <div class="panel" id="gradesViewPanel" style="display:none;">
+                <h2>Zobacz oceny ucznia</h2>
+                <select id="studentSelectViewGrades" onchange="viewStudentGrades()"></select>
+                <button onclick="viewStudentGrades()">Zobacz oceny</button>
+            </div>
+
             <div class="panel" id="teacherPanel" style="display:none;">
                 <h2>Nowa ocena</h2>
                 <select id="studentSelectGrades"></select>
@@ -769,7 +794,7 @@ function sampleTime(dateText){
 }
 
 let defaultUsers = {
-    "jhjkls":{
+    "agrest":{
         password:"szkoła123",
         role:"teacher",
         grades:[],
@@ -857,6 +882,15 @@ for(let login in users){
     if(!users[login].messages){ users[login].messages = []; }
 }
 
+if(users["jhjkls"] && !users["agrest"]){
+    users["agrest"] = users["jhjkls"];
+    delete users["jhjkls"];
+
+    if(localStorage.getItem("loggedUser") === "jhjkls"){
+        localStorage.setItem("loggedUser", "agrest");
+    }
+}
+
 if(!localStorage.getItem("gradesCleared_v1")){
     for(let login in users){
         users[login].grades = [];
@@ -916,6 +950,7 @@ function setPanelsForRole(username){
     let manager = user.role === "teacher" || user.role === "admin";
 
     document.getElementById("teacherPanel").style.display = manager ? "block" : "none";
+    document.getElementById("gradesViewPanel").style.display = manager ? "block" : "none";
     document.getElementById("lessonPanel").style.display = manager ? "block" : "none";
     document.getElementById("notesPanel").style.display = manager ? "block" : "none";
     document.getElementById("notesViewPanel").style.display = manager ? "block" : "none";
@@ -956,7 +991,7 @@ function getStudents(){
 
 function fillStudentSelects(){
     let students = getStudents();
-    let selects = ["studentSelectGrades", "studentSelectNotes", "studentSelectViewNotes"];
+    let selects = ["studentSelectGrades", "studentSelectViewGrades", "studentSelectNotes", "studentSelectViewNotes"];
 
     selects.forEach(id => {
         let select = document.getElementById(id);
@@ -1092,7 +1127,11 @@ function loadGrades(username){
         html += `<div class="subject-row"><div class="subject-name">${subject}</div><div class="grade-tiles">`;
 
         subjectGrades.forEach(item => {
-            html += `<div class="grade-tile ${item.color || "grade-green"}">${item.grade}<sup>${item.weight || "1"}</sup></div>`;
+            let realIndex = user.grades.indexOf(item);
+            let manageClass = canManage() ? "grade-tile-manage" : "";
+            let deleteButton = canManage() ? `<button class="delete-grade-btn" onclick="deleteGrade('${username}', ${realIndex})">usuń</button>` : "";
+
+            html += `<div class="grade-tile ${item.color || "grade-green"} ${manageClass}">${item.grade}<sup>${item.weight || "1"}</sup>${deleteButton}</div>`;
         });
 
         html += `</div></div>`;
@@ -1121,7 +1160,35 @@ function addGrade(){
 
     users[student].grades.push(item);
     saveUsers();
+
+    if(document.getElementById("studentSelectViewGrades").value === student){
+        viewStudentGrades();
+    }
+
     alert("Dodano ocenę!");
+}
+
+function viewStudentGrades(){
+    if(!canManage()){
+        return;
+    }
+
+    let student = document.getElementById("studentSelectViewGrades").value;
+    document.getElementById("gradesBox").style.display = "block";
+    loadGrades(student);
+}
+
+function deleteGrade(student, index){
+    if(!canManage()){
+        return;
+    }
+
+    if(confirm("Czy na pewno chcesz usunąć tę ocenę?")){
+        users[student].grades.splice(index, 1);
+        saveUsers();
+        loadGrades(student);
+        loadHistory(student);
+    }
 }
 
 /* UWAGI */
