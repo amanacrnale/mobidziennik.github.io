@@ -77,7 +77,7 @@ body{background:#efefef}
 
         <div id="oceny" class="page"><h1>Oceny</h1><div id="gradesBox">Brak ocen</div><div class="panel" id="gradesViewPanel" style="display:none;"><h2>Zobacz oceny ucznia</h2><select id="studentSelectViewGrades" onchange="viewStudentGrades()"></select><button onclick="viewStudentGrades()">Zobacz oceny</button></div><div class="panel" id="teacherPanel" style="display:none;"><h2>Nowa ocena</h2><select id="studentSelectGrades"></select><select id="subjectSelect"><option>Matematyka</option><option>Polski</option><option>Angielski</option><option>Włoski</option><option>Informatyka</option><option>Chemia</option><option>Biologia</option><option>Historia</option><option>Fizyka</option><option>Geografia</option><option>Plastyka</option><option>Godzina wychowawcza</option></select><select id="gradeSelect"><option>1</option><option>1+</option><option>1-</option><option>2</option><option>2+</option><option>2-</option><option>3</option><option>3+</option><option>3-</option><option>4</option><option>4+</option><option>4-</option><option>5</option><option>5+</option><option>5-</option><option>6</option><option>6-</option><option>nb</option><option>.</option></select><select id="weightSelect"><option value="1">waga 1</option><option value="2">waga 2</option><option value="3">waga 3</option></select><select id="colorSelect"><option value="grade-green">zielona</option><option value="grade-blue">niebieska</option><option value="grade-orange">pomarańczowa</option><option value="grade-yellow">żółta</option><option value="grade-red">czerwona</option><option value="grade-purple">fioletowa</option><option value="grade-mint">miętowa</option><option value="grade-gray">szara</option><option value="grade-pinkgray">różowo-szara</option></select><button onclick="addGrade()">Dodaj ocenę</button></div></div>
 
-        <div id="uwagi" class="page"><h1>Uwagi</h1><div class="panel" id="notesViewPanel" style="display:none;"><h2>Zobacz uwagi ucznia</h2><select id="studentSelectViewNotes" onchange="viewStudentNotes()"></select><button onclick="viewStudentNotes()">Zobacz uwagi</button></div><div class="box" id="notesBox">Brak uwag.</div><div class="panel" id="notesPanel" style="display:none;"><h2>Dodaj uwagę</h2><select id="studentSelectNotes"></select><select id="noteType"><option value="positive">Pozytywna ✅</option><option value="neutral">Neutralna ℹ️</option><option value="negative">Negatywna ❗</option></select><textarea id="noteText" placeholder="Wpisz treść uwagi"></textarea><button onclick="addNote()">Dodaj uwagę</button></div></div>
+        <div id="uwagi" class="page"><h1>Uwagi</h1><div class="panel" id="notesViewPanel" style="display:none;"><h2>Zobacz uwagi ucznia</h2><select id="studentSelectViewNotes" onchange="viewStudentNotes()"></select><button onclick="viewStudentNotes()">Zobacz uwagi</button><button onclick="viewAllNotes()">Zobacz wszystkie uwagi</button></div><div class="box" id="notesBox">Brak uwag.</div><div class="panel" id="notesPanel" style="display:none;"><h2>Dodaj uwagę</h2><select id="studentSelectNotes"></select><select id="noteType"><option value="positive">Pozytywna ✅</option><option value="neutral">Neutralna ℹ️</option><option value="negative">Negatywna ❗</option></select><textarea id="noteText" placeholder="Wpisz treść uwagi"></textarea><button onclick="addNote()">Dodaj uwagę</button></div></div>
     </div>
 </div>
 
@@ -416,15 +416,93 @@ async function deleteGrade(student,index){
 
 function loadNotes(username){
     const user = users[username];
-    if(!user || user.notes.length === 0){document.getElementById("notesBox").innerHTML = "Brak uwag.";return;}
-    let html = "";
-    user.notes.slice().reverse().forEach(item => {
-        let typeText="Negatywna", icon="❗", cssClass="note-negative";
-        if(item.type === "positive"){typeText="Pozytywna";icon="✅";cssClass="note-positive";}
-        if(item.type === "neutral"){typeText="Neutralna";icon="ℹ️";cssClass="note-neutral";}
-        const index = user.notes.indexOf(item);
-        html += `<div class="note-card ${cssClass}"><div class="note-icon">${icon}</div><div style="width:100%;"><div class="note-title">Uwaga: ${typeText}</div><div class="note-text"><b>Treść:</b> ${item.text}</div><div class="small-info">Wpisał: ${item.author} | ${item.date}</div>${canManage() ? `<button class="delete-note-btn" onclick="deleteNote('${username}',${index})">Usuń uwagę</button>` : ""}</div></div>`;
+
+    if(!user || !Array.isArray(user.notes) || user.notes.length === 0){
+        document.getElementById("notesBox").innerHTML = "Brak uwag.";
+        return;
+    }
+
+    const notesWithIndex = user.notes.map((item, index) => ({
+        ...item,
+        realIndex:index,
+        student:username
+    }));
+
+    notesWithIndex.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+
+    let html = `<div class="small-info">Liczba uwag: ${notesWithIndex.length}</div>`;
+
+    notesWithIndex.forEach(item => {
+        html += buildNoteCard(item.student, item.realIndex, item);
     });
+
+    document.getElementById("notesBox").innerHTML = html;
+}
+
+function buildNoteCard(student, index, item){
+    let typeText = "Negatywna";
+    let icon = "❗";
+    let cssClass = "note-negative";
+
+    if(item.type === "positive"){
+        typeText = "Pozytywna";
+        icon = "✅";
+        cssClass = "note-positive";
+    }
+
+    if(item.type === "neutral"){
+        typeText = "Neutralna";
+        icon = "ℹ️";
+        cssClass = "note-neutral";
+    }
+
+    return `
+        <div class="note-card ${cssClass}">
+            <div class="note-icon">${icon}</div>
+            <div style="width:100%;">
+                <div class="note-title">Uwaga: ${typeText}</div>
+                <div class="note-text"><b>Uczeń:</b> ${student}</div>
+                <div class="note-text"><b>Treść:</b> ${item.text || ""}</div>
+                <div class="small-info">Wpisał: ${item.author || "-"} | ${item.date || "-"}</div>
+                ${canManage() ? `<button class="delete-note-btn" onclick="deleteNote('${student}',${index})">Usuń uwagę</button>` : ""}
+            </div>
+        </div>
+    `;
+}
+
+function viewAllNotes(){
+    if(!canManage()){
+        return;
+    }
+
+    let allNotes = [];
+
+    getStudents().forEach(student => {
+        const studentNotes = Array.isArray(users[student].notes) ? users[student].notes : [];
+
+        studentNotes.forEach((item, index) => {
+            allNotes.push({
+                ...item,
+                student:student,
+                realIndex:index
+            });
+        });
+    });
+
+    allNotes.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+
+    if(allNotes.length === 0){
+        document.getElementById("notesBox").innerHTML = "Brak uwag.";
+        return;
+    }
+
+    let html = `<div class="small-info">Liczba wszystkich uwag: ${allNotes.length}</div>`;
+
+    allNotes.forEach(item => {
+        html += buildNoteCard(item.student, item.realIndex, item);
+    });
+
+    document.getElementById("notesBox").style.display = "block";
     document.getElementById("notesBox").innerHTML = html;
 }
 
