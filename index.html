@@ -783,8 +783,6 @@ function openAccount(username){
     let user = users[username];
 
     loadLessons();
-    loadGrades(username);
-    loadNotes(username);
     loadMessages(username);
     fillStudentSelects();
     fillMessageReceivers(username);
@@ -794,11 +792,20 @@ function openAccount(username){
         document.getElementById("lessonPanel").style.display = "block";
         document.getElementById("notesPanel").style.display = "block";
         document.getElementById("notesViewPanel").style.display = "block";
+
+        document.getElementById("gradesBox").style.display = "none";
+        document.getElementById("notesBox").style.display = "none";
     }else{
         document.getElementById("teacherPanel").style.display = "none";
         document.getElementById("lessonPanel").style.display = "none";
         document.getElementById("notesPanel").style.display = "none";
         document.getElementById("notesViewPanel").style.display = "none";
+
+        document.getElementById("gradesBox").style.display = "block";
+        document.getElementById("notesBox").style.display = "block";
+
+        loadGrades(username);
+        loadNotes(username);
     }
 }
 
@@ -1115,6 +1122,7 @@ function viewStudentNotes(){
     }
 
     let student = document.getElementById("studentSelectViewNotes").value;
+    document.getElementById("notesBox").style.display = "block";
     loadNotes(student);
 }
 
@@ -1205,11 +1213,14 @@ function showPage(pageId){
 
     if(loggedUser && users[loggedUser]){
         loadLessons();
-        loadGrades(loggedUser);
 
-        if(canManage() && document.getElementById("studentSelectViewNotes") && document.getElementById("studentSelectViewNotes").value){
-            viewStudentNotes();
+        if(canManage()){
+            document.getElementById("gradesBox").style.display = "none";
+            document.getElementById("notesBox").style.display = "none";
         }else{
+            document.getElementById("gradesBox").style.display = "block";
+            document.getElementById("notesBox").style.display = "block";
+            loadGrades(loggedUser);
             loadNotes(loggedUser);
         }
 
