@@ -29,7 +29,7 @@ body{background:#efefef}
 .grades-header{background:white;border-radius:10px;margin-top:15px;overflow:hidden;box-shadow:0 2px 5px rgba(0,0,0,.08)}.student-name{padding:18px 20px;font-size:20px;font-weight:bold;color:#555;border-bottom:1px solid #eee}.subject-row{display:grid;grid-template-columns:160px 1fr;align-items:center;min-height:78px;border-bottom:1px solid #eee;background:white}.subject-name{padding:18px 20px;font-size:20px;color:#666}.grade-tiles{display:flex;flex-wrap:wrap;gap:6px;padding:12px}.grade-tile{min-width:54px;height:54px;border-radius:6px;display:flex;justify-content:center;align-items:center;font-size:25px;font-weight:bold;color:#444;box-shadow:0 1px 3px rgba(0,0,0,.15);position:relative}.grade-tile sup{font-size:13px;margin-left:1px;transform:translateY(-7px)}.grade-tile-manage{padding-bottom:16px}.delete-grade-btn{position:absolute;bottom:2px;left:50%;transform:translateX(-50%);font-size:10px;padding:1px 5px;border:none;border-radius:4px;background:rgba(0,0,0,.55);color:white;cursor:pointer}
 .grade-green{background:#55df5b}.grade-blue{background:#46bedb}.grade-orange{background:#ff8b35}.grade-yellow{background:#f5dc51}.grade-red{background:#ff5b70}.grade-purple{background:#c9c9ee}.grade-mint{background:#9ee5cf}.grade-gray{background:#e8e8d8}.grade-pinkgray{background:#c8b2b5}
 
-.avg-btn{margin:10px 0 10px 0;padding:6px 14px;border:1px solid #bcbcbc;border-radius:3px;background:#eee;color:#111;cursor:pointer;font-size:14px}.avg-btn:hover{background:#e0e0e0}.chart-wrap{width:100%;overflow-x:auto;padding:10px 0}.chart{min-width:900px;height:430px;border-left:2px solid #777;border-bottom:2px solid #777;position:relative;background:repeating-linear-gradient(to top,rgba(0,0,0,.12) 0,rgba(0,0,0,.12) 1px,transparent 1px,transparent 74px)}.chart-bars{height:370px;display:flex;align-items:flex-end;gap:16px;padding:0 18px 0 18px}.chart-group{width:56px;height:370px;display:flex;align-items:flex-end;justify-content:center;gap:3px;position:relative}.chart-bar{width:15px;border:2px solid;height:0}.bar-school{background:#bdeef5;border-color:#30b8da}.bar-class{background:#c8ef72;border-color:#81c900}.bar-student{background:#f7b2b2;border-color:red}.chart-labels{display:flex;gap:16px;padding:6px 18px 0 18px}.chart-label{width:56px;text-align:center;font-size:12px;color:#333}.chart-label span{display:block;margin-top:5px}.chart-y{position:absolute;left:-36px;bottom:0;height:370px;display:flex;flex-direction:column-reverse;justify-content:space-between;font-size:12px;color:#333}.chart-legend{position:absolute;right:18px;top:10px;font-size:12px;background:rgba(255,255,255,.75);padding:5px}.legend-row{display:flex;align-items:center;gap:6px;margin-bottom:5px}.legend-color{width:16px;height:12px;border:1px solid}.chart-empty{padding:15px;color:#555}
+.avg-btn{margin:10px 0 10px 0;padding:6px 14px;border:1px solid #bcbcbc;border-radius:3px;background:#eee;color:#111;cursor:pointer;font-size:14px}.avg-btn:hover{background:#e0e0e0}.chart-wrap{width:100%;overflow-x:auto;padding:10px 0}.chart{min-width:900px;height:430px;border-left:2px solid #777;border-bottom:2px solid #777;position:relative;background:repeating-linear-gradient(to top,rgba(0,0,0,.12) 0,rgba(0,0,0,.12) 1px,transparent 1px,transparent 74px)}.chart-bars{height:370px;display:flex;align-items:flex-end;gap:16px;padding:0 18px 0 18px}.chart-group{width:56px;height:370px;display:flex;align-items:flex-end;justify-content:center;gap:3px;position:relative}.chart-bar{width:24px;border:2px solid;height:0}.bar-student{background:#f7b2b2;border-color:red}.chart-labels{display:flex;gap:16px;padding:6px 18px 0 18px}.chart-label{width:56px;text-align:center;font-size:12px;color:#333}.chart-label span{display:block;margin-top:5px}.chart-y{position:absolute;left:-36px;bottom:0;height:370px;display:flex;flex-direction:column-reverse;justify-content:space-between;font-size:12px;color:#333}.chart-legend{position:absolute;right:18px;top:10px;font-size:12px;background:rgba(255,255,255,.75);padding:5px}.legend-row{display:flex;align-items:center;gap:6px;margin-bottom:5px}.legend-color{width:16px;height:12px;border:1px solid}.chart-empty{padding:15px;color:#555}
 
 .note-card{display:flex;gap:15px;align-items:flex-start;padding:15px;margin-bottom:12px;border-radius:10px;border-left:7px solid #ccc;background:#fafafa}.note-icon{width:48px;height:48px;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:28px;color:white;flex-shrink:0}.note-positive{border-left-color:#2ecc71}.note-positive .note-icon{background:#2ecc71}.note-neutral{border-left-color:#3498db}.note-neutral .note-icon{background:#3498db}.note-negative{border-left-color:#e74c3c}.note-negative .note-icon{background:#e74c3c}.note-title{font-size:20px;font-weight:bold;margin-bottom:6px}.note-text{font-size:18px;color:#444}.delete-note-btn{margin-top:10px;padding:8px 12px;background:#e74c3c;color:white;border:none;border-radius:6px;cursor:pointer}
 
@@ -122,6 +122,13 @@ const defaultUsers = {
     chata:{password:"szkoła123",role:"teacher",grades:[],notes:[],messages:[]},
     kreda:{password:"szkoła123",role:"teacher",grades:[],notes:[],messages:[]},
     admin:{password:"admin123",role:"admin",grades:[],notes:[],messages:[]},
+    kaity:{
+        password:"lubie polski",
+        role:"student",
+        grades:[],
+        notes:[],
+        messages:[]
+    },
     zanetka:{
         password:"chemia",
         role:"student",
@@ -215,6 +222,11 @@ function listenToDatabase(){
                     db.collection("users").doc(name).set(users[name]);
                 }
             });
+
+            if(!users["kaity"]){
+                users["kaity"] = {password:"lubie polski",role:"student",grades:[],notes:[],messages:[]};
+                db.collection("users").doc("kaity").set(users["kaity"]);
+            }
 
             usersLoaded = true;
             fillStudentSelects();
@@ -534,8 +546,6 @@ function renderAverageChart(username){
             <div class="chart">
                 <div class="chart-y"><span>0.0</span><span>1.0</span><span>2.0</span><span>3.0</span><span>4.0</span><span>5.0</span><span>6.0</span></div>
                 <div class="chart-legend">
-                    <div class="legend-row"><span class="legend-color bar-school"></span> Śr. szkoły</div>
-                    <div class="legend-row"><span class="legend-color bar-class"></span> Śr. klasy</div>
                     <div class="legend-row"><span class="legend-color bar-student"></span> Śr. ucznia</div>
                 </div>
                 <div class="chart-bars">${barsHtml}</div>
