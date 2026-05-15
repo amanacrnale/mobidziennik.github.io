@@ -1,5 +1,7 @@
 
 
+Poniżej masz cały kod z dodanym procentem wysyłania na przycisku:
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -335,7 +337,7 @@ const defaultUsers = {
         grades:[],
         notes:[{
             type:"negative",
-            text:'Po skończonej lekcji geografii uczeń (pomimo mojej prośby i przypomnienia) zbiega ze schodów.',
+            text:'Po skończonej lekcji geografii uczeń zbiega ze schodów.',
             author:"agrest",
             date:"08.05.2026, 14:10:00",
             timestamp:new Date("2026-05-08T14:10:00").getTime()
@@ -518,7 +520,7 @@ function openAccount(username){
     fillStudentSelects();
     fillMessageReceivers(username);
     setPanelsForRole(username);
-    showPage("plan", false);
+    showPage("plan");
 }
 function setPanelsForRole(username){
     const manager = users[username].role === "teacher" || users[username].role === "admin";
@@ -935,7 +937,7 @@ async function sendMessage(){
     try{
         if(sendBtn){
             sendBtn.disabled = true;
-            sendBtn.innerText = "Wysyłanie...";
+            sendBtn.innerText = "Przygotowywanie...";
         }
         if(!loggedUser || !users[loggedUser]){
             alert("Musisz być zalogowany.");
@@ -988,6 +990,7 @@ async function sendMessage(){
                 !fileNameLower.endsWith(".gif");
             if(canResize){
                 try{
+                    if(sendBtn) sendBtn.innerText = "Zmniejszanie zdjęcia...";
                     uploadFile = await resizeImage(file, 1200, 0.72);
                     uploadName = uploadFile.name;
                     uploadType = uploadFile.type;
@@ -998,13 +1001,27 @@ async function sendMessage(){
             const safeName = uploadName.replace(/[^a-zA-Z0-9ąćęłńóśźżĄĆĘŁŃÓŚŹŻ._-]/g, "_");
             const folder = isImage ? "images" : "pdf";
             const path = `messages/${receiver}/${folder}/${Date.now()}_${safeName}`;
-            const snapshot = await storage.ref(path).put(uploadFile, {
+            const uploadTask = storage.ref(path).put(uploadFile, {
                 contentType: uploadType
+            });
+            const snapshot = await new Promise((resolve, reject) => {
+                uploadTask.on(
+                    "state_changed",
+                    progress => {
+                        const percent = Math.round((progress.bytesTransferred / progress.totalBytes) * 100);
+                        if(sendBtn){
+                            sendBtn.innerText = "Wysyłanie... " + percent + "%";
+                        }
+                    },
+                    error => reject(error),
+                    () => resolve(uploadTask.snapshot)
+                );
             });
             fileUrl = await snapshot.ref.getDownloadURL();
             fileName = uploadName;
             fileType = uploadType;
         }
+        if(sendBtn) sendBtn.innerText = "Zapisywanie wiadomości...";
         if(!Array.isArray(users[receiver].messages)){
             users[receiver].messages = [];
         }
