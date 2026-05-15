@@ -845,8 +845,13 @@ async function sendMessage(){
     let pdfPath = "";
 
     if(file){
-        if(file.type !== "application/pdf"){
-            return alert("Możesz wysłać tylko plik PDF.");
+        const fileNameLower = String(file.name || "").toLowerCase().trim();
+        const fileTypeLower = String(file.type || "").toLowerCase().trim();
+        const isPdf = fileNameLower.endsWith(".pdf") || fileTypeLower.includes("pdf");
+
+        if(!isPdf){
+            return alert("Wybrany plik to: " + file.name + "
+Możesz wysłać tylko plik PDF, czyli plik kończący się na .pdf");
         }
 
         if(file.size > 10 * 1024 * 1024){
