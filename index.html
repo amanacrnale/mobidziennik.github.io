@@ -1,17 +1,34 @@
 
 
 
+Poniżej masz cały kod z interfejsem w stylu bocznego menu i sztucznym ekranem „Synchronizacja danych…”.
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>mobiDziennik</title>
-
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
-body{background:#efefef}
-#loginScreen{width:100%;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding-top:85px;background:#dcdcdc}
+body{background:#f2f2f2;color:#111}
+button,input,select,textarea{font-family:inherit}
+/* LOADING */
+#loadingScreen{
+    position:fixed;inset:0;background:white;z-index:9999;
+    display:flex;flex-direction:column;justify-content:center;align-items:center;
+}
+.loading-logo{font-size:34px;font-weight:bold;color:#006092;margin-bottom:160px}
+.loading-logo span{color:#f4a11a}
+.loader-icon{
+    width:96px;height:96px;border-radius:50%;
+    border:12px solid #0a6695;border-top-color:transparent;
+    animation:spin 1s linear infinite;margin-bottom:28px;
+}
+.loading-text{font-size:28px;color:#006092}
+@keyframes spin{to{transform:rotate(360deg)}}
+/* LOGIN */
+#loginScreen{width:100%;min-height:100vh;display:none;justify-content:center;align-items:flex-start;padding-top:85px;background:#dcdcdc}
 .login-panel{width:600px;background:#fff;border:1px solid #d0d0d0;border-radius:4px;box-shadow:0 1px 8px rgba(0,0,0,.15);overflow:hidden}
 .login-header{text-align:center;padding:18px 0 14px;border-bottom:1px solid #e2e2e2}
 .mobid-logo{font-size:28px;font-weight:bold;color:#0d5d9c}
@@ -28,16 +45,57 @@ body{background:#efefef}
 .login-links{display:flex;justify-content:space-between;margin-top:12px;font-size:12px}
 .login-links a{color:#4e83be;text-decoration:none}
 .message{text-align:center;color:red;margin-top:12px;min-height:18px}
+/* APP */
 #mainPage{display:none}
-.topbar{background:#0b71c8;min-height:50px;display:flex;justify-content:space-between;align-items:center;padding:0 20px;color:white;gap:10px}
-.logo{font-size:32px;font-weight:bold}
-.logo span{color:yellow}
-#loggedUser{text-align:right;font-size:14px}
-.navbar{background:#d8d8d8;padding:10px 20px;display:flex;gap:20px;flex-wrap:wrap}
-.navbar button{border:none;background:none;cursor:pointer;font-size:15px;color:#0072d6}
-.content{padding:30px}
+.app-topbar{
+    height:74px;background:#005f8d;color:white;display:flex;align-items:center;
+    padding:0 20px;gap:18px;position:sticky;top:0;z-index:1000;
+}
+.hamburger{
+    width:44px;height:44px;border:none;background:transparent;color:white;
+    font-size:34px;cursor:pointer;line-height:1;
+}
+.app-logo{font-size:34px;font-weight:bold;letter-spacing:-1px}
+.app-logo span{color:#f5a31a}
+#loggedUser{margin-left:auto;font-size:14px;text-align:right;line-height:1.3}
+.content{padding:28px}
 .page{display:none}
 .active{display:block}
+.page h1{font-size:42px;margin-bottom:12px}
+/* SIDE MENU */
+#drawerOverlay{
+    position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:2000;
+    display:none;
+}
+#sideDrawer{
+    position:fixed;left:-330px;top:0;width:330px;max-width:88vw;height:100vh;
+    background:#006391;color:white;z-index:2001;transition:.25s;
+    overflow-y:auto;box-shadow:4px 0 12px rgba(0,0,0,.25);
+}
+#sideDrawer.open{left:0}
+.drawer-top{
+    display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid rgba(255,255,255,.25)
+}
+.drawer-top button{
+    background:transparent;color:white;border:none;padding:22px 8px;font-size:20px;cursor:pointer;
+    display:flex;flex-direction:column;align-items:center;gap:6px;
+}
+.drawer-item{
+    width:100%;border:none;background:transparent;color:white;display:flex;align-items:center;
+    gap:22px;padding:18px 24px;font-size:24px;cursor:pointer;text-align:left;
+}
+.drawer-item:hover,.drawer-item.active-menu{background:#0e78a8}
+.drawer-icon{font-size:28px;width:38px;text-align:center}
+.badge{
+    background:#f6a51a;color:white;border-radius:10px;padding:2px 9px;font-size:18px;
+    margin-left:auto;
+}
+.drawer-sync{
+    border-top:1px solid rgba(255,255,255,.25);padding:20px 24px;
+    display:flex;gap:18px;align-items:center;font-size:19px;line-height:1.35;
+}
+.sync-icon{font-size:34px}
+/* COMMON */
 .box,.panel{background:white;padding:20px;border-radius:10px;margin-top:15px;box-shadow:0 2px 5px rgba(0,0,0,.08)}
 .panel input,.panel select,.panel textarea,.panel button{padding:10px;margin:8px 8px 8px 0}
 .panel input,.panel select,.panel textarea{border:1px solid #ccc;border-radius:6px}
@@ -51,6 +109,7 @@ body{background:#efefef}
 .image-preview{max-width:100%;max-height:420px;border-radius:8px;margin-top:8px;border:1px solid #bbb;display:block}
 .attachment-actions{margin-top:8px}
 .attachment-actions a{padding:8px 12px;background:#0072d6;color:white;border-radius:6px;text-decoration:none;font-weight:bold}
+/* GRADES */
 .grades-header{background:white;border-radius:10px;margin-top:15px;overflow:hidden;box-shadow:0 2px 5px rgba(0,0,0,.08)}
 .student-name{padding:18px 20px;font-size:20px;font-weight:bold;color:#555;border-bottom:1px solid #eee}
 .subject-row{display:grid;grid-template-columns:160px 1fr;min-height:78px;border-bottom:1px solid #eee}
@@ -61,6 +120,7 @@ body{background:#efefef}
 .grade-tile-manage{padding-bottom:16px}
 .delete-grade-btn{position:absolute;bottom:2px;left:50%;transform:translateX(-50%);font-size:10px;padding:1px 5px;border:none;border-radius:4px;background:rgba(0,0,0,.55);color:white}
 .grade-green{background:#55df5b}.grade-blue{background:#46bedb}.grade-orange{background:#ff8b35}.grade-yellow{background:#f5dc51}.grade-red{background:#ff5b70}.grade-purple{background:#c9c9ee}.grade-mint{background:#9ee5cf}.grade-gray{background:#e8e8d8}.grade-pinkgray{background:#c8b2b5}
+/* NOTES */
 .note-card{display:flex;gap:15px;padding:15px;margin-bottom:12px;border-radius:10px;border-left:7px solid #ccc;background:#fafafa}
 .note-icon{width:48px;height:48px;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:28px;color:white;flex-shrink:0}
 .note-positive{border-left-color:#2ecc71}.note-positive .note-icon{background:#2ecc71}
@@ -69,6 +129,7 @@ body{background:#efefef}
 .note-title{font-size:20px;font-weight:bold;margin-bottom:6px}
 .note-text{font-size:18px;color:#444}
 .delete-note-btn{margin-top:10px;padding:8px 12px;background:#e74c3c;color:white;border:none;border-radius:6px}
+/* HISTORY */
 .history-top-title{text-align:center;font-size:28px;color:#0072d6;margin-bottom:18px}
 .history-small-line{font-size:13px;color:#555;margin:6px 0}
 .history-section-title{font-size:13px;color:#444;font-weight:bold;margin:14px 0 8px}
@@ -82,154 +143,175 @@ body{background:#efefef}
 .history-text{font-size:17px;line-height:1.45;margin-bottom:8px;font-weight:bold}
 .history-meta{font-size:14px;color:#555}
 .history-grade{background:#eaf5ff}.history-note-positive{background:#f1fff4}.history-note-neutral{background:#f4faff}.history-note-negative{background:#fffafa}
+/* ADMIN */
 .user-card{border:1px solid #ddd;border-radius:8px;padding:12px;margin:8px 0;background:#fafafa}
 .user-card b{color:#0b71c8}
 .delete-user-btn{background:#e74c3c!important;color:#fff!important;border:none;border-radius:6px;padding:7px 10px;margin-top:8px;cursor:pointer}
 @media(max-width:700px){
-#loginScreen{padding:20px 10px}.login-panel{width:100%}.login-body{grid-template-columns:1fr;padding:20px}.school-name{text-align:center}.login-row{grid-template-columns:1fr;gap:6px}.login-row label{text-align:left}.content{padding:0}.content h1{padding:18px 15px 0}.box,.panel,.grades-header{border-radius:0}.subject-row{grid-template-columns:145px 1fr}.subject-name{font-size:18px;padding:14px 12px}.grade-tile{min-width:48px;height:48px;font-size:23px}.history-entry{grid-template-columns:85px 1fr}.history-day{padding-left:15px}
+    .app-topbar{height:68px;padding:0 12px}
+    .app-logo{font-size:28px}
+    #loggedUser{font-size:13px}
+    .content{padding:0}
+    .content h1{padding:26px 18px 8px;font-size:42px}
+    .box,.panel,.grades-header{border-radius:0;margin-top:0}
+    .subject-row{grid-template-columns:145px 1fr}
+    .subject-name{font-size:18px;padding:14px 12px}
+    .grade-tile{min-width:48px;height:48px;font-size:23px}
+    .history-entry{grid-template-columns:85px 1fr}
+    .history-day{padding-left:15px}
+    #loginScreen{padding:20px 10px}
+    .login-panel{width:100%}
+    .login-body{grid-template-columns:1fr;padding:20px}
+    .school-name{text-align:center}
+    .login-row{grid-template-columns:1fr;gap:6px}
+    .login-row label{text-align:left}
 }
 </style>
 </head>
-
 <body>
-
+<div id="loadingScreen">
+    <div class="loading-logo">mobi<span>Dziennik</span></div>
+    <div class="loader-icon"></div>
+    <div class="loading-text">Synchronizacja danych...</div>
+</div>
 <div id="loginScreen">
-<div class="login-panel">
-<div class="login-header"><div class="mobid-logo">mobi<span>Dziennik</span><sup>*</sup></div></div>
-<div class="login-body">
-<div class="login-left">
-<img src="avatar.png" class="school-avatar" alt="avatar">
-<div class="school-name">Szkoła Podstawowa nr 67<br>im.Porzeczki agrestowskiej</div>
+    <div class="login-panel">
+        <div class="login-header">
+            <div class="mobid-logo">mobi<span>Dziennik</span><sup>*</sup></div>
+        </div>
+        <div class="login-body">
+            <div class="login-left">
+                <img src="avatar.png" class="school-avatar" alt="avatar">
+                <div class="school-name">Szkoła Podstawowa nr 67<br>im.Porzeczki agrestowskiej</div>
+            </div>
+            <div class="login-right">
+                <div class="login-row"><label>Login/e-mail</label><input type="text" id="username"></div>
+                <div class="login-row"><label>Hasło</label><input type="password" id="password"></div>
+                <button class="login-main-btn" onclick="login()">Zaloguj się</button>
+                <div class="login-links"><a href="#">Zasady bezpieczeństwa</a><a href="#">Nie pamiętam hasła</a></div>
+                <div class="message" id="message"></div>
+            </div>
+        </div>
+    </div>
 </div>
-<div class="login-right">
-<div class="login-row"><label>Login/e-mail</label><input type="text" id="username"></div>
-<div class="login-row"><label>Hasło</label><input type="password" id="password"></div>
-<button class="login-main-btn" onclick="login()">Zaloguj się</button>
-<div class="login-links"><a href="#">Zasady bezpieczeństwa</a><a href="#">Nie pamiętam hasła</a></div>
-<div class="message" id="message"></div>
+<div id="drawerOverlay" onclick="closeDrawer()"></div>
+<div id="sideDrawer">
+    <div class="drawer-top">
+        <button onclick="showPageAndClose('admin')"><span style="font-size:34px">👤</span>Moje konto</button>
+        <button onclick="logout()"><span style="font-size:34px">⏻</span>Wyloguj</button>
+    </div>
+    <button class="drawer-item" onclick="showPageAndClose('historia')"><span class="drawer-icon">🏠</span>Strona główna</button>
+    <button class="drawer-item" onclick="showPageAndClose('wiadomosci')"><span class="drawer-icon">✉️</span>Wiadomości <span class="badge" id="messageBadge">0</span></button>
+    <button class="drawer-item" onclick="showPageAndClose('plan')"><span class="drawer-icon">🗓️</span>Plan lekcji</button>
+    <button class="drawer-item" onclick="showPageAndClose('oceny')"><span class="drawer-icon">5²</span>Oceny</button>
+    <button class="drawer-item" onclick="showPageAndClose('uwagi')"><span class="drawer-icon">❗</span>Zachowanie</button>
+    <button class="drawer-item" onclick="showPageAndClose('uwagi')"><span class="drawer-icon">👤</span>Frekwencja</button>
+    <button class="drawer-item" onclick="showPageAndClose('plan')"><span class="drawer-icon">📋</span>Zadania</button>
+    <button class="drawer-item" onclick="showPageAndClose('plan')"><span class="drawer-icon">✅</span>Sprawdziany</button>
+    <button class="drawer-item" onclick="showPageAndClose('plan')"><span class="drawer-icon">📅</span>Kalendarz</button>
+    <button class="drawer-item" onclick="showPageAndClose('wiadomosci')"><span class="drawer-icon">📣</span>Komunikaty</button>
+    <button class="drawer-item" id="adminDrawerBtn" onclick="showPageAndClose('admin')" style="display:none;"><span class="drawer-icon">⚙️</span>Admin</button>
+    <button class="drawer-item"><span class="drawer-icon">🎨</span>Tryb ciemny: wyłączony</button>
+    <div class="drawer-sync">
+        <div class="sync-icon">🔄</div>
+        <div>Ostatnia synchronizacja:<br><span id="syncTime">—</span></div>
+    </div>
 </div>
-</div>
-</div>
-</div>
-
 <div id="mainPage">
-<div class="topbar"><div class="logo">mobi<span>Dziennik</span></div><div id="loggedUser"></div></div>
-
-<div class="navbar">
-<button onclick="showPage('historia')">Historia</button>
-<button onclick="showPage('wiadomosci')">Wiadomości</button>
-<button onclick="showPage('plan')">Plan lekcji</button>
-<button onclick="showPage('oceny')">Oceny</button>
-<button onclick="showPage('uwagi')">Uwagi</button>
-<button id="adminNavBtn" onclick="showPage('admin')" style="display:none;">Admin</button>
-<button onclick="logout()">Wyloguj</button>
+    <div class="app-topbar">
+        <button class="hamburger" onclick="openDrawer()">☰</button>
+        <div class="app-logo">mobi<span>Dziennik</span></div>
+        <div id="loggedUser"></div>
+    </div>
+    <div class="content">
+        <div id="historia" class="page">
+            <h1 class="history-top-title">- historia wpisów</h1>
+            <div id="historyInfoBox"></div>
+            <div class="box" id="historyBox">Brak wpisów.</div>
+        </div>
+        <div id="wiadomosci" class="page">
+            <h1>Wiadomości</h1>
+            <div class="box" id="messagesBox">Brak wiadomości.</div>
+            <div class="panel">
+                <h2>Napisz wiadomość</h2>
+                <select id="messageReceiver"></select>
+                <textarea id="messageText" placeholder="Wpisz wiadomość"></textarea>
+                <input type="file" id="messageFile" accept="image/*">
+                <div class="small-info">Zdjęcia są zmniejszane i zapisywane w Firestore. PDF jest wyłączony, bo Firebase Storage wymaga Blaze.</div>
+                <div class="upload-info" id="uploadInfo"></div>
+                <button id="sendMessageBtn" onclick="sendMessage()">Wyślij wiadomość</button>
+            </div>
+        </div>
+        <div id="plan" class="page active">
+            <h1>Plan lekcji</h1>
+            <div class="box" id="lessonsBox">Brak lekcji w planie.</div>
+            <div class="panel" id="lessonPanel" style="display:none;">
+                <h2>Dodaj lekcję do planu</h2>
+                <select id="lessonDay"><option>Poniedziałek</option><option>Wtorek</option><option>Środa</option><option>Czwartek</option><option>Piątek</option></select>
+                <input type="text" id="lessonHour" placeholder="Godzina, np. 8:00">
+                <input type="text" id="lessonSubject" placeholder="Przedmiot">
+                <input type="text" id="lessonRoom" placeholder="Sala, np. 24">
+                <button onclick="addLesson()">Dodaj lekcję</button>
+            </div>
+        </div>
+        <div id="oceny" class="page">
+            <h1>Oceny</h1>
+            <div id="gradesBox">Brak ocen</div>
+            <div class="panel" id="gradesViewPanel" style="display:none;">
+                <h2>Zobacz oceny ucznia</h2>
+                <select id="studentSelectViewGrades" onchange="viewStudentGrades()"></select>
+                <button onclick="viewStudentGrades()">Zobacz oceny</button>
+            </div>
+            <div class="panel" id="teacherPanel" style="display:none;">
+                <h2>Nowa ocena</h2>
+                <select id="studentSelectGrades"></select>
+                <select id="subjectSelect">
+                    <option>Matematyka</option><option>Polski</option><option>Angielski</option><option>Włoski</option><option>Informatyka</option><option>Chemia</option><option>Biologia</option><option>Historia</option><option>Fizyka</option><option>Geografia</option><option>Plastyka</option><option>Godzina wychowawcza</option>
+                </select>
+                <select id="gradeSelect">
+                    <option>1</option><option>1+</option><option>1-</option><option>2</option><option>2+</option><option>2-</option><option>3</option><option>3+</option><option>3-</option><option>4</option><option>4+</option><option>4-</option><option>5</option><option>5+</option><option>5-</option><option>6</option><option>6-</option><option>nb</option><option>.</option>
+                </select>
+                <select id="weightSelect"><option value="1">waga 1</option><option value="2">waga 2</option><option value="3">waga 3</option></select>
+                <select id="colorSelect"><option value="grade-green">zielona</option><option value="grade-blue">niebieska</option><option value="grade-orange">pomarańczowa</option><option value="grade-yellow">żółta</option><option value="grade-red">czerwona</option><option value="grade-purple">fioletowa</option><option value="grade-mint">miętowa</option><option value="grade-gray">szara</option><option value="grade-pinkgray">różowo-szara</option></select>
+                <button onclick="addGrade()">Dodaj ocenę</button>
+            </div>
+        </div>
+        <div id="uwagi" class="page">
+            <h1>Uwagi</h1>
+            <div class="panel" id="notesViewPanel" style="display:none;">
+                <h2>Zobacz uwagi ucznia</h2>
+                <select id="studentSelectViewNotes" onchange="viewStudentNotes()"></select>
+                <button onclick="viewStudentNotes()">Zobacz uwagi</button>
+                <button onclick="viewAllNotes()">Zobacz wszystkie uwagi</button>
+            </div>
+            <div class="box" id="notesBox">Brak uwag.</div>
+            <div class="panel" id="notesPanel" style="display:none;">
+                <h2>Dodaj uwagę</h2>
+                <select id="studentSelectNotes"></select>
+                <select id="noteType"><option value="positive">Pozytywna ✅</option><option value="neutral">Neutralna ℹ️</option><option value="negative">Negatywna ❗</option></select>
+                <textarea id="noteText" placeholder="Wpisz treść uwagi"></textarea>
+                <button onclick="addNote()">Dodaj uwagę</button>
+            </div>
+        </div>
+        <div id="admin" class="page">
+            <h1>Panel admina</h1>
+            <div class="panel">
+                <h2>Dodaj użytkownika</h2>
+                <input type="text" id="newUserLogin" placeholder="Login, np. kasia">
+                <input type="text" id="newUserName" placeholder="Nazwa / imię, np. Kasia Kowalska">
+                <input type="password" id="newUserPassword" placeholder="Hasło">
+                <select id="newUserRole"><option value="student">Uczeń</option><option value="teacher">Nauczyciel</option><option value="admin">Admin</option></select>
+                <button onclick="addNewUser()">Dodaj użytkownika</button>
+            </div>
+            <div class="panel">
+                <h2>Lista użytkowników</h2>
+                <div id="usersListBox">Brak danych.</div>
+            </div>
+        </div>
+    </div>
 </div>
-
-<div class="content">
-
-<div id="historia" class="page">
-<h1 class="history-top-title">- historia wpisów</h1>
-<div id="historyInfoBox"></div>
-<div class="box" id="historyBox">Brak wpisów.</div>
-</div>
-
-<div id="wiadomosci" class="page">
-<h1>Wiadomości</h1>
-<div class="box" id="messagesBox">Brak wiadomości.</div>
-<div class="panel">
-<h2>Napisz wiadomość</h2>
-<select id="messageReceiver"></select>
-<textarea id="messageText" placeholder="Wpisz wiadomość"></textarea>
-<input type="file" id="messageFile" accept="image/*">
-<div class="small-info">Zdjęcia są zmniejszane i zapisywane w Firestore. PDF jest wyłączony, bo Firebase Storage wymaga Blaze.</div>
-<div class="upload-info" id="uploadInfo"></div>
-<button id="sendMessageBtn" onclick="sendMessage()">Wyślij wiadomość</button>
-</div>
-</div>
-
-<div id="plan" class="page active">
-<h1>Plan lekcji</h1>
-<div class="box" id="lessonsBox">Brak lekcji w planie.</div>
-<div class="panel" id="lessonPanel" style="display:none;">
-<h2>Dodaj lekcję do planu</h2>
-<select id="lessonDay"><option>Poniedziałek</option><option>Wtorek</option><option>Środa</option><option>Czwartek</option><option>Piątek</option></select>
-<input type="text" id="lessonHour" placeholder="Godzina, np. 8:00">
-<input type="text" id="lessonSubject" placeholder="Przedmiot">
-<input type="text" id="lessonRoom" placeholder="Sala, np. 24">
-<button onclick="addLesson()">Dodaj lekcję</button>
-</div>
-</div>
-
-<div id="oceny" class="page">
-<h1>Oceny</h1>
-<div id="gradesBox">Brak ocen</div>
-<div class="panel" id="gradesViewPanel" style="display:none;">
-<h2>Zobacz oceny ucznia</h2>
-<select id="studentSelectViewGrades" onchange="viewStudentGrades()"></select>
-<button onclick="viewStudentGrades()">Zobacz oceny</button>
-</div>
-<div class="panel" id="teacherPanel" style="display:none;">
-<h2>Nowa ocena</h2>
-<select id="studentSelectGrades"></select>
-<select id="subjectSelect">
-<option>Matematyka</option><option>Polski</option><option>Angielski</option><option>Włoski</option><option>Informatyka</option><option>Chemia</option><option>Biologia</option><option>Historia</option><option>Fizyka</option><option>Geografia</option><option>Plastyka</option><option>Godzina wychowawcza</option>
-</select>
-<select id="gradeSelect">
-<option>1</option><option>1+</option><option>1-</option><option>2</option><option>2+</option><option>2-</option><option>3</option><option>3+</option><option>3-</option><option>4</option><option>4+</option><option>4-</option><option>5</option><option>5+</option><option>5-</option><option>6</option><option>6-</option><option>nb</option><option>.</option>
-</select>
-<select id="weightSelect"><option value="1">waga 1</option><option value="2">waga 2</option><option value="3">waga 3</option></select>
-<select id="colorSelect"><option value="grade-green">zielona</option><option value="grade-blue">niebieska</option><option value="grade-orange">pomarańczowa</option><option value="grade-yellow">żółta</option><option value="grade-red">czerwona</option><option value="grade-purple">fioletowa</option><option value="grade-mint">miętowa</option><option value="grade-gray">szara</option><option value="grade-pinkgray">różowo-szara</option></select>
-<button onclick="addGrade()">Dodaj ocenę</button>
-</div>
-</div>
-
-<div id="uwagi" class="page">
-<h1>Uwagi</h1>
-<div class="panel" id="notesViewPanel" style="display:none;">
-<h2>Zobacz uwagi ucznia</h2>
-<select id="studentSelectViewNotes" onchange="viewStudentNotes()"></select>
-<button onclick="viewStudentNotes()">Zobacz uwagi</button>
-<button onclick="viewAllNotes()">Zobacz wszystkie uwagi</button>
-</div>
-<div class="box" id="notesBox">Brak uwag.</div>
-<div class="panel" id="notesPanel" style="display:none;">
-<h2>Dodaj uwagę</h2>
-<select id="studentSelectNotes"></select>
-<select id="noteType"><option value="positive">Pozytywna ✅</option><option value="neutral">Neutralna ℹ️</option><option value="negative">Negatywna ❗</option></select>
-<textarea id="noteText" placeholder="Wpisz treść uwagi"></textarea>
-<button onclick="addNote()">Dodaj uwagę</button>
-</div>
-</div>
-
-<div id="admin" class="page">
-<h1>Panel admina</h1>
-
-<div class="panel">
-<h2>Dodaj użytkownika</h2>
-<input type="text" id="newUserLogin" placeholder="Login, np. kasia">
-<input type="text" id="newUserName" placeholder="Nazwa / imię, np. Kasia Kowalska">
-<input type="password" id="newUserPassword" placeholder="Hasło">
-<select id="newUserRole">
-<option value="student">Uczeń</option>
-<option value="teacher">Nauczyciel</option>
-<option value="admin">Admin</option>
-</select>
-<button onclick="addNewUser()">Dodaj użytkownika</button>
-<div class="small-info">Login musi być bez spacji. Nazwa pokazuje się przy koncie, ale logowanie jest loginem.</div>
-</div>
-
-<div class="panel">
-<h2>Lista użytkowników</h2>
-<div id="usersListBox">Brak danych.</div>
-</div>
-</div>
-
-</div>
-</div>
-
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
-
 <script>
 const firebaseConfig={
 apiKey:"AIzaSyDZ08ZV8MSyXFV1E2F7aOUDn2DqQ1p0m7c",
@@ -238,11 +320,8 @@ projectId:"planning-with-ai-a3fa0",
 messagingSenderId:"117356194259",
 appId:"1:117356194259:web:edd1676fcbf4bb9c4e2726"
 };
-
 let db=null,users={},lessons=[],loggedUser=null,selectedNotesStudent=null,selectedGradesStudent=null;
-
 const subjects=["Biologia","Chemia","Etyka","Fizyka","Geografia","Godzina wychowawcza","Historia","Informatyka","Matematyka","Polski","Angielski","Włoski","Plastyka"];
-
 const defaultUsers={
 agrest:{name:"agrest",password:"szkoła123",role:"teacher",grades:[],notes:[],messages:[]},
 porzeczka:{name:"porzeczka",password:"szkoła123",role:"teacher",grades:[],notes:[],messages:[]},
@@ -262,17 +341,14 @@ admin:{name:"Administrator",password:"admin123",role:"admin",grades:[],notes:[],
 kaity:{name:"kaity",password:"lubie polski",role:"student",grades:[],notes:[],messages:[]},
 zanetka:{name:"zanetka",password:"chemia",role:"student",grades:[],notes:[{type:"negative",text:'Po skończonej lekcji geografii uczeń zbiega ze schodów.',author:"agrest",date:"08.05.2026, 14:10:00",timestamp:new Date("2026-05-08T14:10:00").getTime()}],messages:[]}
 };
-
 const defaultLessons=[
 {day:"Poniedziałek",hour:"8:00",subject:"Matematyka",room:"12"},
 {day:"Poniedziałek",hour:"8:55",subject:"Polski",room:"18"},
 {day:"Wtorek",hour:"9:50",subject:"Angielski",room:"21"},
 {day:"Środa",hour:"10:45",subject:"Informatyka",room:"30"}
 ];
-
 users=JSON.parse(JSON.stringify(defaultUsers));
 lessons=JSON.parse(JSON.stringify(defaultLessons));
-
 function escapeHtml(t){return String(t||"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
 function escapeAttr(t){return escapeHtml(t)}
 function canManage(){return loggedUser&&users[loggedUser]&&(users[loggedUser].role==="teacher"||users[loggedUser].role==="admin")}
@@ -280,7 +356,17 @@ function isAdmin(){return loggedUser&&users[loggedUser]&&users[loggedUser].role=
 function getStudents(){return Object.keys(users).filter(l=>users[l].role==="student")}
 function setUploadInfo(t){let e=document.getElementById("uploadInfo");if(e)e.innerText=t||""}
 function displayName(login){return users[login]&&users[login].name?users[login].name:login}
-
+function openDrawer(){document.getElementById("sideDrawer").classList.add("open");document.getElementById("drawerOverlay").style.display="block"}
+function closeDrawer(){document.getElementById("sideDrawer").classList.remove("open");document.getElementById("drawerOverlay").style.display="none"}
+function showPageAndClose(id){showPage(id);closeDrawer()}
+function updateSyncTime(){document.getElementById("syncTime").innerText=new Date().toLocaleString("pl-PL",{weekday:"long",day:"numeric",month:"long",year:"numeric",hour:"2-digit",minute:"2-digit",second:"2-digit"})}
+function fakeLoading(callback){
+    document.getElementById("loadingScreen").style.display="flex";
+    setTimeout(()=>{
+        document.getElementById("loadingScreen").style.display="none";
+        if(callback)callback();
+    },900);
+}
 async function startApp(){
 try{
 if(!firebase.apps.length)firebase.initializeApp(firebaseConfig);
@@ -291,7 +377,6 @@ listenToDatabase();
 document.getElementById("message").innerText="";
 }catch(e){document.getElementById("message").innerText="Błąd Firebase: "+e.message}
 }
-
 async function seedDatabaseIfEmpty(){
 try{
 const us=await db.collection("users").limit(1).get();
@@ -300,7 +385,6 @@ const ls=await db.collection("lessons").limit(1).get();
 if(ls.empty){for(const lesson of defaultLessons)await db.collection("lessons").add(lesson)}
 }catch(e){console.warn(e)}
 }
-
 function listenToDatabase(){
 db.collection("users").onSnapshot(s=>{
 let fresh={};
@@ -316,6 +400,7 @@ users=fresh;
 fillStudentSelects();
 fillMessageReceivers(loggedUser);
 renderUsersList();
+updateMessageBadge();
 if(loggedUser&&users[loggedUser])refreshCurrentPage();
 });
 db.collection("lessons").onSnapshot(s=>{
@@ -325,12 +410,7 @@ if(fresh.length)lessons=fresh;
 if(loggedUser&&users[loggedUser])refreshCurrentPage();
 });
 }
-
-async function saveUser(login){
-if(!db||!users[login])return;
-await db.collection("users").doc(login).set(users[login]);
-}
-
+async function saveUser(login){if(!db||!users[login])return;await db.collection("users").doc(login).set(users[login])}
 function fillStudentSelects(){
 ["studentSelectGrades","studentSelectViewGrades","studentSelectNotes","studentSelectViewNotes"].forEach(id=>{
 let s=document.getElementById(id);if(!s)return;
@@ -339,7 +419,6 @@ getStudents().forEach(st=>{let o=document.createElement("option");o.value=st;o.i
 if(old&&users[old])s.value=old;
 });
 }
-
 function fillMessageReceivers(currentUser){
 let s=document.getElementById("messageReceiver");if(!s)return;
 s.innerHTML="";
@@ -347,7 +426,6 @@ Object.keys(users).forEach(l=>{
 if(l!==currentUser){let o=document.createElement("option");o.value=l;o.innerText=displayName(l)+" ("+l+", "+users[l].role+")";s.appendChild(o)}
 });
 }
-
 function login(){
 let u=document.getElementById("username").value.trim();
 let p=document.getElementById("password").value.trim();
@@ -355,17 +433,16 @@ if(users[u]&&users[u].password===p){
 let old=localStorage.getItem("lastLogin_"+u);
 if(old)localStorage.setItem("previousLoginRef_"+u,old);else localStorage.removeItem("previousLoginRef_"+u);
 localStorage.setItem("lastLogin_"+u,Date.now().toString());
-loggedUser=u;openAccount(u);
+loggedUser=u;
+fakeLoading(()=>openAccount(u));
 }else document.getElementById("message").innerText="Zły login lub hasło";
 }
-
 function openAccount(u){
 document.getElementById("loginScreen").style.display="none";
 document.getElementById("mainPage").style.display="block";
 document.getElementById("loggedUser").innerText="Zalogowano jako: "+displayName(u)+" ("+u+", "+users[u].role+")";
-fillStudentSelects();fillMessageReceivers(u);setPanelsForRole(u);showPage("plan");
+fillStudentSelects();fillMessageReceivers(u);setPanelsForRole(u);updateSyncTime();updateMessageBadge();showPage("plan");
 }
-
 function setPanelsForRole(u){
 let m=users[u].role==="teacher"||users[u].role==="admin";
 document.getElementById("teacherPanel").style.display=m?"block":"none";
@@ -377,9 +454,8 @@ document.getElementById("gradesBox").style.display=m?"none":"block";
 document.getElementById("notesBox").style.display=m?"none":"block";
 document.getElementById("historyBox").style.display=m?"none":"block";
 document.getElementById("historyInfoBox").style.display=m?"none":"block";
-document.getElementById("adminNavBtn").style.display=users[u].role==="admin"?"inline-block":"none";
+document.getElementById("adminDrawerBtn").style.display=users[u].role==="admin"?"flex":"none";
 }
-
 function logout(){
 loggedUser=null;selectedNotesStudent=null;selectedGradesStudent=null;
 document.getElementById("mainPage").style.display="none";
@@ -387,25 +463,26 @@ document.getElementById("loginScreen").style.display="flex";
 document.getElementById("username").value="";
 document.getElementById("password").value="";
 document.getElementById("message").innerText="";
-setUploadInfo("");
+setUploadInfo("");closeDrawer();
 }
-
 function showPage(id){
 document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
 document.getElementById(id).classList.add("active");
 if(id==="admin")renderUsersList();
 refreshCurrentPage();
 }
-
 function refreshCurrentPage(){
 if(!loggedUser||!users[loggedUser])return;
-loadLessons();loadMessages(loggedUser);
+loadLessons();loadMessages(loggedUser);updateMessageBadge();
 if(canManage()){
 if(selectedGradesStudent&&users[selectedGradesStudent])loadGrades(selectedGradesStudent);
 if(selectedNotesStudent&&users[selectedNotesStudent])loadNotes(selectedNotesStudent);
 }else{loadGrades(loggedUser);loadNotes(loggedUser);loadHistory(loggedUser)}
 }
-
+function updateMessageBadge(){
+let n=0;if(loggedUser&&users[loggedUser]&&Array.isArray(users[loggedUser].messages))n=users[loggedUser].messages.length;
+document.getElementById("messageBadge").innerText=n;
+}
 function loadLessons(){
 const order={"Poniedziałek":1,"Wtorek":2,"Środa":3,"Czwartek":4,"Piątek":5};
 lessons.sort((a,b)=>((order[a.day]||99)-(order[b.day]||99))||String(a.hour||"").localeCompare(String(b.hour||""),"pl",{numeric:true}));
@@ -413,7 +490,6 @@ let html=lessons.length?"":"Brak lekcji w planie.";
 lessons.forEach(l=>html+=`<div class="lesson"><b>${escapeHtml(l.day)}</b>, ${escapeHtml(l.hour)}<br>${escapeHtml(l.subject)}, sala ${escapeHtml(l.room)}${canManage()&&l.id?`<br><button onclick="deleteLesson('${l.id}')">Usuń</button>`:""}</div>`);
 document.getElementById("lessonsBox").innerHTML=html;
 }
-
 async function addLesson(){
 if(!canManage())return alert("Nie masz uprawnień.");
 let day=document.getElementById("lessonDay").value,hour=document.getElementById("lessonHour").value.trim(),subject=document.getElementById("lessonSubject").value.trim(),room=document.getElementById("lessonRoom").value.trim();
@@ -421,9 +497,7 @@ if(!hour||!subject||!room)return alert("Uzupełnij godzinę, przedmiot i salę."
 await db.collection("lessons").add({day,hour,subject,room});
 document.getElementById("lessonHour").value="";document.getElementById("lessonSubject").value="";document.getElementById("lessonRoom").value="";
 }
-
 async function deleteLesson(id){if(canManage())await db.collection("lessons").doc(id).delete()}
-
 function loadGrades(username){
 let user=users[username];if(!user){document.getElementById("gradesBox").innerHTML="Brak ocen";return}
 let list=[...subjects];user.grades.forEach(i=>{if(!list.includes(i.subject))list.push(i.subject)});
@@ -441,33 +515,20 @@ html+=`</div></div>`;
 html+=`</div>`;
 document.getElementById("gradesBox").innerHTML=html;
 }
-
 async function addGrade(){
 if(!canManage())return alert("Nie masz uprawnień.");
 let st=document.getElementById("studentSelectGrades").value;if(!st||!users[st])return alert("Wybierz ucznia.");
 users[st].grades.push({subject:document.getElementById("subjectSelect").value,grade:document.getElementById("gradeSelect").value,weight:document.getElementById("weightSelect").value,color:document.getElementById("colorSelect").value,teacher:loggedUser,date:new Date().toLocaleString("pl-PL"),timestamp:Date.now()});
 await saveUser(st);alert("Dodano ocenę!");
 }
-
-function viewStudentGrades(){
-if(!canManage())return;
-let st=document.getElementById("studentSelectViewGrades").value;if(!st||!users[st])return;
-selectedGradesStudent=st;document.getElementById("gradesBox").style.display="block";loadGrades(st);
-}
-
-async function deleteGrade(st,index){
-if(!canManage())return;
-if(!users[st]||!users[st].grades[index])return;
-if(confirm("Czy na pewno chcesz usunąć tę ocenę?")){users[st].grades.splice(index,1);await saveUser(st)}
-}
-
+function viewStudentGrades(){if(!canManage())return;let st=document.getElementById("studentSelectViewGrades").value;if(!st||!users[st])return;selectedGradesStudent=st;document.getElementById("gradesBox").style.display="block";loadGrades(st)}
+async function deleteGrade(st,index){if(!canManage())return;if(!users[st]||!users[st].grades[index])return;if(confirm("Czy na pewno chcesz usunąć tę ocenę?")){users[st].grades.splice(index,1);await saveUser(st)}}
 function buildNoteCard(st,index,item){
 let type="Negatywna",icon="❗",cls="note-negative";
 if(item.type==="positive"){type="Pozytywna";icon="✅";cls="note-positive"}
 if(item.type==="neutral"){type="Neutralna";icon="ℹ️";cls="note-neutral"}
 return `<div class="note-card ${cls}"><div class="note-icon">${icon}</div><div style="width:100%;"><div class="note-title">Uwaga: ${type}</div><div class="note-text"><b>Uczeń:</b> ${escapeHtml(displayName(st))} (${escapeHtml(st)})</div><div class="note-text"><b>Treść:</b> ${escapeHtml(item.text||"")}</div><div class="small-info">Wpisał: ${escapeHtml(item.author||"-")} | ${escapeHtml(item.date||"-")}</div>${canManage()?`<button class="delete-note-btn" onclick="deleteNote('${st}',${index})">Usuń uwagę</button>`:""}</div></div>`;
 }
-
 function loadNotes(username){
 let user=users[username];
 if(!user||!Array.isArray(user.notes)||!user.notes.length){document.getElementById("notesBox").innerHTML="Brak uwag.";return}
@@ -476,18 +537,15 @@ let html=`<div class="small-info">Liczba uwag: ${arr.length}</div>`;
 arr.forEach(i=>html+=buildNoteCard(i.student,i.realIndex,i));
 document.getElementById("notesBox").innerHTML=html;
 }
-
 function viewAllNotes(){
 if(!canManage())return;
-let all=[];
-getStudents().forEach(st=>(users[st].notes||[]).forEach((i,idx)=>all.push({...i,student:st,realIndex:idx})));
+let all=[];getStudents().forEach(st=>(users[st].notes||[]).forEach((i,idx)=>all.push({...i,student:st,realIndex:idx})));
 all.sort((a,b)=>(b.timestamp||0)-(a.timestamp||0));
 if(!all.length){document.getElementById("notesBox").innerHTML="Brak uwag.";return}
 let html=`<div class="small-info">Liczba wszystkich uwag: ${all.length}</div>`;
 all.forEach(i=>html+=buildNoteCard(i.student,i.realIndex,i));
 selectedNotesStudent=null;document.getElementById("notesBox").style.display="block";document.getElementById("notesBox").innerHTML=html;
 }
-
 async function addNote(){
 if(!canManage())return alert("Nie masz uprawnień.");
 let st=document.getElementById("studentSelectNotes").value,text=document.getElementById("noteText").value.trim();
@@ -496,33 +554,15 @@ if(!text)return alert("Wpisz treść uwagi.");
 users[st].notes.push({type:document.getElementById("noteType").value,text,author:loggedUser,date:new Date().toLocaleString("pl-PL"),timestamp:Date.now()});
 await saveUser(st);document.getElementById("noteText").value="";alert("Dodano uwagę!");
 }
-
-function viewStudentNotes(){
-if(!canManage())return;
-let st=document.getElementById("studentSelectViewNotes").value;if(!st||!users[st])return;
-selectedNotesStudent=st;document.getElementById("notesBox").style.display="block";loadNotes(st);
-}
-
-async function deleteNote(st,index){
-if(!canManage())return;
-if(!users[st]||!users[st].notes[index])return;
-if(confirm("Czy na pewno chcesz usunąć tę uwagę?")){users[st].notes.splice(index,1);await saveUser(st)}
-}
-
+function viewStudentNotes(){if(!canManage())return;let st=document.getElementById("studentSelectViewNotes").value;if(!st||!users[st])return;selectedNotesStudent=st;document.getElementById("notesBox").style.display="block";loadNotes(st)}
+async function deleteNote(st,index){if(!canManage())return;if(!users[st]||!users[st].notes[index])return;if(confirm("Czy na pewno chcesz usunąć tę uwagę?")){users[st].notes.splice(index,1);await saveUser(st)}}
 function formatHistoryDay(ts){return ts?new Date(ts).toLocaleDateString("pl-PL",{weekday:"long",day:"numeric",month:"long",year:"numeric"}):"Bez daty"}
 function buildHistoryEntry(e){
 if(e.kind==="grade")return `<div class="history-entry history-grade"><div class="history-left"><div class="history-icon">📝</div><div class="history-label">OCENA</div></div><div class="history-right"><div class="history-title">${escapeHtml(e.subject)}: ${escapeHtml(e.grade)}<sup>${escapeHtml(e.weight)}</sup></div><div class="history-meta">Wpisał nauczyciel: ${escapeHtml(e.teacher||"-")}<br>Data wpisu: ${escapeHtml(e.date||"-")}</div></div></div>`;
-let cls="history-note-negative",icon="❗",type="negatywna";
-if(e.type==="positive"){cls="history-note-positive";icon="✅";type="pozytywna"}
-if(e.type==="neutral"){cls="history-note-neutral";icon="ℹ️";type="neutralna"}
+let cls="history-note-negative",icon="❗",type="negatywna";if(e.type==="positive"){cls="history-note-positive";icon="✅";type="pozytywna"}if(e.type==="neutral"){cls="history-note-neutral";icon="ℹ️";type="neutralna"}
 return `<div class="history-entry ${cls}"><div class="history-left"><div class="history-icon">${icon}</div><div class="history-label">ZACHOWANIE</div></div><div class="history-right"><div class="history-text">${escapeHtml(e.text)}</div><div class="history-meta">Rodzaj: ${type}<br>Wpisał nauczyciel: ${escapeHtml(e.author||"-")}<br>Data wpisu: ${escapeHtml(e.date||"-")}</div></div></div>`;
 }
-function renderHistoryEntriesGrouped(entries){
-if(!entries.length)return `<div class="history-small-line">Brak wpisów.</div>`;
-let html="",last="";
-entries.forEach(e=>{let day=formatHistoryDay(e.timestamp);if(day!==last){html+=`<div class="history-day">Wpisane w dniu: ${escapeHtml(day)}</div>`;last=day}html+=buildHistoryEntry(e)});
-return html;
-}
+function renderHistoryEntriesGrouped(entries){if(!entries.length)return `<div class="history-small-line">Brak wpisów.</div>`;let html="",last="";entries.forEach(e=>{let day=formatHistoryDay(e.timestamp);if(day!==last){html+=`<div class="history-day">Wpisane w dniu: ${escapeHtml(day)}</div>`;last=day}html+=buildHistoryEntry(e)});return html}
 function loadHistory(username){
 let user=users[username];if(!user)return;
 let entries=[];(user.grades||[]).forEach(i=>entries.push({kind:"grade",...i}));(user.notes||[]).forEach(i=>entries.push({kind:"note",...i}));
@@ -532,7 +572,6 @@ let since=prev>0?entries.filter(e=>(e.timestamp||0)>prev):[];
 document.getElementById("historyInfoBox").innerHTML=`<div class="history-small-line">${since.length===0?"Brak wpisów od ostatniego logowania":"Wpisy od ostatniego logowania: "+since.length}</div><div class="history-section-title">Wszystkie wpisy</div>`;
 document.getElementById("historyBox").innerHTML=renderHistoryEntriesGrouped(entries);
 }
-
 function resizeImageToBase64(file,maxWidth=900,quality=0.65){
 return new Promise((resolve,reject)=>{
 let img=new Image(),reader=new FileReader();
@@ -553,7 +592,6 @@ img.onerror=()=>reject(new Error("Nieobsługiwany format zdjęcia. Na iPhone wy�
 reader.readAsDataURL(file);
 });
 }
-
 function loadMessages(username){
 let user=users[username];
 if(!user||!Array.isArray(user.messages)||!user.messages.length){document.getElementById("messagesBox").innerHTML="Brak wiadomości.";return}
@@ -569,7 +607,6 @@ html+=`<div class="chat-message"><b>Od: ${escapeHtml(displayName(item.from||""))
 });
 document.getElementById("messagesBox").innerHTML=html;
 }
-
 async function sendMessage(){
 let btn=document.getElementById("sendMessageBtn");
 try{
@@ -600,14 +637,9 @@ document.getElementById("messageText").value="";
 if(fileInput)fileInput.value="";
 setUploadInfo("");
 alert("Wiadomość wysłana!");
-}catch(e){
-setUploadInfo("Błąd: "+e.message);
-alert("Błąd wysyłania: "+e.message);
-}finally{
-if(btn){btn.disabled=false;btn.innerText="Wyślij wiadomość"}
+}catch(e){setUploadInfo("Błąd: "+e.message);alert("Błąd wysyłania: "+e.message)}
+finally{if(btn){btn.disabled=false;btn.innerText="Wyślij wiadomość"}}
 }
-}
-
 async function addNewUser(){
 if(!isAdmin())return alert("Tylko admin może dodawać użytkowników.");
 let login=document.getElementById("newUserLogin").value.trim();
@@ -622,15 +654,10 @@ await saveUser(login);
 document.getElementById("newUserLogin").value="";
 document.getElementById("newUserName").value="";
 document.getElementById("newUserPassword").value="";
-fillStudentSelects();
-fillMessageReceivers(loggedUser);
-renderUsersList();
-alert("Dodano użytkownika!");
+fillStudentSelects();fillMessageReceivers(loggedUser);renderUsersList();alert("Dodano użytkownika!");
 }
-
 function renderUsersList(){
-let box=document.getElementById("usersListBox");
-if(!box)return;
+let box=document.getElementById("usersListBox");if(!box)return;
 let html="";
 Object.keys(users).sort().forEach(login=>{
 let u=users[login];
@@ -638,7 +665,6 @@ html+=`<div class="user-card"><b>${escapeHtml(u.name||login)}</b><br>Login: ${es
 });
 box.innerHTML=html||"Brak użytkowników.";
 }
-
 async function deleteUser(login){
 if(!isAdmin())return alert("Tylko admin może usuwać użytkowników.");
 if(login==="admin")return alert("Nie możesz usunąć głównego admina.");
@@ -646,22 +672,21 @@ if(!users[login])return;
 if(!confirm("Usunąć użytkownika: "+login+"?"))return;
 delete users[login];
 await db.collection("users").doc(login).delete();
-fillStudentSelects();
-fillMessageReceivers(loggedUser);
-renderUsersList();
-alert("Usunięto użytkownika.");
+fillStudentSelects();fillMessageReceivers(loggedUser);renderUsersList();alert("Usunięto użytkownika.");
 }
-
 document.getElementById("username").addEventListener("keydown",e=>{if(e.key==="Enter")login()});
 document.getElementById("password").addEventListener("keydown",e=>{if(e.key==="Enter")login()});
-
 window.addEventListener("load",async()=>{
 localStorage.removeItem("loggedUser");
 loggedUser=null;
 document.getElementById("mainPage").style.display="none";
-document.getElementById("loginScreen").style.display="flex";
+document.getElementById("loginScreen").style.display="none";
 fillStudentSelects();
 await startApp();
+setTimeout(()=>{
+    document.getElementById("loadingScreen").style.display="none";
+    document.getElementById("loginScreen").style.display="flex";
+},1200);
 });
 </script>
 </body>
