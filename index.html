@@ -1,4 +1,4 @@
-
+Poniżej cały kod w jednej części:
 
 <!DOCTYPE html>
 <html lang="pl">
@@ -60,7 +60,16 @@ body.dark .login-panel{background:#1e1e1e}
 <div id="loginScreen">
 <div class="login-panel"><div class="login-header"><div class="mobid-logo">mobi<span>Dziennik</span><sup>*</sup></div></div>
 <div class="login-body"><div class="login-left"><img src="avatar.png" class="school-avatar" alt="avatar"><div class="school-name">Szkoła Podstawowa nr 67<br>im.Porzeczki agrestowskiej</div></div>
-<div class="login-right"><div class="login-row"><label>Login/e-mail</label><input type="text" id="username"></div><div class="login-row"><label>Hasło</label><input type="password" id="password"></div><button class="login-main-btn" onclick="login()">Zaloguj się</button><div class="login-links"><a href="#">Zasady bezpieczeństwa</a><a href="#">Nie pamiętam hasła</a></div><div class="message" id="message"></div></div></div></div>
+<div class="login-right">
+<div class="login-row"><label>Login/e-mail</label><input type="text" id="username"></div>
+<div class="login-row"><label>Hasło</label><input type="password" id="password"></div>
+<button class="login-main-btn" onclick="login()">Zaloguj się</button>
+<div class="login-links">
+<a href="#" onclick="alert('kto to czyta LMAOOO');return false;">Polityka prywatności</a>
+<a href="#" onclick="alert('nie mój problem XDD');return false;">Nie pamiętam hasła</a>
+</div>
+<div class="message" id="message"></div>
+</div></div></div>
 </div>
 <div id="drawerOverlay" onclick="closeDrawer()"></div>
 <div id="sideDrawer">
@@ -82,128 +91,26 @@ body.dark .login-panel{background:#1e1e1e}
 <div id="mainPage">
 <div class="app-topbar"><button class="hamburger" onclick="openDrawer()">☰</button><div class="app-logo">mobi<span>Dziennik</span></div><div id="loggedUser"></div></div>
 <div class="content">
-<div id="konto" class="page">
-<h1>Moje konto</h1>
-<div class="box" id="accountBox"></div>
-</div>
-<div id="historia" class="page">
-<h1 class="history-top-title">- historia wpisów</h1>
-<div id="historyInfoBox"></div>
-<div class="box" id="historyBox">Brak wpisów.</div>
-</div>
+<div id="konto" class="page"><h1>Moje konto</h1><div class="box" id="accountBox"></div></div>
+<div id="historia" class="page"><h1 class="history-top-title">- historia wpisów</h1><div id="historyInfoBox"></div><div class="box" id="historyBox">Brak wpisów.</div></div>
 <div id="wiadomosci" class="page">
-<h1>Wiadomości</h1>
-<div class="box" id="messagesBox">Brak wiadomości.</div>
-<div class="panel">
-<h2>Dodaj wiadomość</h2>
-<select id="messageReceiver"></select>
-<input type="text" id="messageTitle" placeholder="Tytuł wiadomości">
-<textarea id="messageText" placeholder="Treść wiadomości"></textarea>
-<input type="file" id="messageFile" accept="image/*,application/pdf">
-<div class="small-info">Możesz wysłać zdjęcie albo mały PDF. PDF też idzie przez Firestore, więc najlepiej max ok. 500 KB.</div>
-<div class="upload-info" id="uploadInfo"></div>
-<button id="sendMessageBtn" onclick="sendMessage()">Wyślij wiadomość</button>
+<h1>Wiadomości</h1><div class="box" id="messagesBox">Brak wiadomości.</div>
+<div class="panel"><h2>Dodaj wiadomość</h2><select id="messageReceiver"></select><input type="text" id="messageTitle" placeholder="Tytuł wiadomości"><textarea id="messageText" placeholder="Treść wiadomości"></textarea><input type="file" id="messageFile" accept="image/*,application/pdf"><div class="small-info">Możesz wysłać zdjęcie albo mały PDF. PDF też idzie przez Firestore, więc najlepiej max ok. 500 KB.</div><div class="upload-info" id="uploadInfo"></div><button id="sendMessageBtn" onclick="sendMessage()">Wyślij wiadomość</button></div>
 </div>
-</div>
-<div id="plan" class="page active">
-<h1>Plan lekcji</h1>
-<div class="box" id="lessonsBox">Brak lekcji w planie.</div>
-<div class="panel" id="lessonPanel" style="display:none;">
-<h2>Dodaj lekcję do planu</h2>
-<select id="lessonDay"><option>Poniedziałek</option><option>Wtorek</option><option>Środa</option><option>Czwartek</option><option>Piątek</option></select>
-<input type="text" id="lessonHour" placeholder="Godzina, np. 8:00">
-<input type="text" id="lessonSubject" placeholder="Przedmiot">
-<input type="text" id="lessonRoom" placeholder="Sala, np. 24">
-<button onclick="addLesson()">Dodaj lekcję</button>
-</div>
-</div>
-<div id="zadania" class="page">
-<h1>Zadania</h1>
-<div class="box" id="tasksBox">Brak zadań.</div>
-<div class="panel" id="tasksPanel" style="display:none;">
-<h2>Dodaj zadanie</h2>
-<select id="taskStudentSelect"></select>
-<input type="text" id="taskTitle" placeholder="Tytuł zadania">
-<textarea id="taskText" placeholder="Treść zadania"></textarea>
-<input type="date" id="taskDate">
-<button onclick="addTask()">Dodaj zadanie</button>
-</div>
-</div>
-<div id="sprawdziany" class="page">
-<h1>Sprawdziany</h1>
-<div class="box" id="testsBox">Brak sprawdzianów.</div>
-<div class="panel" id="testsPanel" style="display:none;">
-<h2>Dodaj sprawdzian</h2>
-<select id="testStudentSelect"></select>
-<input type="text" id="testSubject" placeholder="Przedmiot">
-<input type="text" id="testTitle" placeholder="Tytuł / dział">
-<textarea id="testText" placeholder="Opis / zakres materiału"></textarea>
-<input type="date" id="testDate">
-<button onclick="addTest()">Dodaj sprawdzian</button>
-</div>
-</div>
-<div id="oceny" class="page">
-<h1>Oceny</h1>
-<div id="gradesBox">Brak ocen</div>
-<div class="panel" id="gradesViewPanel" style="display:none;">
-<h2>Zobacz oceny ucznia</h2>
-<select id="studentSelectViewGrades" onchange="viewStudentGrades()"></select>
-<button onclick="viewStudentGrades()">Zobacz oceny</button>
-</div>
-<div class="panel" id="teacherPanel" style="display:none;">
-<h2>Nowa ocena</h2>
-<select id="studentSelectGrades"></select>
-<select id="subjectSelect"><option>Matematyka</option><option>Polski</option><option>Angielski</option><option>Włoski</option><option>Informatyka</option><option>Chemia</option><option>Biologia</option><option>Historia</option><option>Fizyka</option><option>Geografia</option><option>Plastyka</option><option>Godzina wychowawcza</option></select>
-<select id="gradeSelect"><option>1</option><option>1+</option><option>1-</option><option>2</option><option>2+</option><option>2-</option><option>3</option><option>3+</option><option>3-</option><option>4</option><option>4+</option><option>4-</option><option>5</option><option>5+</option><option>5-</option><option>6</option><option>6-</option><option>nb</option><option>.</option></select>
-<select id="weightSelect"><option value="1">waga 1</option><option value="2">waga 2</option><option value="3">waga 3</option></select>
-<select id="colorSelect"><option value="grade-green">zielona</option><option value="grade-blue">niebieska</option><option value="grade-orange">pomarańczowa</option><option value="grade-yellow">żółta</option><option value="grade-red">czerwona</option><option value="grade-purple">fioletowa</option><option value="grade-mint">miętowa</option><option value="grade-gray">szara</option><option value="grade-pinkgray">różowo-szara</option></select>
-<button onclick="addGrade()">Dodaj ocenę</button>
-</div>
-</div>
-<div id="uwagi" class="page">
-<h1>Uwagi</h1>
-<div class="panel" id="notesViewPanel" style="display:none;">
-<h2>Zobacz uwagi ucznia</h2>
-<select id="studentSelectViewNotes" onchange="viewStudentNotes()"></select>
-<button onclick="viewStudentNotes()">Zobacz uwagi</button>
-<button onclick="viewAllNotes()">Zobacz wszystkie uwagi</button>
-</div>
-<div class="box" id="notesBox">Brak uwag.</div>
-<div class="panel" id="notesPanel" style="display:none;">
-<h2>Dodaj uwagę</h2>
-<select id="studentSelectNotes"></select>
-<select id="noteType"><option value="positive">Pozytywna ✅</option><option value="neutral">Neutralna ℹ️</option><option value="negative">Negatywna ❗</option></select>
-<textarea id="noteText" placeholder="Wpisz treść uwagi"></textarea>
-<button onclick="addNote()">Dodaj uwagę</button>
-</div>
-</div>
-<div id="admin" class="page">
-<h1>Panel admina</h1>
-<div class="panel">
-<h2>Dodaj użytkownika</h2>
-<input type="text" id="newUserLogin" placeholder="Login">
-<input type="text" id="newUserName" placeholder="Nazwa / imię">
-<input type="password" id="newUserPassword" placeholder="Hasło">
-<select id="newUserRole"><option value="student">Uczeń</option><option value="teacher">Nauczyciel</option><option value="admin">Admin</option></select>
-<button onclick="addNewUser()">Dodaj użytkownika</button>
-</div>
-<div class="panel"><h2>Lista użytkowników</h2><div id="usersListBox">Brak danych.</div></div>
-</div>
-</div>
-</div>
+<div id="plan" class="page active"><h1>Plan lekcji</h1><div class="box" id="lessonsBox">Brak lekcji w planie.</div><div class="panel" id="lessonPanel" style="display:none;"><h2>Dodaj lekcję do planu</h2><select id="lessonDay"><option>Poniedziałek</option><option>Wtorek</option><option>Środa</option><option>Czwartek</option><option>Piątek</option></select><input type="text" id="lessonHour" placeholder="Godzina, np. 8:00"><input type="text" id="lessonSubject" placeholder="Przedmiot"><input type="text" id="lessonRoom" placeholder="Sala, np. 24"><button onclick="addLesson()">Dodaj lekcję</button></div></div>
+<div id="zadania" class="page"><h1>Zadania</h1><div class="box" id="tasksBox">Brak zadań.</div><div class="panel" id="tasksPanel" style="display:none;"><h2>Dodaj zadanie</h2><select id="taskStudentSelect"></select><input type="text" id="taskTitle" placeholder="Tytuł zadania"><textarea id="taskText" placeholder="Treść zadania"></textarea><input type="date" id="taskDate"><button onclick="addTask()">Dodaj zadanie</button></div></div>
+<div id="sprawdziany" class="page"><h1>Sprawdziany</h1><div class="box" id="testsBox">Brak sprawdzianów.</div><div class="panel" id="testsPanel" style="display:none;"><h2>Dodaj sprawdzian</h2><select id="testStudentSelect"></select><input type="text" id="testSubject" placeholder="Przedmiot"><input type="text" id="testTitle" placeholder="Tytuł / dział"><textarea id="testText" placeholder="Opis / zakres materiału"></textarea><input type="date" id="testDate"><button onclick="addTest()">Dodaj sprawdzian</button></div></div>
+<div id="oceny" class="page"><h1>Oceny</h1><div id="gradesBox">Brak ocen</div><div class="panel" id="gradesViewPanel" style="display:none;"><h2>Zobacz oceny ucznia</h2><select id="studentSelectViewGrades" onchange="viewStudentGrades()"></select><button onclick="viewStudentGrades()">Zobacz oceny</button></div><div class="panel" id="teacherPanel" style="display:none;"><h2>Nowa ocena</h2><select id="studentSelectGrades"></select><select id="subjectSelect"><option>Matematyka</option><option>Polski</option><option>Angielski</option><option>Włoski</option><option>Informatyka</option><option>Chemia</option><option>Biologia</option><option>Historia</option><option>Fizyka</option><option>Geografia</option><option>Plastyka</option><option>Godzina wychowawcza</option></select><select id="gradeSelect"><option>1</option><option>1+</option><option>1-</option><option>2</option><option>2+</option><option>2-</option><option>3</option><option>3+</option><option>3-</option><option>4</option><option>4+</option><option>4-</option><option>5</option><option>5+</option><option>5-</option><option>6</option><option>6-</option><option>nb</option><option>.</option></select><select id="weightSelect"><option value="1">waga 1</option><option value="2">waga 2</option><option value="3">waga 3</option></select><select id="colorSelect"><option value="grade-green">zielona</option><option value="grade-blue">niebieska</option><option value="grade-orange">pomarańczowa</option><option value="grade-yellow">żółta</option><option value="grade-red">czerwona</option><option value="grade-purple">fioletowa</option><option value="grade-mint">miętowa</option><option value="grade-gray">szara</option><option value="grade-pinkgray">różowo-szara</option></select><button onclick="addGrade()">Dodaj ocenę</button></div></div>
+<div id="uwagi" class="page"><h1>Uwagi</h1><div class="panel" id="notesViewPanel" style="display:none;"><h2>Zobacz uwagi ucznia</h2><select id="studentSelectViewNotes" onchange="viewStudentNotes()"></select><button onclick="viewStudentNotes()">Zobacz uwagi</button><button onclick="viewAllNotes()">Zobacz wszystkie uwagi</button></div><div class="box" id="notesBox">Brak uwag.</div><div class="panel" id="notesPanel" style="display:none;"><h2>Dodaj uwagę</h2><select id="studentSelectNotes"></select><select id="noteType"><option value="positive">Pozytywna ✅</option><option value="neutral">Neutralna ℹ️</option><option value="negative">Negatywna ❗</option></select><textarea id="noteText" placeholder="Wpisz treść uwagi"></textarea><button onclick="addNote()">Dodaj uwagę</button></div></div>
+<div id="admin" class="page"><h1>Panel admina</h1><div class="panel"><h2>Dodaj użytkownika</h2><input type="text" id="newUserLogin" placeholder="Login"><input type="text" id="newUserName" placeholder="Nazwa / imię"><input type="password" id="newUserPassword" placeholder="Hasło"><select id="newUserRole"><option value="student">Uczeń</option><option value="teacher">Nauczyciel</option><option value="admin">Admin</option></select><button onclick="addNewUser()">Dodaj użytkownika</button></div><div class="panel"><h2>Lista użytkowników</h2><div id="usersListBox">Brak danych.</div></div></div>
+</div></div>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
 <script>
 const firebaseConfig={apiKey:"AIzaSyDZ08ZV8MSyXFV1E2F7aOUDn2DqQ1p0m7c",authDomain:"planning-with-ai-a3fa0.firebaseapp.com",projectId:"planning-with-ai-a3fa0",messagingSenderId:"117356194259",appId:"1:117356194259:web:edd1676fcbf4bb9c4e2726"};
 let db=null,users={},lessons=[],loggedUser=null,selectedNotesStudent=null,selectedGradesStudent=null;
 const subjects=["Biologia","Chemia","Etyka","Fizyka","Geografia","Godzina wychowawcza","Historia","Informatyka","Matematyka","Polski","Angielski","Włoski","Plastyka"];
-const defaultUsers={
-agrest:{name:"agrest",password:"szkoła123",role:"teacher",grades:[],notes:[],messages:[],tasks:[],tests:[]},
-palec:{name:"palec",password:"szkoła123",role:"teacher",grades:[],notes:[],messages:[],tasks:[],tests:[]},
-admin:{name:"Administrator",password:"admin123",role:"admin",grades:[],notes:[],messages:[],tasks:[],tests:[]},
-kaity:{name:"kaity",password:"lubie polski",role:"student",grades:[],notes:[],messages:[],tasks:[],tests:[]},
-zanetka:{name:"zanetka",password:"chemia",role:"student",grades:[],notes:[{type:"negative",text:"Po skończonej lekcji geografii uczeń zbiega ze schodów.",author:"agrest",date:"08.05.2026, 14:10:00",timestamp:new Date("2026-05-08T14:10:00").getTime()}],messages:[],tasks:[],tests:[]}
-};
+const defaultUsers={agrest:{name:"agrest",password:"szkoła123",role:"teacher",grades:[],notes:[],messages:[],tasks:[],tests:[]},palec:{name:"palec",password:"szkoła123",role:"teacher",grades:[],notes:[],messages:[],tasks:[],tests:[]},admin:{name:"Administrator",password:"admin123",role:"admin",grades:[],notes:[],messages:[],tasks:[],tests:[]},kaity:{name:"kaity",password:"lubie polski",role:"student",grades:[],notes:[],messages:[],tasks:[],tests:[]},zanetka:{name:"zanetka",password:"chemia",role:"student",grades:[],notes:[{type:"negative",text:"Po skończonej lekcji geografii uczeń zbiega ze schodów.",author:"agrest",date:"08.05.2026, 14:10:00",timestamp:new Date("2026-05-08T14:10:00").getTime()}],messages:[],tasks:[],tests:[]}};
 ["porzeczka","jeżyna","ząbek","truskaweczka","arbuz","przyjaźń","kwiatuszek","figa","sweterek","woda","chata","kreda"].forEach(n=>defaultUsers[n]={name:n,password:"szkoła123",role:"teacher",grades:[],notes:[],messages:[],tasks:[],tests:[]});
 const defaultLessons=[{day:"Poniedziałek",hour:"8:00",subject:"Matematyka",room:"12"},{day:"Poniedziałek",hour:"8:55",subject:"Polski",room:"18"},{day:"Wtorek",hour:"9:50",subject:"Angielski",room:"21"},{day:"Środa",hour:"10:45",subject:"Informatyka",room:"30"}];
 users=JSON.parse(JSON.stringify(defaultUsers));lessons=JSON.parse(JSON.stringify(defaultLessons));
