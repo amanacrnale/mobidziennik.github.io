@@ -170,8 +170,11 @@ function isFirebaseReady(){
 
 async function startApp(){
     if(!isFirebaseReady()){
-        document.getElementById("message").innerText = "Brak konfiguracji Firebase w kodzie.";
-        return false;
+        document.getElementById("message").innerText = "Brak konfiguracji Firebase w kodzie. Uruchamiam tryb lokalny.";
+        users = JSON.parse(JSON.stringify(defaultUsers));
+        lessons = [...defaultLessons];
+        fillStudentSelects();
+        return true;
     }
 
     try{
@@ -185,14 +188,28 @@ async function startApp(){
             console.warn("Storage nie działa, ale logowanie i dziennik będą działać:", storageError);
         }
 
-        await seedDatabaseIfEmpty();
-        await listenToDatabase();
+        try{
+            await seedDatabaseIfEmpty();
+            await listenToDatabase();
+            document.getElementById("message").innerText = "";
+        }catch(databaseError){
+            console.warn("Firestore nie działa, uruchamiam tryb lokalny:", databaseError);
+            users = JSON.parse(JSON.stringify(defaultUsers));
+            lessons = [...defaultLessons];
+            fillStudentSelects();
+            document.getElementById("message").innerText = "Firebase nie działa, uruchomiono tryb lokalny.";
+        }
 
-        document.getElementById("message").innerText = "";
         return true;
     }catch(error){
-        document.getElementById("message").innerText = "Błąd Firebase: " + error.message;
-        return false;
+        console.warn("Błąd startu Firebase, uruchamiam tryb lokalny:", error);
+        db = null;
+        storage = null;
+        users = JSON.parse(JSON.stringify(defaultUsers));
+        lessons = [...defaultLessons];
+        fillStudentSelects();
+        document.getElementById("message").innerText = "Tryb lokalny aktywny.";
+        return true;
     }
 }
 
@@ -286,7 +303,11 @@ function listenToDatabase(){
 }
 
 async function saveUser(login){
-    await db.collection("users").doc(login).set(users[login]);
+    if(db){
+        await db.collection("users").doc(login).set(users[login]);
+    }else{
+        localStorage.setItem("localUsers", JSON.stringify(users));
+    }
 }
 
 function canManage(){
@@ -423,14 +444,30 @@ async function addLesson(){
     const subject = document.getElementById("lessonSubject").value.trim();
     const room = document.getElementById("lessonRoom").value.trim();
     if(!hour || !subject || !room) return alert("Uzupełnij godzinę, przedmiot i salę.");
-    await db.collection("lessons").add({day,hour,subject,room});
+
+    if(db){
+        await db.collection("lessons").add({day,hour,subject,room});
+    }else{
+        lessons.push({id:"local_" + Date.now(),day,hour,subject,room});
+        localStorage.setItem("localLessons", JSON.stringify(lessons));
+        loadLessons();
+    }
+
     document.getElementById("lessonHour").value = "";
     document.getElementById("lessonSubject").value = "";
     document.getElementById("lessonRoom").value = "";
 }
 
 async function deleteLesson(id){
-    if(canManage()) await db.collection("lessons").doc(id).delete();
+    if(!canManage()) return;
+
+    if(db){
+        await db.collection("lessons").doc(id).delete();
+    }else{
+        lessons = lessons.filter(lesson => lesson.id !== id);
+        localStorage.setItem("localLessons", JSON.stringify(lessons));
+        loadLessons();
+    }
 }
 
 function loadGrades(username){
