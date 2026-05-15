@@ -177,7 +177,13 @@ async function startApp(){
     try{
         firebase.initializeApp(firebaseConfig);
         db = firebase.firestore();
-        storage = firebase.storage();
+
+        try{
+            storage = firebase.storage();
+        }catch(storageError){
+            storage = null;
+            console.warn("Storage nie działa, ale logowanie i dziennik będą działać:", storageError);
+        }
 
         await seedDatabaseIfEmpty();
         await listenToDatabase();
@@ -845,6 +851,11 @@ async function sendMessage(){
     let pdfPath = "";
 
     if(file){
+        if(!storage){
+            alert("Nie można wysłać PDF, bo Firebase Storage nie jest włączony albo poprawnie skonfigurowany. Logowanie i reszta dziennika powinny działać normalnie.");
+            return;
+        }
+
         const fileNameLower = String(file.name || "").toLowerCase().trim();
         const fileTypeLower = String(file.type || "").toLowerCase().trim();
         const isPdf = fileNameLower.endsWith(".pdf") || fileTypeLower.includes("pdf");
