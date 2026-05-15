@@ -1,14 +1,14 @@
+Poniżej masz cały kod w jednym kawałku:
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>mobiDziennik</title>
-
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
 body{background:#efefef}
-
 #loginScreen{width:100%;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding-top:85px;background:#dcdcdc}
 .login-panel{width:600px;background:#fff;border:1px solid #d0d0d0;border-radius:4px;box-shadow:0 1px 8px rgba(0,0,0,.15);overflow:hidden}
 .login-header{border-bottom:1px solid #e2e2e2;text-align:center;padding:18px 0 14px;background:#fff}
@@ -27,7 +27,6 @@ body{background:#efefef}
 .login-links{display:flex;justify-content:space-between;gap:10px;font-size:12px}
 .login-links a{color:#4e83be;text-decoration:none}
 .message{text-align:center;color:red;margin-top:12px;min-height:18px;font-size:14px}
-
 #mainPage{display:none}
 .topbar{background:#0b71c8;min-height:50px;display:flex;justify-content:space-between;align-items:center;padding:0 20px;color:white;gap:10px}
 .logo{font-size:32px;font-weight:bold}
@@ -51,13 +50,11 @@ body{background:#efefef}
 .panel button{background:#0072d6;color:white;border:none;border-radius:6px;cursor:pointer}
 .panel button:disabled{background:#999;cursor:not-allowed}
 .small-info{font-size:13px;color:#666;margin-top:8px}
-
 .attachment-card{margin-top:12px;border:1px solid #ccc;border-radius:8px;padding:10px;background:#f9f9f9}
 .pdf-preview{width:100%;height:320px;border:1px solid #bbb;border-radius:6px;margin-top:8px}
 .image-preview{max-width:100%;max-height:420px;border-radius:8px;margin-top:8px;border:1px solid #bbb;display:block}
 .attachment-actions{margin-top:8px;display:flex;gap:10px;flex-wrap:wrap}
 .attachment-actions a{padding:8px 12px;background:#0072d6;color:white;border-radius:6px;text-decoration:none;font-weight:bold}
-
 .grades-header{background:white;border-radius:10px;margin-top:15px;overflow:hidden;box-shadow:0 2px 5px rgba(0,0,0,.08)}
 .student-name{padding:18px 20px;font-size:20px;font-weight:bold;color:#555;border-bottom:1px solid #eee}
 .subject-row{display:grid;grid-template-columns:160px 1fr;align-items:center;min-height:78px;border-bottom:1px solid #eee;background:white}
@@ -76,7 +73,6 @@ body{background:#efefef}
 .grade-mint{background:#9ee5cf}
 .grade-gray{background:#e8e8d8}
 .grade-pinkgray{background:#c8b2b5}
-
 .avg-btn{margin:10px 0 10px 0;padding:6px 14px;border:1px solid #bcbcbc;border-radius:3px;background:#eee;color:#111;cursor:pointer;font-size:14px}
 .avg-btn:hover{background:#e0e0e0}
 .chart-wrap{width:100%;overflow-x:auto;padding:10px 0}
@@ -92,7 +88,6 @@ body{background:#efefef}
 .legend-row{display:flex;align-items:center;gap:6px;margin-bottom:5px}
 .legend-color{width:16px;height:12px;border:1px solid red;background:#f7b2b2}
 .chart-empty{padding:15px;color:#555}
-
 .note-card{display:flex;gap:15px;align-items:flex-start;padding:15px;margin-bottom:12px;border-radius:10px;border-left:7px solid #ccc;background:#fafafa}
 .note-icon{width:48px;height:48px;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:28px;color:white;flex-shrink:0}
 .note-positive{border-left-color:#2ecc71}
@@ -104,7 +99,6 @@ body{background:#efefef}
 .note-title{font-size:20px;font-weight:bold;margin-bottom:6px}
 .note-text{font-size:18px;color:#444}
 .delete-note-btn{margin-top:10px;padding:8px 12px;background:#e74c3c;color:white;border:none;border-radius:6px;cursor:pointer}
-
 .history-top-title{text-align:center;font-size:28px;color:#0072d6;margin-bottom:18px}
 .history-small-line{font-size:13px;color:#555;margin:6px 0;padding-left:4px}
 .history-section-title{font-size:13px;color:#444;font-weight:bold;margin:14px 0 8px;padding-left:4px}
@@ -121,7 +115,6 @@ body{background:#efefef}
 .history-note-positive{background:#f1fff4}
 .history-note-neutral{background:#f4faff}
 .history-note-negative{background:#fffafa}
-
 @media(max-width:700px){
     #loginScreen{padding:20px 10px}
     .login-panel{width:100%}
@@ -142,51 +135,41 @@ body{background:#efefef}
 }
 </style>
 </head>
-
 <body>
-
 <div id="loginScreen">
     <div class="login-panel">
         <div class="login-header">
             <div class="mobid-logo">mobi<span>Dziennik</span><sup>*</sup></div>
         </div>
-
         <div class="login-body">
             <div class="login-left">
                 <img src="avatar.png" alt="avatar" class="school-avatar">
                 <div class="school-name">Szkoła Podstawowa nr 67<br>im.Porzeczki agrestowskiej</div>
             </div>
-
             <div class="login-right">
                 <div class="login-row">
                     <label for="username">Login/e-mail</label>
                     <input type="text" id="username">
                 </div>
-
                 <div class="login-row">
                     <label for="password">Hasło</label>
                     <input type="password" id="password">
                 </div>
-
                 <button class="login-main-btn" onclick="login()">Zaloguj się</button>
-
                 <div class="login-links">
                     <a href="#">Zasady bezpieczeństwa</a>
                     <a href="#">Nie pamiętam hasła</a>
                 </div>
-
                 <div class="message" id="message"></div>
             </div>
         </div>
     </div>
 </div>
-
 <div id="mainPage">
     <div class="topbar">
         <div class="logo">mobi<span>Dziennik</span></div>
         <div id="loggedUser"></div>
     </div>
-
     <div class="navbar">
         <button onclick="showPage('historia')">Historia</button>
         <button onclick="showPage('wiadomosci')">Wiadomości</button>
@@ -195,33 +178,27 @@ body{background:#efefef}
         <button onclick="showPage('uwagi')">Uwagi</button>
         <button onclick="logout()">Wyloguj</button>
     </div>
-
     <div class="content">
-
         <div id="historia" class="page">
             <h1 class="history-top-title">- historia wpisów</h1>
             <div id="historyInfoBox"></div>
             <div class="box" id="historyBox">Brak wpisów.</div>
         </div>
-
         <div id="wiadomosci" class="page">
             <h1>Wiadomości</h1>
             <div class="box" id="messagesBox">Brak wiadomości.</div>
-
             <div class="panel">
                 <h2>Napisz wiadomość</h2>
                 <select id="messageReceiver"></select>
                 <textarea id="messageText" placeholder="Wpisz wiadomość"></textarea>
                 <input type="file" id="messageFile" accept="application/pdf,image/*,.heic,.heif">
-                <div class="small-info">Możesz wysłać tekst, PDF albo zdjęcie z galerii.</div>
+                <div class="small-info">Możesz wysłać tekst, PDF albo zdjęcie z galerii. Zdjęcia JPG/PNG są automatycznie zmniejszane.</div>
                 <button id="sendMessageBtn" onclick="sendMessage()">Wyślij wiadomość</button>
             </div>
         </div>
-
         <div id="plan" class="page active">
             <h1>Plan lekcji</h1>
             <div class="box" id="lessonsBox">Brak lekcji w planie.</div>
-
             <div class="panel" id="lessonPanel" style="display:none;">
                 <h2>Dodaj lekcję do planu</h2>
                 <select id="lessonDay">
@@ -237,23 +214,19 @@ body{background:#efefef}
                 <button onclick="addLesson()">Dodaj lekcję</button>
             </div>
         </div>
-
         <div id="oceny" class="page">
             <h1>Oceny</h1>
             <button class="avg-btn" onclick="toggleAverageChart()">Wykresy ocen</button>
             <div class="box" id="averageChartBox" style="display:none;"></div>
             <div id="gradesBox">Brak ocen</div>
-
             <div class="panel" id="gradesViewPanel" style="display:none;">
                 <h2>Zobacz oceny ucznia</h2>
                 <select id="studentSelectViewGrades" onchange="viewStudentGrades()"></select>
                 <button onclick="viewStudentGrades()">Zobacz oceny</button>
             </div>
-
             <div class="panel" id="teacherPanel" style="display:none;">
                 <h2>Nowa ocena</h2>
                 <select id="studentSelectGrades"></select>
-
                 <select id="subjectSelect">
                     <option>Matematyka</option>
                     <option>Polski</option>
@@ -268,7 +241,6 @@ body{background:#efefef}
                     <option>Plastyka</option>
                     <option>Godzina wychowawcza</option>
                 </select>
-
                 <select id="gradeSelect">
                     <option>1</option><option>1+</option><option>1-</option>
                     <option>2</option><option>2+</option><option>2-</option>
@@ -278,13 +250,11 @@ body{background:#efefef}
                     <option>6</option><option>6-</option>
                     <option>nb</option><option>.</option>
                 </select>
-
                 <select id="weightSelect">
                     <option value="1">waga 1</option>
                     <option value="2">waga 2</option>
                     <option value="3">waga 3</option>
                 </select>
-
                 <select id="colorSelect">
                     <option value="grade-green">zielona</option>
                     <option value="grade-blue">niebieska</option>
@@ -296,45 +266,35 @@ body{background:#efefef}
                     <option value="grade-gray">szara</option>
                     <option value="grade-pinkgray">różowo-szara</option>
                 </select>
-
                 <button onclick="addGrade()">Dodaj ocenę</button>
             </div>
         </div>
-
         <div id="uwagi" class="page">
             <h1>Uwagi</h1>
-
             <div class="panel" id="notesViewPanel" style="display:none;">
                 <h2>Zobacz uwagi ucznia</h2>
                 <select id="studentSelectViewNotes" onchange="viewStudentNotes()"></select>
                 <button onclick="viewStudentNotes()">Zobacz uwagi</button>
                 <button onclick="viewAllNotes()">Zobacz wszystkie uwagi</button>
             </div>
-
             <div class="box" id="notesBox">Brak uwag.</div>
-
             <div class="panel" id="notesPanel" style="display:none;">
                 <h2>Dodaj uwagę</h2>
                 <select id="studentSelectNotes"></select>
-
                 <select id="noteType">
                     <option value="positive">Pozytywna ✅</option>
                     <option value="neutral">Neutralna ℹ️</option>
                     <option value="negative">Negatywna ❗</option>
                 </select>
-
                 <textarea id="noteText" placeholder="Wpisz treść uwagi"></textarea>
                 <button onclick="addNote()">Dodaj uwagę</button>
             </div>
         </div>
-
     </div>
 </div>
-
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-storage-compat.js"></script>
-
 <script>
 const firebaseConfig = {
     apiKey: "AIzaSyDZ08ZV8MSyXFV1E2F7aOUDn2DqQ1p0m7c",
@@ -344,19 +304,14 @@ const firebaseConfig = {
     messagingSenderId: "117356194259",
     appId: "1:117356194259:web:edd1676fcbf4bb9c4e2726"
 };
-
 let db = null;
 let storage = null;
 let users = {};
 let lessons = [];
 let loggedUser = null;
-let unsubscribeUsers = null;
-let unsubscribeLessons = null;
 let selectedNotesStudent = null;
 let selectedGradesStudent = null;
-
 const subjects = ["Biologia","Chemia","Etyka","Fizyka","Geografia","Godzina wychowawcza","Historia","Informatyka","Matematyka","Polski","Angielski","Włoski","Plastyka"];
-
 const defaultUsers = {
     agrest:{password:"szkoła123",role:"teacher",grades:[],notes:[],messages:[]},
     porzeczka:{password:"szkoła123",role:"teacher",grades:[],notes:[],messages:[]},
@@ -380,7 +335,7 @@ const defaultUsers = {
         grades:[],
         notes:[{
             type:"negative",
-            text:'Po skończonej lekcji geografii uczeń (pomimo mojej prośby i przypomnienia) zbiega ze schodów, które służą do "wychodzenia" (w szkole obowiązuje ruch jednokierunkowy).',
+            text:'Po skończonej lekcji geografii uczeń (pomimo mojej prośby i przypomnienia) zbiega ze schodów.',
             author:"agrest",
             date:"08.05.2026, 14:10:00",
             timestamp:new Date("2026-05-08T14:10:00").getTime()
@@ -388,14 +343,12 @@ const defaultUsers = {
         messages:[]
     }
 };
-
 const defaultLessons = [
     {day:"Poniedziałek",hour:"8:00",subject:"Matematyka",room:"12"},
     {day:"Poniedziałek",hour:"8:55",subject:"Polski",room:"18"},
     {day:"Wtorek",hour:"9:50",subject:"Angielski",room:"21"},
     {day:"Środa",hour:"10:45",subject:"Informatyka",room:"30"}
 ];
-
 function escapeHtml(text){
     return String(text || "")
         .replaceAll("&", "&amp;")
@@ -404,7 +357,6 @@ function escapeHtml(text){
         .replaceAll('"', "&quot;")
         .replaceAll("'", "&#039;");
 }
-
 function escapeAttr(text){
     return String(text || "")
         .replaceAll("&", "&amp;")
@@ -413,141 +365,125 @@ function escapeAttr(text){
         .replaceAll("<", "&lt;")
         .replaceAll(">", "&gt;");
 }
-
+function resizeImage(file, maxWidth = 1200, quality = 0.72){
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        const reader = new FileReader();
+        reader.onload = e => img.src = e.target.result;
+        reader.onerror = () => reject(new Error("Nie udało się odczytać zdjęcia."));
+        img.onload = () => {
+            const scale = Math.min(1, maxWidth / img.width);
+            const canvas = document.createElement("canvas");
+            canvas.width = Math.round(img.width * scale);
+            canvas.height = Math.round(img.height * scale);
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            canvas.toBlob(blob => {
+                if(!blob) return reject(new Error("Nie udało się zmniejszyć zdjęcia."));
+                const newName = file.name.replace(/\.[^/.]+$/, "") + "_mini.jpg";
+                resolve(new File([blob], newName, {type:"image/jpeg"}));
+            }, "image/jpeg", quality);
+        };
+        img.onerror = () => reject(new Error("Tego formatu zdjęcia nie udało się zmniejszyć."));
+        reader.readAsDataURL(file);
+    });
+}
 async function startApp(){
     try{
         if(!firebase.apps.length){
             firebase.initializeApp(firebaseConfig);
         }
-
         db = firebase.firestore();
         storage = firebase.storage();
-
         await seedDatabaseIfEmpty();
         await listenToDatabase();
-
         document.getElementById("message").innerText = "";
-        return true;
     }catch(error){
         document.getElementById("message").innerText = "Błąd Firebase: " + error.message;
-        return false;
     }
 }
-
 async function seedDatabaseIfEmpty(){
     const usersSnap = await db.collection("users").limit(1).get();
-
     if(usersSnap.empty){
         for(const login in defaultUsers){
             await db.collection("users").doc(login).set(defaultUsers[login]);
         }
     }
-
     const lessonsSnap = await db.collection("lessons").limit(1).get();
-
     if(lessonsSnap.empty){
         for(const lesson of defaultLessons){
             await db.collection("lessons").add(lesson);
         }
     }
 }
-
 function listenToDatabase(){
     return new Promise((resolve, reject) => {
         let usersLoaded = false;
         let lessonsLoaded = false;
         let resolved = false;
-
-        function finishLoading(){
+        function finish(){
             if(usersLoaded && lessonsLoaded && !resolved){
                 resolved = true;
                 resolve(true);
             }
         }
-
-        unsubscribeUsers = db.collection("users").onSnapshot(snapshot => {
+        db.collection("users").onSnapshot(snapshot => {
             users = {};
-
             snapshot.forEach(doc => {
                 users[doc.id] = doc.data();
                 if(!Array.isArray(users[doc.id].grades)) users[doc.id].grades = [];
                 if(!Array.isArray(users[doc.id].notes)) users[doc.id].notes = [];
                 if(!Array.isArray(users[doc.id].messages)) users[doc.id].messages = [];
             });
-
             Object.keys(defaultUsers).forEach(login => {
                 if(!users[login]){
                     users[login] = defaultUsers[login];
                     db.collection("users").doc(login).set(defaultUsers[login]);
                 }
             });
-
             usersLoaded = true;
             fillStudentSelects();
-
-            if(loggedUser && users[loggedUser]){
-                refreshCurrentPage();
-            }
-
-            finishLoading();
+            if(loggedUser && users[loggedUser]) refreshCurrentPage();
+            finish();
         }, error => reject(error));
-
-        unsubscribeLessons = db.collection("lessons").onSnapshot(snapshot => {
+        db.collection("lessons").onSnapshot(snapshot => {
             lessons = [];
-
-            snapshot.forEach(doc => {
-                lessons.push({id:doc.id, ...doc.data()});
-            });
-
+            snapshot.forEach(doc => lessons.push({id:doc.id, ...doc.data()}));
             lessonsLoaded = true;
-
-            if(loggedUser && users[loggedUser]){
-                refreshCurrentPage();
-            }
-
-            finishLoading();
+            if(loggedUser && users[loggedUser]) refreshCurrentPage();
+            finish();
         }, error => reject(error));
     });
 }
-
 async function saveUser(login){
     if(!db || !users[login]) return;
     await db.collection("users").doc(login).set(users[login]);
 }
-
 function canManage(){
     return loggedUser && users[loggedUser] && (users[loggedUser].role === "teacher" || users[loggedUser].role === "admin");
 }
-
 function getStudents(){
     return Object.keys(users).filter(login => users[login].role === "student");
 }
-
 function fillStudentSelects(){
     ["studentSelectGrades","studentSelectViewGrades","studentSelectNotes","studentSelectViewNotes"].forEach(id => {
         const select = document.getElementById(id);
         if(!select) return;
-
         const oldValue = select.value;
         select.innerHTML = "";
-
         getStudents().forEach(student => {
             const option = document.createElement("option");
             option.value = student;
             option.innerText = student;
             select.appendChild(option);
         });
-
         if(oldValue && users[oldValue]) select.value = oldValue;
     });
 }
-
 function fillMessageReceivers(currentUser){
     const select = document.getElementById("messageReceiver");
     if(!select) return;
-
     select.innerHTML = "";
-
     Object.keys(users).forEach(login => {
         if(login !== currentUser){
             const option = document.createElement("option");
@@ -557,90 +493,64 @@ function fillMessageReceivers(currentUser){
         }
     });
 }
-
 function login(){
     const username = document.getElementById("username").value.trim();
     const password = document.getElementById("password").value.trim();
-
     if(!db || Object.keys(users).length === 0){
-        document.getElementById("message").innerText = "Dane jeszcze się ładują. Odczekaj chwilę i spróbuj ponownie.";
+        document.getElementById("message").innerText = "Dane jeszcze się ładują.";
         return;
     }
-
     if(users[username] && users[username].password === password){
         const oldLastLogin = localStorage.getItem("lastLogin_" + username);
-
         if(oldLastLogin) localStorage.setItem("previousLoginRef_" + username, oldLastLogin);
         else localStorage.removeItem("previousLoginRef_" + username);
-
         localStorage.setItem("lastLogin_" + username, Date.now().toString());
-
         loggedUser = username;
-        localStorage.setItem("loggedUser", username);
         openAccount(username);
     }else{
         document.getElementById("message").innerText = "Zły login lub hasło";
     }
 }
-
 function openAccount(username){
     document.getElementById("loginScreen").style.display = "none";
     document.getElementById("mainPage").style.display = "block";
     document.getElementById("loggedUser").innerText = "Zalogowano jako: " + username + " (" + users[username].role + ")";
-
     fillStudentSelects();
     fillMessageReceivers(username);
     setPanelsForRole(username);
-    showPage(localStorage.getItem("lastPage") || "plan", false);
+    showPage("plan", false);
 }
-
 function setPanelsForRole(username){
     const manager = users[username].role === "teacher" || users[username].role === "admin";
-
     document.getElementById("teacherPanel").style.display = manager ? "block" : "none";
     document.getElementById("gradesViewPanel").style.display = manager ? "block" : "none";
     document.getElementById("lessonPanel").style.display = manager ? "block" : "none";
     document.getElementById("notesPanel").style.display = manager ? "block" : "none";
     document.getElementById("notesViewPanel").style.display = manager ? "block" : "none";
-
     document.getElementById("gradesBox").style.display = manager ? "none" : "block";
     document.getElementById("notesBox").style.display = manager ? "none" : "block";
     document.getElementById("historyBox").style.display = manager ? "none" : "block";
     document.getElementById("historyInfoBox").style.display = manager ? "none" : "block";
 }
-
 function logout(){
     loggedUser = null;
     selectedNotesStudent = null;
     selectedGradesStudent = null;
-
-    localStorage.removeItem("loggedUser");
-    localStorage.removeItem("lastPage");
-
     document.getElementById("mainPage").style.display = "none";
     document.getElementById("loginScreen").style.display = "flex";
     document.getElementById("username").value = "";
     document.getElementById("password").value = "";
     document.getElementById("message").innerText = "";
 }
-
-function showPage(pageId, savePage = true){
-    if(!document.getElementById(pageId)) pageId = "plan";
-
-    if(savePage) localStorage.setItem("lastPage", pageId);
-
+function showPage(pageId){
     document.querySelectorAll(".page").forEach(page => page.classList.remove("active"));
     document.getElementById(pageId).classList.add("active");
-
     refreshCurrentPage();
 }
-
 function refreshCurrentPage(){
     if(!loggedUser || !users[loggedUser]) return;
-
     loadLessons();
     loadMessages(loggedUser);
-
     if(canManage()){
         if(selectedGradesStudent && users[selectedGradesStudent]) loadGrades(selectedGradesStudent);
         if(selectedNotesStudent && users[selectedNotesStudent]) loadNotes(selectedNotesStudent);
@@ -650,130 +560,91 @@ function refreshCurrentPage(){
         loadHistory(loggedUser);
     }
 }
-
 function loadLessons(){
     const dayOrder = {"Poniedziałek":1,"Wtorek":2,"Środa":3,"Czwartek":4,"Piątek":5};
-
     lessons.sort((a,b) => ((dayOrder[a.day]||99)-(dayOrder[b.day]||99)) || String(a.hour || "").localeCompare(String(b.hour || ""),"pl",{numeric:true}));
-
     let html = lessons.length ? "" : "Brak lekcji w planie.";
-
     lessons.forEach(lesson => {
         html += `<div class="lesson"><b>${escapeHtml(lesson.day)}</b>, ${escapeHtml(lesson.hour)}<br>${escapeHtml(lesson.subject)}, sala ${escapeHtml(lesson.room)}${canManage() ? `<br><button onclick="deleteLesson('${lesson.id}')">Usuń</button>` : ""}</div>`;
     });
-
     document.getElementById("lessonsBox").innerHTML = html;
 }
-
 async function addLesson(){
     if(!canManage()) return alert("Nie masz uprawnień.");
-
     const day = document.getElementById("lessonDay").value;
     const hour = document.getElementById("lessonHour").value.trim();
     const subject = document.getElementById("lessonSubject").value.trim();
     const room = document.getElementById("lessonRoom").value.trim();
-
     if(!hour || !subject || !room) return alert("Uzupełnij godzinę, przedmiot i salę.");
-
     await db.collection("lessons").add({day,hour,subject,room});
-
     document.getElementById("lessonHour").value = "";
     document.getElementById("lessonSubject").value = "";
     document.getElementById("lessonRoom").value = "";
 }
-
 async function deleteLesson(id){
     if(canManage()) await db.collection("lessons").doc(id).delete();
 }
-
 function loadGrades(username){
     const user = users[username];
-
     if(!user){
         document.getElementById("gradesBox").innerHTML = "Brak ocen";
         return;
     }
-
     let list = [...subjects];
-
     user.grades.forEach(item => {
         if(!list.includes(item.subject)) list.push(item.subject);
     });
-
     let html = `<div class="grades-header"><div class="student-name">👤 ${escapeHtml(username)}</div>`;
-
     list.forEach(subject => {
         const subjectGrades = user.grades.filter(item => item.subject === subject);
-
         html += `<div class="subject-row"><div class="subject-name">${escapeHtml(subject)}</div><div class="grade-tiles">`;
-
         subjectGrades.forEach(item => {
             const index = user.grades.indexOf(item);
             const del = canManage() ? `<button class="delete-grade-btn" onclick="deleteGrade('${username}',${index})">usuń</button>` : "";
-
             html += `<div class="grade-tile ${escapeHtml(item.color || "grade-green")} ${canManage() ? "grade-tile-manage" : ""}">${escapeHtml(item.grade)}<sup>${escapeHtml(item.weight || "1")}</sup>${del}</div>`;
         });
-
         html += `</div></div>`;
     });
-
     html += `</div>`;
-
     document.getElementById("gradesBox").innerHTML = html;
-
     if(document.getElementById("averageChartBox").style.display !== "none"){
         renderAverageChart(username);
     }
 }
-
 function gradeToNumber(grade){
     if(!grade) return null;
-
     grade = String(grade).trim();
-
     if(grade === "nb" || grade === ".") return null;
-
     let base = parseInt(grade, 10);
-
     if(isNaN(base)) return null;
     if(grade.includes("+")) base += 0.5;
     if(grade.includes("-")) base -= 0.25;
-
     return Math.max(1, Math.min(6, base));
 }
-
 function getSubjectAverage(grades, subject){
     let sum = 0;
     let weightSum = 0;
-
     grades.filter(item => item.subject === subject).forEach(item => {
         let value = gradeToNumber(item.grade);
         let weight = parseFloat(item.weight || "1");
-
         if(value !== null && !isNaN(weight)){
             sum += value * weight;
             weightSum += weight;
         }
     });
-
     if(weightSum === 0) return 0;
-
     return sum / weightSum;
 }
-
 function getCurrentGradesUsername(){
     if(canManage()){
         let selected = document.getElementById("studentSelectViewGrades").value;
         if(selected) return selected;
     }
-
     return loggedUser;
 }
-
 function toggleAverageChart(){
     let box = document.getElementById("averageChartBox");
     let username = getCurrentGradesUsername();
-
     if(box.style.display === "none"){
         box.style.display = "block";
         renderAverageChart(username);
@@ -781,40 +652,28 @@ function toggleAverageChart(){
         box.style.display = "none";
     }
 }
-
 function renderAverageChart(username){
     const user = users[username];
     const box = document.getElementById("averageChartBox");
-
     if(!user){
         box.innerHTML = `<div class="chart-empty">Brak danych.</div>`;
         return;
     }
-
     let usedSubjects = subjects.filter(subject => user.grades.some(item => item.subject === subject));
-
-    user.grades.forEach(item => {
-        if(!usedSubjects.includes(item.subject)) usedSubjects.push(item.subject);
-    });
-
     if(usedSubjects.length === 0){
         box.innerHTML = `<div class="chart-empty">Brak ocen do obliczenia średniej.</div>`;
         return;
     }
-
     let barsHtml = "";
     let labelsHtml = "";
-
     usedSubjects.forEach(subject => {
         let studentAvg = getSubjectAverage(user.grades, subject);
         let studentHeight = (studentAvg / 6) * 370;
-
         barsHtml += `
             <div class="chart-group">
                 <div class="chart-bar" title="Śr. ucznia: ${studentAvg.toFixed(2)}" style="height:${studentHeight}px"></div>
             </div>
         `;
-
         labelsHtml += `
             <div class="chart-label">
                 ${escapeHtml(subject.length > 7 ? subject.slice(0, 6) + "." : subject.toLowerCase())}
@@ -822,7 +681,6 @@ function renderAverageChart(username){
             </div>
         `;
     });
-
     box.innerHTML = `
         <div class="chart-wrap">
             <div class="chart">
@@ -834,14 +692,10 @@ function renderAverageChart(username){
         </div>
     `;
 }
-
 async function addGrade(){
     if(!canManage()) return alert("Nie masz uprawnień.");
-
     const student = document.getElementById("studentSelectGrades").value;
-
     if(!student || !users[student]) return alert("Wybierz ucznia.");
-
     users[student].grades.push({
         subject:document.getElementById("subjectSelect").value,
         grade:document.getElementById("gradeSelect").value,
@@ -851,78 +705,56 @@ async function addGrade(){
         date:new Date().toLocaleString("pl-PL"),
         timestamp:Date.now()
     });
-
     await saveUser(student);
-
     alert("Dodano ocenę!");
 }
-
 function viewStudentGrades(){
     if(!canManage()) return;
-
     const student = document.getElementById("studentSelectViewGrades").value;
-
     if(!student || !users[student]) return;
-
     selectedGradesStudent = student;
-
     document.getElementById("gradesBox").style.display = "block";
-
     loadGrades(student);
-
     if(document.getElementById("averageChartBox").style.display !== "none"){
         renderAverageChart(student);
     }
 }
-
 async function deleteGrade(student,index){
     if(!canManage()) return;
     if(!users[student] || !users[student].grades[index]) return;
-
     if(confirm("Czy na pewno chcesz usunąć tę ocenę?")){
         users[student].grades.splice(index,1);
         await saveUser(student);
     }
 }
-
 function loadNotes(username){
     const user = users[username];
-
     if(!user || !Array.isArray(user.notes) || user.notes.length === 0){
         document.getElementById("notesBox").innerHTML = "Brak uwag.";
         return;
     }
-
     const notesWithIndex = user.notes.map((item, index) => ({...item, realIndex:index, student:username}));
-
     notesWithIndex.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
-
     let html = `<div class="small-info">Liczba uwag: ${notesWithIndex.length}</div>`;
-
     notesWithIndex.forEach(item => {
         html += buildNoteCard(item.student, item.realIndex, item);
     });
-
     document.getElementById("notesBox").innerHTML = html;
 }
-
 function buildNoteCard(student, index, item){
     let typeText = "Negatywna";
     let icon = "❗";
     let cssClass = "note-negative";
-
     if(item.type === "positive"){
         typeText = "Pozytywna";
         icon = "✅";
         cssClass = "note-positive";
     }
-
     if(item.type === "neutral"){
         typeText = "Neutralna";
         icon = "ℹ️";
         cssClass = "note-neutral";
     }
-
     return `
         <div class="note-card ${cssClass}">
             <div class="note-icon">${icon}</div>
@@ -936,48 +768,34 @@ function buildNoteCard(student, index, item){
         </div>
     `;
 }
-
 function viewAllNotes(){
     if(!canManage()) return;
-
     let allNotes = [];
-
     getStudents().forEach(student => {
         const studentNotes = Array.isArray(users[student].notes) ? users[student].notes : [];
-
         studentNotes.forEach((item, index) => {
             allNotes.push({...item, student:student, realIndex:index});
         });
     });
-
     allNotes.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
-
     if(allNotes.length === 0){
         document.getElementById("notesBox").innerHTML = "Brak uwag.";
         return;
     }
-
     let html = `<div class="small-info">Liczba wszystkich uwag: ${allNotes.length}</div>`;
-
     allNotes.forEach(item => {
         html += buildNoteCard(item.student, item.realIndex, item);
     });
-
     selectedNotesStudent = null;
-
     document.getElementById("notesBox").style.display = "block";
     document.getElementById("notesBox").innerHTML = html;
 }
-
 async function addNote(){
     if(!canManage()) return alert("Nie masz uprawnień.");
-
     const student = document.getElementById("studentSelectNotes").value;
     const text = document.getElementById("noteText").value.trim();
-
     if(!student || !users[student]) return alert("Wybierz ucznia.");
     if(!text) return alert("Wpisz treść uwagi.");
-
     users[student].notes.push({
         type:document.getElementById("noteType").value,
         text:text,
@@ -985,135 +803,97 @@ async function addNote(){
         date:new Date().toLocaleString("pl-PL"),
         timestamp:Date.now()
     });
-
     await saveUser(student);
-
     document.getElementById("noteText").value = "";
-
     alert("Dodano uwagę!");
 }
-
 function viewStudentNotes(){
     if(!canManage()) return;
-
     const student = document.getElementById("studentSelectViewNotes").value;
-
     if(!student || !users[student]) return;
-
     selectedNotesStudent = student;
-
     document.getElementById("notesBox").style.display = "block";
-
     loadNotes(student);
 }
-
 async function deleteNote(student,index){
     if(!canManage()) return;
     if(!users[student] || !users[student].notes[index]) return;
-
     if(confirm("Czy na pewno chcesz usunąć tę uwagę?")){
         users[student].notes.splice(index,1);
         await saveUser(student);
     }
 }
-
 function formatHistoryDay(timestamp){
     return timestamp ? new Date(timestamp).toLocaleDateString("pl-PL",{weekday:"long",day:"numeric",month:"long",year:"numeric"}) : "Bez daty";
 }
-
 function buildHistoryEntry(entry){
     if(entry.kind === "grade"){
         return `<div class="history-entry history-grade"><div class="history-left"><div class="history-icon">📝</div><div class="history-label">OCENA</div></div><div class="history-right"><div class="history-title">${escapeHtml(entry.subject)}: ${escapeHtml(entry.grade)}<sup>${escapeHtml(entry.weight)}</sup></div><div class="history-meta">Wpisał nauczyciel: ${escapeHtml(entry.teacher || "-")}<br>Data wpisu: ${escapeHtml(entry.date || "-")}</div></div></div>`;
     }
-
     let noteClass="history-note-negative", icon="❗", noteTypeText="negatywna";
-
     if(entry.type === "positive"){
         noteClass="history-note-positive";
         icon="✅";
         noteTypeText="pozytywna";
     }
-
     if(entry.type === "neutral"){
         noteClass="history-note-neutral";
         icon="ℹ️";
         noteTypeText="neutralna";
     }
-
     return `<div class="history-entry ${noteClass}"><div class="history-left"><div class="history-icon">${icon}</div><div class="history-label">ZACHOWANIE</div></div><div class="history-right"><div class="history-text">${escapeHtml(entry.text)}</div><div class="history-meta">Rodzaj: ${noteTypeText}<br>Wpisał nauczyciel: ${escapeHtml(entry.author || "-")}<br>Data wpisu: ${escapeHtml(entry.date || "-")}</div></div></div>`;
 }
-
 function renderHistoryEntriesGrouped(entries){
     if(entries.length === 0) return `<div class="history-small-line">Brak wpisów.</div>`;
-
     let html="";
     let lastDay="";
-
     entries.forEach(entry => {
         const day=formatHistoryDay(entry.timestamp);
-
         if(day!==lastDay){
             html+=`<div class="history-day">Wpisane w dniu: ${escapeHtml(day)}</div>`;
             lastDay=day;
         }
-
         html+=buildHistoryEntry(entry);
     });
-
     return html;
 }
-
 function loadHistory(username){
     const user = users[username];
-
     if(!user){
         document.getElementById("historyInfoBox").innerHTML = "";
         document.getElementById("historyBox").innerHTML = "Brak wpisów.";
         return;
     }
-
     let entries = [];
-
     user.grades.forEach(item => entries.push({kind:"grade", ...item}));
     user.notes.forEach(item => entries.push({kind:"note", ...item}));
-
     entries.sort((a,b) => (b.timestamp || 0) - (a.timestamp || 0));
-
     const previousLoginRef = parseInt(localStorage.getItem("previousLoginRef_" + username) || "0", 10);
     const sinceLastLogin = previousLoginRef > 0 ? entries.filter(entry => (entry.timestamp || 0) > previousLoginRef) : [];
-
     document.getElementById("historyInfoBox").innerHTML = `
         <div class="history-small-line">
             ${sinceLastLogin.length === 0 ? "Brak wpisów od ostatniego logowania" : "Wpisy od ostatniego logowania: " + sinceLastLogin.length}
         </div>
         <div class="history-section-title">Wszystkie wpisy</div>
     `;
-
     document.getElementById("historyBox").innerHTML = renderHistoryEntriesGrouped(entries);
 }
-
 function loadMessages(username){
     const user = users[username];
-
     if(!user || !Array.isArray(user.messages) || user.messages.length === 0){
         document.getElementById("messagesBox").innerHTML = "Brak wiadomości.";
         return;
     }
-
     let html = "";
-
     user.messages.slice().reverse().forEach(item => {
         let attachmentHtml = "";
-
         const fileUrl = item.fileUrl || item.pdfUrl || "";
         const fileName = item.fileName || item.pdfName || "plik";
         const fileType = item.fileType || "application/pdf";
-
         if(fileUrl){
             const safeUrl = escapeAttr(fileUrl);
             const safeName = escapeHtml(fileName);
             const safeNameAttr = escapeAttr(fileName);
-
             if(fileType.startsWith("image/") || fileName.toLowerCase().endsWith(".heic") || fileName.toLowerCase().endsWith(".heif")){
                 attachmentHtml = `
                     <div class="attachment-card">
@@ -1138,7 +918,6 @@ function loadMessages(username){
                 `;
             }
         }
-
         html += `
             <div class="chat-message">
                 <b>Od: ${escapeHtml(item.from)}</b><br>
@@ -1149,50 +928,39 @@ function loadMessages(username){
             </div>
         `;
     });
-
     document.getElementById("messagesBox").innerHTML = html;
 }
-
 async function sendMessage(){
     const sendBtn = document.getElementById("sendMessageBtn");
-
     try{
         if(sendBtn){
             sendBtn.disabled = true;
             sendBtn.innerText = "Wysyłanie...";
         }
-
         if(!loggedUser || !users[loggedUser]){
             alert("Musisz być zalogowany.");
             return;
         }
-
         const receiver = document.getElementById("messageReceiver").value;
         const text = document.getElementById("messageText").value.trim();
         const fileInput = document.getElementById("messageFile");
         const file = fileInput && fileInput.files.length > 0 ? fileInput.files[0] : null;
-
         if(!receiver || !users[receiver]){
             alert("Wybierz odbiorcę.");
             return;
         }
-
         if(!text && !file){
             alert("Wpisz wiadomość albo dodaj plik PDF lub zdjęcie.");
             return;
         }
-
         let fileUrl = "";
         let fileName = "";
         let fileType = "";
-
         if(file){
             const fileNameLower = file.name.toLowerCase();
-
             const isPdf =
                 file.type === "application/pdf" ||
                 fileNameLower.endsWith(".pdf");
-
             const isImage =
                 file.type.startsWith("image/") ||
                 fileNameLower.endsWith(".jpg") ||
@@ -1202,36 +970,44 @@ async function sendMessage(){
                 fileNameLower.endsWith(".gif") ||
                 fileNameLower.endsWith(".heic") ||
                 fileNameLower.endsWith(".heif");
-
             if(!isPdf && !isImage){
                 alert("Możesz wysłać tylko PDF albo zdjęcie.");
                 return;
             }
-
             if(!storage){
                 alert("Firebase Storage nie jest gotowe.");
                 return;
             }
-
-            const safeName = file.name.replace(/[^a-zA-Z0-9ąćęłńóśźżĄĆĘŁŃÓŚŹŻ._-]/g, "_");
+            let uploadFile = file;
+            let uploadName = file.name;
+            let uploadType = file.type || (isImage ? "image/jpeg" : "application/pdf");
+            const canResize =
+                isImage &&
+                !fileNameLower.endsWith(".heic") &&
+                !fileNameLower.endsWith(".heif") &&
+                !fileNameLower.endsWith(".gif");
+            if(canResize){
+                try{
+                    uploadFile = await resizeImage(file, 1200, 0.72);
+                    uploadName = uploadFile.name;
+                    uploadType = uploadFile.type;
+                }catch(resizeError){
+                    console.warn("Nie udało się zmniejszyć zdjęcia, wysyłam oryginał:", resizeError);
+                }
+            }
+            const safeName = uploadName.replace(/[^a-zA-Z0-9ąćęłńóśźżĄĆĘŁŃÓŚŹŻ._-]/g, "_");
             const folder = isImage ? "images" : "pdf";
             const path = `messages/${receiver}/${folder}/${Date.now()}_${safeName}`;
-
-            const finalType = file.type || (isImage ? "image/jpeg" : "application/pdf");
-
-            const snapshot = await storage.ref(path).put(file, {
-                contentType: finalType
+            const snapshot = await storage.ref(path).put(uploadFile, {
+                contentType: uploadType
             });
-
             fileUrl = await snapshot.ref.getDownloadURL();
-            fileName = file.name;
-            fileType = finalType;
+            fileName = uploadName;
+            fileType = uploadType;
         }
-
         if(!Array.isArray(users[receiver].messages)){
             users[receiver].messages = [];
         }
-
         users[receiver].messages.push({
             from:loggedUser,
             text:text,
@@ -1241,12 +1017,9 @@ async function sendMessage(){
             date:new Date().toLocaleString("pl-PL"),
             timestamp:Date.now()
         });
-
         await saveUser(receiver);
-
         document.getElementById("messageText").value = "";
         if(fileInput) fileInput.value = "";
-
         alert("Wiadomość wysłana!");
     }catch(error){
         alert("Błąd wysyłania: " + error.message);
@@ -1257,22 +1030,17 @@ async function sendMessage(){
         }
     }
 }
-
 document.getElementById("username").addEventListener("keydown", e => {
     if(e.key === "Enter") login();
 });
-
 document.getElementById("password").addEventListener("keydown", e => {
     if(e.key === "Enter") login();
 });
-
 window.addEventListener("load", async () => {
     localStorage.removeItem("loggedUser");
     loggedUser = null;
-
     document.getElementById("mainPage").style.display = "none";
     document.getElementById("loginScreen").style.display = "flex";
-
     await startApp();
 });
 </script>
