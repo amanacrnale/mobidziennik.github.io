@@ -25,6 +25,9 @@ body{background:#efefef}
 .content{padding:30px}.page{display:none}.active{display:block}.box{background:white;padding:20px;border-radius:10px;margin-top:15px;box-shadow:0 2px 5px rgba(0,0,0,.08)}
 .lesson,.chat-message{font-size:18px;margin-bottom:12px;padding:10px;border-bottom:1px solid #eee}.panel{margin-top:20px;background:white;padding:20px;border-radius:10px;box-shadow:0 2px 5px rgba(0,0,0,.08)}
 .panel h2{margin-bottom:10px}.panel input,.panel select,.panel textarea,.panel button{padding:10px;margin-right:10px;margin-top:10px}.panel input,.panel select,.panel textarea{border:1px solid #ccc;border-radius:6px}.panel textarea{width:100%;min-height:90px;resize:vertical}.panel button{background:#0072d6;color:white;border:none;border-radius:6px;cursor:pointer}.small-info{font-size:13px;color:#666;margin-top:8px}
+.pdf-actions{margin-top:10px;padding:10px;background:#f4f8ff;border:1px solid #d6e7ff;border-radius:8px;font-size:15px}
+.pdf-actions a{color:#0072d6;text-decoration:none;font-weight:bold;margin-right:8px}
+.pdf-actions a:hover{text-decoration:underline}
 
 .grades-header{background:white;border-radius:10px;margin-top:15px;overflow:hidden;box-shadow:0 2px 5px rgba(0,0,0,.08)}.student-name{padding:18px 20px;font-size:20px;font-weight:bold;color:#555;border-bottom:1px solid #eee}.subject-row{display:grid;grid-template-columns:160px 1fr;align-items:center;min-height:78px;border-bottom:1px solid #eee;background:white}.subject-name{padding:18px 20px;font-size:20px;color:#666}.grade-tiles{display:flex;flex-wrap:wrap;gap:6px;padding:12px}.grade-tile{min-width:54px;height:54px;border-radius:6px;display:flex;justify-content:center;align-items:center;font-size:25px;font-weight:bold;color:#444;box-shadow:0 1px 3px rgba(0,0,0,.15);position:relative}.grade-tile sup{font-size:13px;margin-left:1px;transform:translateY(-7px)}.grade-tile-manage{padding-bottom:16px}.delete-grade-btn{position:absolute;bottom:2px;left:50%;transform:translateX(-50%);font-size:10px;padding:1px 5px;border:none;border-radius:4px;background:rgba(0,0,0,.55);color:white;cursor:pointer}
 .grade-green{background:#55df5b}.grade-blue{background:#46bedb}.grade-orange{background:#ff8b35}.grade-yellow{background:#f5dc51}.grade-red{background:#ff5b70}.grade-purple{background:#c9c9ee}.grade-mint{background:#9ee5cf}.grade-gray{background:#e8e8d8}.grade-pinkgray{background:#c8b2b5}
@@ -73,7 +76,18 @@ body{background:#efefef}
     <div class="content">
         <div id="historia" class="page"><h1 class="history-top-title">- historia wpisów</h1><div id="historyInfoBox"></div><div class="box" id="historyBox">Brak wpisów.</div></div>
 
-        <div id="wiadomosci" class="page"><h1>Wiadomości</h1><div class="box" id="messagesBox">Brak wiadomości.</div><div class="panel"><h2>Napisz wiadomość</h2><select id="messageReceiver"></select><textarea id="messageText" placeholder="Wpisz wiadomość"></textarea><button onclick="sendMessage()">Wyślij wiadomość</button></div></div>
+        <div id="wiadomosci" class="page">
+            <h1>Wiadomości</h1>
+            <div class="box" id="messagesBox">Brak wiadomości.</div>
+            <div class="panel">
+                <h2>Napisz wiadomość</h2>
+                <select id="messageReceiver"></select>
+                <textarea id="messageText" placeholder="Wpisz wiadomość"></textarea>
+                <input type="file" id="messagePdf" accept="application/pdf">
+                <button onclick="sendMessage()">Wyślij wiadomość</button>
+                <div class="small-info">Możesz dołączyć plik PDF do wiadomości.</div>
+            </div>
+        </div>
 
         <div id="plan" class="page active"><h1>Plan lekcji</h1><div class="box" id="lessonsBox">Brak lekcji w planie.</div><div class="panel" id="lessonPanel" style="display:none;"><h2>Dodaj lekcję do planu</h2><select id="lessonDay"><option>Poniedziałek</option><option>Wtorek</option><option>Środa</option><option>Czwartek</option><option>Piątek</option></select><input type="text" id="lessonHour" placeholder="Godzina, np. 8:00"><input type="text" id="lessonSubject" placeholder="Przedmiot"><input type="text" id="lessonRoom" placeholder="Sala, np. 24"><button onclick="addLesson()">Dodaj lekcję</button></div></div>
 
@@ -85,6 +99,7 @@ body{background:#efefef}
 
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-storage-compat.js"></script>
 
 <script>
 /* WAŻNE: tutaj wklej swój firebaseConfig z Firebase Console */
@@ -98,6 +113,7 @@ const firebaseConfig = {
 };
 
 let db = null;
+let storage = null;
 let users = {};
 let lessons = [];
 let loggedUser = null;
@@ -122,13 +138,7 @@ const defaultUsers = {
     chata:{password:"szkoła123",role:"teacher",grades:[],notes:[],messages:[]},
     kreda:{password:"szkoła123",role:"teacher",grades:[],notes:[],messages:[]},
     admin:{password:"admin123",role:"admin",grades:[],notes:[],messages:[]},
-    kaity:{
-        password:"lubie polski",
-        role:"student",
-        grades:[],
-        notes:[],
-        messages:[]
-    },
+    kaity:{password:"lubie polski",role:"student",grades:[],notes:[],messages:[]},
     zanetka:{
         password:"chemia",
         role:"student",
@@ -158,6 +168,7 @@ async function startApp(){
     try{
         firebase.initializeApp(firebaseConfig);
         db = firebase.firestore();
+        storage = firebase.storage();
 
         await seedDatabaseIfEmpty();
         await listenToDatabase();
@@ -750,24 +761,105 @@ function loadHistory(username){
     document.getElementById("historyBox").innerHTML = renderHistoryEntriesGrouped(entries);
 }
 
+function safeText(text){
+    return String(text || "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
 function loadMessages(username){
     const user = users[username];
-    let html = user.messages.length ? "" : "Brak wiadomości.";
-    user.messages.slice().reverse().forEach(item => html += `<div class="chat-message"><b>Od: ${item.from}</b><br>${item.text}<br><span class="small-info">${item.date}</span></div>`);
+
+    if(!user || !Array.isArray(user.messages) || user.messages.length === 0){
+        document.getElementById("messagesBox").innerHTML = "Brak wiadomości.";
+        return;
+    }
+
+    let html = "";
+
+    user.messages.slice().reverse().forEach(item => {
+        html += `
+            <div class="chat-message">
+                <b>Od: ${safeText(item.from)}</b><br>
+                ${safeText(item.text)}<br>
+                <span class="small-info">${safeText(item.date)}</span>
+        `;
+
+        if(item.pdfUrl){
+            html += `
+                <div class="pdf-actions">
+                    📄 <b>${safeText(item.pdfName || "plik.pdf")}</b><br>
+                    <a href="${item.pdfUrl}" target="_blank">Zobacz PDF</a>
+                    <a href="${item.pdfUrl}" download="${safeText(item.pdfName || "plik.pdf")}">Pobierz PDF</a>
+                </div>
+            `;
+        }
+
+        html += `</div>`;
+    });
+
     document.getElementById("messagesBox").innerHTML = html;
 }
+
 async function sendMessage(){
     const receiver = document.getElementById("messageReceiver").value;
     const text = document.getElementById("messageText").value.trim();
-    if(!text) return alert("Wpisz wiadomość.");
-    users[receiver].messages.push({from:loggedUser,text,date:new Date().toLocaleString("pl-PL")});
+    const fileInput = document.getElementById("messagePdf");
+    const file = fileInput.files[0];
+
+    if(!receiver){
+        return alert("Wybierz odbiorcę.");
+    }
+
+    if(!text && !file){
+        return alert("Wpisz wiadomość albo dodaj plik PDF.");
+    }
+
+    let pdfUrl = "";
+    let pdfName = "";
+    let pdfPath = "";
+
+    if(file){
+        if(file.type !== "application/pdf"){
+            return alert("Możesz wysłać tylko plik PDF.");
+        }
+
+        if(file.size > 10 * 1024 * 1024){
+            return alert("Plik PDF jest za duży. Maksymalnie 10 MB.");
+        }
+
+        pdfName = file.name;
+        pdfPath = "message_pdfs/" + Date.now() + "_" + loggedUser + "_" + file.name;
+
+        try{
+            const fileRef = storage.ref().child(pdfPath);
+            await fileRef.put(file);
+            pdfUrl = await fileRef.getDownloadURL();
+        }catch(error){
+            alert("Nie udało się wysłać PDF: " + error.message);
+            return;
+        }
+    }
+
+    users[receiver].messages.push({
+        from: loggedUser,
+        text: text,
+        date: new Date().toLocaleString("pl-PL"),
+        pdfUrl: pdfUrl,
+        pdfName: pdfName,
+        pdfPath: pdfPath
+    });
+
     await saveUser(receiver);
+
     document.getElementById("messageText").value = "";
+    document.getElementById("messagePdf").value = "";
+
     alert("Wiadomość wysłana!");
 }
-
-document.getElementById("username").addEventListener("keydown", e => {if(e.key === "Enter") login();});
-document.getElementById("password").addEventListener("keydown", e => {if(e.key === "Enter") login();});
 
 window.addEventListener("load", async () => {
     localStorage.removeItem("loggedUser");
@@ -781,6 +873,9 @@ window.addEventListener("load", async () => {
     if(!ok){
         return;
     }
+
+    document.getElementById("username").addEventListener("keydown", e => {if(e.key === "Enter") login();});
+    document.getElementById("password").addEventListener("keydown", e => {if(e.key === "Enter") login();});
 });
 </script>
 </body>
