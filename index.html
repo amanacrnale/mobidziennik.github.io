@@ -28,6 +28,11 @@ body{background:#efefef}
 .pdf-actions{margin-top:10px;padding:10px;background:#f4f8ff;border:1px solid #d6e7ff;border-radius:8px;font-size:15px}
 .pdf-actions a{color:#0072d6;text-decoration:none;font-weight:bold;margin-right:8px}
 .pdf-actions a:hover{text-decoration:underline}
+.pdf-upload-row{margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.pdf-upload-label{display:inline-block;background:#0072d6;color:white;padding:10px 16px;border-radius:6px;cursor:pointer;font-weight:bold}
+.pdf-upload-label:hover{background:#005fae}
+#messagePdf{display:none}
+#selectedPdfName{font-size:14px;color:#444}
 
 .grades-header{background:white;border-radius:10px;margin-top:15px;overflow:hidden;box-shadow:0 2px 5px rgba(0,0,0,.08)}.student-name{padding:18px 20px;font-size:20px;font-weight:bold;color:#555;border-bottom:1px solid #eee}.subject-row{display:grid;grid-template-columns:160px 1fr;align-items:center;min-height:78px;border-bottom:1px solid #eee;background:white}.subject-name{padding:18px 20px;font-size:20px;color:#666}.grade-tiles{display:flex;flex-wrap:wrap;gap:6px;padding:12px}.grade-tile{min-width:54px;height:54px;border-radius:6px;display:flex;justify-content:center;align-items:center;font-size:25px;font-weight:bold;color:#444;box-shadow:0 1px 3px rgba(0,0,0,.15);position:relative}.grade-tile sup{font-size:13px;margin-left:1px;transform:translateY(-7px)}.grade-tile-manage{padding-bottom:16px}.delete-grade-btn{position:absolute;bottom:2px;left:50%;transform:translateX(-50%);font-size:10px;padding:1px 5px;border:none;border-radius:4px;background:rgba(0,0,0,.55);color:white;cursor:pointer}
 .grade-green{background:#55df5b}.grade-blue{background:#46bedb}.grade-orange{background:#ff8b35}.grade-yellow{background:#f5dc51}.grade-red{background:#ff5b70}.grade-purple{background:#c9c9ee}.grade-mint{background:#9ee5cf}.grade-gray{background:#e8e8d8}.grade-pinkgray{background:#c8b2b5}
@@ -83,9 +88,13 @@ body{background:#efefef}
                 <h2>Napisz wiadomość</h2>
                 <select id="messageReceiver"></select>
                 <textarea id="messageText" placeholder="Wpisz wiadomość"></textarea>
-                <input type="file" id="messagePdf" accept="application/pdf">
+                <div class="pdf-upload-row">
+                    <label for="messagePdf" class="pdf-upload-label">Dodaj PDF</label>
+                    <input type="file" id="messagePdf" onchange="showSelectedPdfName()">
+                    <span id="selectedPdfName">Nie wybrano pliku PDF</span>
+                </div>
                 <button onclick="sendMessage()">Wyślij wiadomość</button>
-                <div class="small-info">Możesz dołączyć plik PDF do wiadomości.</div>
+                <div class="small-info">Kliknij „Dodaj PDF”, wybierz plik PDF, a potem wyślij wiadomość. Jeśli widzisz wszystkie pliki, wybierz tylko PDF.</div>
             </div>
         </div>
 
@@ -770,6 +779,19 @@ function safeText(text){
         .replaceAll("'", "&#039;");
 }
 
+function showSelectedPdfName(){
+    const fileInput = document.getElementById("messagePdf");
+    const label = document.getElementById("selectedPdfName");
+    const file = fileInput.files[0];
+
+    if(!file){
+        label.innerText = "Nie wybrano pliku PDF";
+        return;
+    }
+
+    label.innerText = "Wybrano: " + file.name;
+}
+
 function loadMessages(username){
     const user = users[username];
 
@@ -857,6 +879,7 @@ async function sendMessage(){
 
     document.getElementById("messageText").value = "";
     document.getElementById("messagePdf").value = "";
+    document.getElementById("selectedPdfName").innerText = "Nie wybrano pliku PDF";
 
     alert("Wiadomość wysłana!");
 }
