@@ -12,30 +12,127 @@ body{background:#efefef}
 #loginScreen{width:100%;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding-top:85px;background:#dcdcdc}
 .login-panel{width:600px;background:#fff;border:1px solid #d0d0d0;border-radius:4px;box-shadow:0 1px 8px rgba(0,0,0,.15);overflow:hidden}
 .login-header{border-bottom:1px solid #e2e2e2;text-align:center;padding:18px 0 14px;background:#fff}
-.mobid-logo{font-size:28px;font-weight:bold;color:#0d5d9c}.mobid-logo span{color:#e5a032}.mobid-logo sup{color:#999;font-size:12px;position:relative;top:-10px}
-.login-body{display:grid;grid-template-columns:220px 1fr;gap:25px;padding:28px 34px 34px;align-items:center}.login-left{text-align:center}
-.school-avatar{width:110px;height:110px;object-fit:cover;display:block;margin:0 auto 18px}.school-name{font-size:16px;font-weight:bold;color:#222;line-height:1.3;text-align:left}
-.login-row{display:grid;grid-template-columns:100px 1fr;align-items:center;gap:14px;margin-bottom:14px}.login-row label{font-size:16px;color:#333;text-align:right;font-weight:bold}
-.login-row input{width:100%;height:34px;padding:6px 10px;border:1px solid #b7c3d0;border-radius:3px;background:#eef4fb;outline:none}.login-row input:focus{border-color:#6ea7dd;background:#fff}
+.mobid-logo{font-size:28px;font-weight:bold;color:#0d5d9c}
+.mobid-logo span{color:#e5a032}
+.mobid-logo sup{color:#999;font-size:12px;position:relative;top:-10px}
+.login-body{display:grid;grid-template-columns:220px 1fr;gap:25px;padding:28px 34px 34px;align-items:center}
+.login-left{text-align:center}
+.school-avatar{width:110px;height:110px;object-fit:cover;display:block;margin:0 auto 18px}
+.school-name{font-size:16px;font-weight:bold;color:#222;line-height:1.3;text-align:left}
+.login-row{display:grid;grid-template-columns:100px 1fr;align-items:center;gap:14px;margin-bottom:14px}
+.login-row label{font-size:16px;color:#333;text-align:right;font-weight:bold}
+.login-row input{width:100%;height:34px;padding:6px 10px;border:1px solid #b7c3d0;border-radius:3px;background:#eef4fb;outline:none}
+.login-row input:focus{border-color:#6ea7dd;background:#fff}
 .login-main-btn{width:100%;height:38px;border:none;border-radius:4px;background:linear-gradient(#3f8dd3,#2167a8);color:white;font-size:16px;font-weight:bold;cursor:pointer;margin:2px 0 12px}
-.login-links{display:flex;justify-content:space-between;gap:10px;font-size:12px}.login-links a{color:#4e83be;text-decoration:none}.message{text-align:center;color:red;margin-top:12px;min-height:18px;font-size:14px}
+.login-links{display:flex;justify-content:space-between;gap:10px;font-size:12px}
+.login-links a{color:#4e83be;text-decoration:none}
+.message{text-align:center;color:red;margin-top:12px;min-height:18px;font-size:14px}
 
-#mainPage{display:none}.topbar{background:#0b71c8;min-height:50px;display:flex;justify-content:space-between;align-items:center;padding:0 20px;color:white;gap:10px}.logo{font-size:32px;font-weight:bold}.logo span{color:yellow}#loggedUser{font-size:14px;text-align:right}
-.navbar{background:#d8d8d8;padding:10px 20px;display:flex;gap:20px;flex-wrap:wrap}.navbar button{border:none;background:none;cursor:pointer;font-size:15px}.navbar button:hover{color:#0072d6}
-.content{padding:30px}.page{display:none}.active{display:block}.box{background:white;padding:20px;border-radius:10px;margin-top:15px;box-shadow:0 2px 5px rgba(0,0,0,.08)}
-.lesson,.chat-message{font-size:18px;margin-bottom:12px;padding:10px;border-bottom:1px solid #eee}.panel{margin-top:20px;background:white;padding:20px;border-radius:10px;box-shadow:0 2px 5px rgba(0,0,0,.08)}
-.panel h2{margin-bottom:10px}.panel input,.panel select,.panel textarea,.panel button{padding:10px;margin-right:10px;margin-top:10px}.panel input,.panel select,.panel textarea{border:1px solid #ccc;border-radius:6px}.panel textarea{width:100%;min-height:90px;resize:vertical}.panel button{background:#0072d6;color:white;border:none;border-radius:6px;cursor:pointer}.small-info{font-size:13px;color:#666;margin-top:8px}
+#mainPage{display:none}
+.topbar{background:#0b71c8;min-height:50px;display:flex;justify-content:space-between;align-items:center;padding:0 20px;color:white;gap:10px}
+.logo{font-size:32px;font-weight:bold}
+.logo span{color:yellow}
+#loggedUser{font-size:14px;text-align:right}
+.navbar{background:#d8d8d8;padding:10px 20px;display:flex;gap:20px;flex-wrap:wrap}
+.navbar button{border:none;background:none;cursor:pointer;font-size:15px}
+.navbar button:hover{color:#0072d6}
+.content{padding:30px}
+.page{display:none}
+.active{display:block}
+.box{background:white;padding:20px;border-radius:10px;margin-top:15px;box-shadow:0 2px 5px rgba(0,0,0,.08)}
+.lesson,.chat-message{font-size:18px;margin-bottom:12px;padding:10px;border-bottom:1px solid #eee}
+.chat-message a{color:#0072d6;text-decoration:none;font-weight:bold}
+.chat-message a:hover{text-decoration:underline}
+.panel{margin-top:20px;background:white;padding:20px;border-radius:10px;box-shadow:0 2px 5px rgba(0,0,0,.08)}
+.panel h2{margin-bottom:10px}
+.panel input,.panel select,.panel textarea,.panel button{padding:10px;margin-right:10px;margin-top:10px}
+.panel input,.panel select,.panel textarea{border:1px solid #ccc;border-radius:6px}
+.panel textarea{width:100%;min-height:90px;resize:vertical}
+.panel button{background:#0072d6;color:white;border:none;border-radius:6px;cursor:pointer}
+.small-info{font-size:13px;color:#666;margin-top:8px}
 
-.grades-header{background:white;border-radius:10px;margin-top:15px;overflow:hidden;box-shadow:0 2px 5px rgba(0,0,0,.08)}.student-name{padding:18px 20px;font-size:20px;font-weight:bold;color:#555;border-bottom:1px solid #eee}.subject-row{display:grid;grid-template-columns:160px 1fr;align-items:center;min-height:78px;border-bottom:1px solid #eee;background:white}.subject-name{padding:18px 20px;font-size:20px;color:#666}.grade-tiles{display:flex;flex-wrap:wrap;gap:6px;padding:12px}.grade-tile{min-width:54px;height:54px;border-radius:6px;display:flex;justify-content:center;align-items:center;font-size:25px;font-weight:bold;color:#444;box-shadow:0 1px 3px rgba(0,0,0,.15);position:relative}.grade-tile sup{font-size:13px;margin-left:1px;transform:translateY(-7px)}.grade-tile-manage{padding-bottom:16px}.delete-grade-btn{position:absolute;bottom:2px;left:50%;transform:translateX(-50%);font-size:10px;padding:1px 5px;border:none;border-radius:4px;background:rgba(0,0,0,.55);color:white;cursor:pointer}
-.grade-green{background:#55df5b}.grade-blue{background:#46bedb}.grade-orange{background:#ff8b35}.grade-yellow{background:#f5dc51}.grade-red{background:#ff5b70}.grade-purple{background:#c9c9ee}.grade-mint{background:#9ee5cf}.grade-gray{background:#e8e8d8}.grade-pinkgray{background:#c8b2b5}
+.grades-header{background:white;border-radius:10px;margin-top:15px;overflow:hidden;box-shadow:0 2px 5px rgba(0,0,0,.08)}
+.student-name{padding:18px 20px;font-size:20px;font-weight:bold;color:#555;border-bottom:1px solid #eee}
+.subject-row{display:grid;grid-template-columns:160px 1fr;align-items:center;min-height:78px;border-bottom:1px solid #eee;background:white}
+.subject-name{padding:18px 20px;font-size:20px;color:#666}
+.grade-tiles{display:flex;flex-wrap:wrap;gap:6px;padding:12px}
+.grade-tile{min-width:54px;height:54px;border-radius:6px;display:flex;justify-content:center;align-items:center;font-size:25px;font-weight:bold;color:#444;box-shadow:0 1px 3px rgba(0,0,0,.15);position:relative}
+.grade-tile sup{font-size:13px;margin-left:1px;transform:translateY(-7px)}
+.grade-tile-manage{padding-bottom:16px}
+.delete-grade-btn{position:absolute;bottom:2px;left:50%;transform:translateX(-50%);font-size:10px;padding:1px 5px;border:none;border-radius:4px;background:rgba(0,0,0,.55);color:white;cursor:pointer}
+.grade-green{background:#55df5b}
+.grade-blue{background:#46bedb}
+.grade-orange{background:#ff8b35}
+.grade-yellow{background:#f5dc51}
+.grade-red{background:#ff5b70}
+.grade-purple{background:#c9c9ee}
+.grade-mint{background:#9ee5cf}
+.grade-gray{background:#e8e8d8}
+.grade-pinkgray{background:#c8b2b5}
 
-.avg-btn{margin:10px 0 10px 0;padding:6px 14px;border:1px solid #bcbcbc;border-radius:3px;background:#eee;color:#111;cursor:pointer;font-size:14px}.avg-btn:hover{background:#e0e0e0}.chart-wrap{width:100%;overflow-x:auto;padding:10px 0}.chart{min-width:900px;height:430px;border-left:2px solid #777;border-bottom:2px solid #777;position:relative;background:repeating-linear-gradient(to top,rgba(0,0,0,.12) 0,rgba(0,0,0,.12) 1px,transparent 1px,transparent 74px)}.chart-bars{height:370px;display:flex;align-items:flex-end;gap:16px;padding:0 18px 0 18px}.chart-group{width:56px;height:370px;display:flex;align-items:flex-end;justify-content:center;gap:3px;position:relative}.chart-bar{width:24px;border:2px solid;height:0}.bar-student{background:#f7b2b2;border-color:red}.chart-labels{display:flex;gap:16px;padding:6px 18px 0 18px}.chart-label{width:56px;text-align:center;font-size:12px;color:#333}.chart-label span{display:block;margin-top:5px}.chart-y{position:absolute;left:-36px;bottom:0;height:370px;display:flex;flex-direction:column-reverse;justify-content:space-between;font-size:12px;color:#333}.chart-legend{position:absolute;right:18px;top:10px;font-size:12px;background:rgba(255,255,255,.75);padding:5px}.legend-row{display:flex;align-items:center;gap:6px;margin-bottom:5px}.legend-color{width:16px;height:12px;border:1px solid}.chart-empty{padding:15px;color:#555}
+.avg-btn{margin:10px 0 10px 0;padding:6px 14px;border:1px solid #bcbcbc;border-radius:3px;background:#eee;color:#111;cursor:pointer;font-size:14px}
+.avg-btn:hover{background:#e0e0e0}
+.chart-wrap{width:100%;overflow-x:auto;padding:10px 0}
+.chart{min-width:900px;height:430px;border-left:2px solid #777;border-bottom:2px solid #777;position:relative;background:repeating-linear-gradient(to top,rgba(0,0,0,.12) 0,rgba(0,0,0,.12) 1px,transparent 1px,transparent 74px)}
+.chart-bars{height:370px;display:flex;align-items:flex-end;gap:16px;padding:0 18px 0 18px}
+.chart-group{width:56px;height:370px;display:flex;align-items:flex-end;justify-content:center;gap:3px;position:relative}
+.chart-bar{width:28px;border:2px solid red;background:#f7b2b2;height:0}
+.chart-labels{display:flex;gap:16px;padding:6px 18px 0 18px}
+.chart-label{width:56px;text-align:center;font-size:12px;color:#333}
+.chart-label span{display:block;margin-top:5px}
+.chart-y{position:absolute;left:-36px;bottom:0;height:370px;display:flex;flex-direction:column-reverse;justify-content:space-between;font-size:12px;color:#333}
+.chart-legend{position:absolute;right:18px;top:10px;font-size:12px;background:rgba(255,255,255,.75);padding:5px}
+.legend-row{display:flex;align-items:center;gap:6px;margin-bottom:5px}
+.legend-color{width:16px;height:12px;border:1px solid red;background:#f7b2b2}
+.chart-empty{padding:15px;color:#555}
 
-.note-card{display:flex;gap:15px;align-items:flex-start;padding:15px;margin-bottom:12px;border-radius:10px;border-left:7px solid #ccc;background:#fafafa}.note-icon{width:48px;height:48px;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:28px;color:white;flex-shrink:0}.note-positive{border-left-color:#2ecc71}.note-positive .note-icon{background:#2ecc71}.note-neutral{border-left-color:#3498db}.note-neutral .note-icon{background:#3498db}.note-negative{border-left-color:#e74c3c}.note-negative .note-icon{background:#e74c3c}.note-title{font-size:20px;font-weight:bold;margin-bottom:6px}.note-text{font-size:18px;color:#444}.delete-note-btn{margin-top:10px;padding:8px 12px;background:#e74c3c;color:white;border:none;border-radius:6px;cursor:pointer}
+.note-card{display:flex;gap:15px;align-items:flex-start;padding:15px;margin-bottom:12px;border-radius:10px;border-left:7px solid #ccc;background:#fafafa}
+.note-icon{width:48px;height:48px;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:28px;color:white;flex-shrink:0}
+.note-positive{border-left-color:#2ecc71}
+.note-positive .note-icon{background:#2ecc71}
+.note-neutral{border-left-color:#3498db}
+.note-neutral .note-icon{background:#3498db}
+.note-negative{border-left-color:#e74c3c}
+.note-negative .note-icon{background:#e74c3c}
+.note-title{font-size:20px;font-weight:bold;margin-bottom:6px}
+.note-text{font-size:18px;color:#444}
+.delete-note-btn{margin-top:10px;padding:8px 12px;background:#e74c3c;color:white;border:none;border-radius:6px;cursor:pointer}
 
-.history-top-title{text-align:center;font-size:28px;color:#0072d6;margin-bottom:18px}.history-small-line{font-size:13px;color:#555;margin:6px 0;padding-left:4px}.history-section-title{font-size:13px;color:#444;font-weight:bold;margin:14px 0 8px;padding-left:4px}.history-day{font-size:18px;font-weight:bold;color:#111;margin:25px 0 12px;border-bottom:1px solid #cfcfcf;padding:0 0 10px 50px}.history-entry{display:grid;grid-template-columns:110px 1fr;background:white;border:1px solid #d0d0d0;margin-bottom:14px}.history-left{border-right:1px solid #d0d0d0;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:12px 8px;background:#fafafa;text-align:center}.history-icon{font-size:34px;margin-bottom:8px}.history-label{font-size:14px;font-weight:bold;color:#111}.history-right{padding:14px}.history-title{font-size:18px;font-weight:bold;color:#111;margin-bottom:8px}.history-text{font-size:17px;color:#222;line-height:1.45;margin-bottom:8px;font-weight:bold}.history-meta{font-size:14px;color:#555}.history-grade{background:#eaf5ff}.history-note-positive{background:#f1fff4}.history-note-neutral{background:#f4faff}.history-note-negative{background:#fffafa}
+.history-top-title{text-align:center;font-size:28px;color:#0072d6;margin-bottom:18px}
+.history-small-line{font-size:13px;color:#555;margin:6px 0;padding-left:4px}
+.history-section-title{font-size:13px;color:#444;font-weight:bold;margin:14px 0 8px;padding-left:4px}
+.history-day{font-size:18px;font-weight:bold;color:#111;margin:25px 0 12px;border-bottom:1px solid #cfcfcf;padding:0 0 10px 50px}
+.history-entry{display:grid;grid-template-columns:110px 1fr;background:white;border:1px solid #d0d0d0;margin-bottom:14px}
+.history-left{border-right:1px solid #d0d0d0;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:12px 8px;background:#fafafa;text-align:center}
+.history-icon{font-size:34px;margin-bottom:8px}
+.history-label{font-size:14px;font-weight:bold;color:#111}
+.history-right{padding:14px}
+.history-title{font-size:18px;font-weight:bold;color:#111;margin-bottom:8px}
+.history-text{font-size:17px;color:#222;line-height:1.45;margin-bottom:8px;font-weight:bold}
+.history-meta{font-size:14px;color:#555}
+.history-grade{background:#eaf5ff}
+.history-note-positive{background:#f1fff4}
+.history-note-neutral{background:#f4faff}
+.history-note-negative{background:#fffafa}
 
-@media(max-width:700px){#loginScreen{padding:20px 10px}.login-panel{width:100%}.login-body{grid-template-columns:1fr;padding:20px}.school-name{text-align:center}.login-row{grid-template-columns:1fr;gap:6px}.login-row label{text-align:left}.login-links{flex-direction:column;gap:6px}.content{padding:0}.content h1{padding:18px 15px 0}.box,.panel,.grades-header{border-radius:0;margin-top:0}.subject-row{grid-template-columns:145px 1fr}.subject-name{font-size:18px;padding:14px 12px}.grade-tile{min-width:48px;height:48px;font-size:23px}.history-entry{grid-template-columns:85px 1fr}.history-title,.history-text{font-size:15px}.history-day{font-size:16px;padding-left:15px}}
+@media(max-width:700px){
+    #loginScreen{padding:20px 10px}
+    .login-panel{width:100%}
+    .login-body{grid-template-columns:1fr;padding:20px}
+    .school-name{text-align:center}
+    .login-row{grid-template-columns:1fr;gap:6px}
+    .login-row label{text-align:left}
+    .login-links{flex-direction:column;gap:6px}
+    .content{padding:0}
+    .content h1{padding:18px 15px 0}
+    .box,.panel,.grades-header{border-radius:0;margin-top:0}
+    .subject-row{grid-template-columns:145px 1fr}
+    .subject-name{font-size:18px;padding:14px 12px}
+    .grade-tile{min-width:48px;height:48px;font-size:23px}
+    .history-entry{grid-template-columns:85px 1fr}
+    .history-title,.history-text{font-size:15px}
+    .history-day{font-size:16px;padding-left:15px}
+}
 </style>
 </head>
 <body>
@@ -73,21 +170,78 @@ body{background:#efefef}
     <div class="content">
         <div id="historia" class="page"><h1 class="history-top-title">- historia wpisów</h1><div id="historyInfoBox"></div><div class="box" id="historyBox">Brak wpisów.</div></div>
 
-        <div id="wiadomosci" class="page"><h1>Wiadomości</h1><div class="box" id="messagesBox">Brak wiadomości.</div><div class="panel"><h2>Napisz wiadomość</h2><select id="messageReceiver"></select><textarea id="messageText" placeholder="Wpisz wiadomość"></textarea><button onclick="sendMessage()">Wyślij wiadomość</button></div></div>
+        <div id="wiadomosci" class="page">
+            <h1>Wiadomości</h1>
+            <div class="box" id="messagesBox">Brak wiadomości.</div>
+            <div class="panel">
+                <h2>Napisz wiadomość</h2>
+                <select id="messageReceiver"></select>
+                <textarea id="messageText" placeholder="Wpisz wiadomość"></textarea>
+                <input type="file" id="messagePdf" accept="application/pdf,.pdf">
+                <div class="small-info">Możesz wysłać samą wiadomość, sam PDF albo wiadomość z PDF.</div>
+                <button onclick="sendMessage()">Wyślij wiadomość</button>
+            </div>
+        </div>
 
-        <div id="plan" class="page active"><h1>Plan lekcji</h1><div class="box" id="lessonsBox">Brak lekcji w planie.</div><div class="panel" id="lessonPanel" style="display:none;"><h2>Dodaj lekcję do planu</h2><select id="lessonDay"><option>Poniedziałek</option><option>Wtorek</option><option>Środa</option><option>Czwartek</option><option>Piątek</option></select><input type="text" id="lessonHour" placeholder="Godzina, np. 8:00"><input type="text" id="lessonSubject" placeholder="Przedmiot"><input type="text" id="lessonRoom" placeholder="Sala, np. 24"><button onclick="addLesson()">Dodaj lekcję</button></div></div>
+        <div id="plan" class="page active">
+            <h1>Plan lekcji</h1>
+            <div class="box" id="lessonsBox">Brak lekcji w planie.</div>
+            <div class="panel" id="lessonPanel" style="display:none;">
+                <h2>Dodaj lekcję do planu</h2>
+                <select id="lessonDay"><option>Poniedziałek</option><option>Wtorek</option><option>Środa</option><option>Czwartek</option><option>Piątek</option></select>
+                <input type="text" id="lessonHour" placeholder="Godzina, np. 8:00">
+                <input type="text" id="lessonSubject" placeholder="Przedmiot">
+                <input type="text" id="lessonRoom" placeholder="Sala, np. 24">
+                <button onclick="addLesson()">Dodaj lekcję</button>
+            </div>
+        </div>
 
-        <div id="oceny" class="page"><h1>Oceny</h1><button class="avg-btn" onclick="toggleAverageChart()">Wykresy ocen</button><div class="box" id="averageChartBox" style="display:none;"></div><div id="gradesBox">Brak ocen</div><div class="panel" id="gradesViewPanel" style="display:none;"><h2>Zobacz oceny ucznia</h2><select id="studentSelectViewGrades" onchange="viewStudentGrades()"></select><button onclick="viewStudentGrades()">Zobacz oceny</button></div><div class="panel" id="teacherPanel" style="display:none;"><h2>Nowa ocena</h2><select id="studentSelectGrades"></select><select id="subjectSelect"><option>Matematyka</option><option>Polski</option><option>Angielski</option><option>Włoski</option><option>Informatyka</option><option>Chemia</option><option>Biologia</option><option>Historia</option><option>Fizyka</option><option>Geografia</option><option>Plastyka</option><option>Godzina wychowawcza</option></select><select id="gradeSelect"><option>1</option><option>1+</option><option>1-</option><option>2</option><option>2+</option><option>2-</option><option>3</option><option>3+</option><option>3-</option><option>4</option><option>4+</option><option>4-</option><option>5</option><option>5+</option><option>5-</option><option>6</option><option>6-</option><option>nb</option><option>.</option></select><select id="weightSelect"><option value="1">waga 1</option><option value="2">waga 2</option><option value="3">waga 3</option></select><select id="colorSelect"><option value="grade-green">zielona</option><option value="grade-blue">niebieska</option><option value="grade-orange">pomarańczowa</option><option value="grade-yellow">żółta</option><option value="grade-red">czerwona</option><option value="grade-purple">fioletowa</option><option value="grade-mint">miętowa</option><option value="grade-gray">szara</option><option value="grade-pinkgray">różowo-szara</option></select><button onclick="addGrade()">Dodaj ocenę</button></div></div>
+        <div id="oceny" class="page">
+            <h1>Oceny</h1>
+            <button class="avg-btn" onclick="toggleAverageChart()">Wykresy ocen</button>
+            <div class="box" id="averageChartBox" style="display:none;"></div>
+            <div id="gradesBox">Brak ocen</div>
+            <div class="panel" id="gradesViewPanel" style="display:none;">
+                <h2>Zobacz oceny ucznia</h2>
+                <select id="studentSelectViewGrades" onchange="viewStudentGrades()"></select>
+                <button onclick="viewStudentGrades()">Zobacz oceny</button>
+            </div>
+            <div class="panel" id="teacherPanel" style="display:none;">
+                <h2>Nowa ocena</h2>
+                <select id="studentSelectGrades"></select>
+                <select id="subjectSelect"><option>Matematyka</option><option>Polski</option><option>Angielski</option><option>Włoski</option><option>Informatyka</option><option>Chemia</option><option>Biologia</option><option>Historia</option><option>Fizyka</option><option>Geografia</option><option>Plastyka</option><option>Godzina wychowawcza</option></select>
+                <select id="gradeSelect"><option>1</option><option>1+</option><option>1-</option><option>2</option><option>2+</option><option>2-</option><option>3</option><option>3+</option><option>3-</option><option>4</option><option>4+</option><option>4-</option><option>5</option><option>5+</option><option>5-</option><option>6</option><option>6-</option><option>nb</option><option>.</option></select>
+                <select id="weightSelect"><option value="1">waga 1</option><option value="2">waga 2</option><option value="3">waga 3</option></select>
+                <select id="colorSelect"><option value="grade-green">zielona</option><option value="grade-blue">niebieska</option><option value="grade-orange">pomarańczowa</option><option value="grade-yellow">żółta</option><option value="grade-red">czerwona</option><option value="grade-purple">fioletowa</option><option value="grade-mint">miętowa</option><option value="grade-gray">szara</option><option value="grade-pinkgray">różowo-szara</option></select>
+                <button onclick="addGrade()">Dodaj ocenę</button>
+            </div>
+        </div>
 
-        <div id="uwagi" class="page"><h1>Uwagi</h1><div class="panel" id="notesViewPanel" style="display:none;"><h2>Zobacz uwagi ucznia</h2><select id="studentSelectViewNotes" onchange="viewStudentNotes()"></select><button onclick="viewStudentNotes()">Zobacz uwagi</button><button onclick="viewAllNotes()">Zobacz wszystkie uwagi</button></div><div class="box" id="notesBox">Brak uwag.</div><div class="panel" id="notesPanel" style="display:none;"><h2>Dodaj uwagę</h2><select id="studentSelectNotes"></select><select id="noteType"><option value="positive">Pozytywna ✅</option><option value="neutral">Neutralna ℹ️</option><option value="negative">Negatywna ❗</option></select><textarea id="noteText" placeholder="Wpisz treść uwagi"></textarea><button onclick="addNote()">Dodaj uwagę</button></div></div>
+        <div id="uwagi" class="page">
+            <h1>Uwagi</h1>
+            <div class="panel" id="notesViewPanel" style="display:none;">
+                <h2>Zobacz uwagi ucznia</h2>
+                <select id="studentSelectViewNotes" onchange="viewStudentNotes()"></select>
+                <button onclick="viewStudentNotes()">Zobacz uwagi</button>
+                <button onclick="viewAllNotes()">Zobacz wszystkie uwagi</button>
+            </div>
+            <div class="box" id="notesBox">Brak uwag.</div>
+            <div class="panel" id="notesPanel" style="display:none;">
+                <h2>Dodaj uwagę</h2>
+                <select id="studentSelectNotes"></select>
+                <select id="noteType"><option value="positive">Pozytywna ✅</option><option value="neutral">Neutralna ℹ️</option><option value="negative">Negatywna ❗</option></select>
+                <textarea id="noteText" placeholder="Wpisz treść uwagi"></textarea>
+                <button onclick="addNote()">Dodaj uwagę</button>
+            </div>
+        </div>
     </div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-storage-compat.js"></script>
 
 <script>
-/* WAŻNE: tutaj wklej swój firebaseConfig z Firebase Console */
 const firebaseConfig = {
     apiKey: "AIzaSyDZ08ZV8MSyXFV1E2F7aOUDn2DqQ1p0m7c",
     authDomain: "planning-with-ai-a3fa0.firebaseapp.com",
@@ -98,11 +252,14 @@ const firebaseConfig = {
 };
 
 let db = null;
+let storage = null;
 let users = {};
 let lessons = [];
 let loggedUser = null;
 let unsubscribeUsers = null;
 let unsubscribeLessons = null;
+let selectedNotesStudent = null;
+let selectedGradesStudent = null;
 
 const subjects = ["Biologia","Chemia","Etyka","Fizyka","Geografia","Godzina wychowawcza","Historia","Informatyka","Matematyka","Polski","Angielski","Włoski","Plastyka"];
 
@@ -122,13 +279,7 @@ const defaultUsers = {
     chata:{password:"szkoła123",role:"teacher",grades:[],notes:[],messages:[]},
     kreda:{password:"szkoła123",role:"teacher",grades:[],notes:[],messages:[]},
     admin:{password:"admin123",role:"admin",grades:[],notes:[],messages:[]},
-    kaity:{
-        password:"lubie polski",
-        role:"student",
-        grades:[],
-        notes:[],
-        messages:[]
-    },
+    kaity:{password:"lubie polski",role:"student",grades:[],notes:[],messages:[]},
     zanetka:{
         password:"chemia",
         role:"student",
@@ -145,8 +296,17 @@ const defaultLessons = [
     {day:"Środa",hour:"10:45",subject:"Informatyka",room:"30"}
 ];
 
+function escapeHtml(text){
+    return String(text || "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
 function isFirebaseReady(){
-    return firebaseConfig.apiKey !== "WKLEJ_TUTAJ_API_KEY" && firebaseConfig.projectId !== "WKLEJ_TUTAJ_PROJECT_ID";
+    return firebaseConfig.apiKey && firebaseConfig.projectId;
 }
 
 async function startApp(){
@@ -156,8 +316,11 @@ async function startApp(){
     }
 
     try{
-        firebase.initializeApp(firebaseConfig);
+        if(!firebase.apps.length){
+            firebase.initializeApp(firebaseConfig);
+        }
         db = firebase.firestore();
+        storage = firebase.storage();
 
         await seedDatabaseIfEmpty();
         await listenToDatabase();
@@ -204,9 +367,9 @@ function listenToDatabase(){
 
             snapshot.forEach(doc => {
                 users[doc.id] = doc.data();
-                if(!users[doc.id].grades) users[doc.id].grades = [];
-                if(!users[doc.id].notes) users[doc.id].notes = [];
-                if(!users[doc.id].messages) users[doc.id].messages = [];
+                if(!Array.isArray(users[doc.id].grades)) users[doc.id].grades = [];
+                if(!Array.isArray(users[doc.id].notes)) users[doc.id].notes = [];
+                if(!Array.isArray(users[doc.id].messages)) users[doc.id].messages = [];
             });
 
             if(users["jhjkls"] && !users["agrest"]){
@@ -215,18 +378,12 @@ function listenToDatabase(){
                 db.collection("users").doc("jhjkls").delete();
             }
 
-            const teacherNames = ["porzeczka","jeżyna","ząbek","truskaweczka","arbuz","przyjaźń","kwiatuszek","figa","sweterek","palec","woda","chata","kreda"];
-            teacherNames.forEach(name => {
-                if(!users[name]){
-                    users[name] = {password:"szkoła123",role:"teacher",grades:[],notes:[],messages:[]};
-                    db.collection("users").doc(name).set(users[name]);
+            Object.keys(defaultUsers).forEach(login => {
+                if(!users[login]){
+                    users[login] = defaultUsers[login];
+                    db.collection("users").doc(login).set(defaultUsers[login]);
                 }
             });
-
-            if(!users["kaity"]){
-                users["kaity"] = {password:"lubie polski",role:"student",grades:[],notes:[],messages:[]};
-                db.collection("users").doc("kaity").set(users["kaity"]);
-            }
 
             usersLoaded = true;
             fillStudentSelects();
@@ -260,6 +417,7 @@ function listenToDatabase(){
 }
 
 async function saveUser(login){
+    if(!db || !users[login]) return;
     await db.collection("users").doc(login).set(users[login]);
 }
 
@@ -289,6 +447,7 @@ function fillStudentSelects(){
 
 function fillMessageReceivers(currentUser){
     const select = document.getElementById("messageReceiver");
+    if(!select) return;
     select.innerHTML = "";
     Object.keys(users).forEach(login => {
         if(login !== currentUser){
@@ -348,6 +507,8 @@ function setPanelsForRole(username){
 
 function logout(){
     loggedUser = null;
+    selectedNotesStudent = null;
+    selectedGradesStudent = null;
     localStorage.removeItem("loggedUser");
     localStorage.removeItem("lastPage");
     document.getElementById("mainPage").style.display = "none";
@@ -371,8 +532,8 @@ function refreshCurrentPage(){
     loadMessages(loggedUser);
 
     if(canManage()){
-        if(document.getElementById("studentSelectViewGrades").value) viewStudentGrades(false);
-        if(document.getElementById("studentSelectViewNotes").value) viewStudentNotes(false);
+        if(selectedGradesStudent && users[selectedGradesStudent]) loadGrades(selectedGradesStudent);
+        if(selectedNotesStudent && users[selectedNotesStudent]) loadNotes(selectedNotesStudent);
     }else{
         loadGrades(loggedUser);
         loadNotes(loggedUser);
@@ -382,10 +543,10 @@ function refreshCurrentPage(){
 
 function loadLessons(){
     const dayOrder = {"Poniedziałek":1,"Wtorek":2,"Środa":3,"Czwartek":4,"Piątek":5};
-    lessons.sort((a,b) => ((dayOrder[a.day]||99)-(dayOrder[b.day]||99)) || a.hour.localeCompare(b.hour,"pl",{numeric:true}));
+    lessons.sort((a,b) => ((dayOrder[a.day]||99)-(dayOrder[b.day]||99)) || String(a.hour || "").localeCompare(String(b.hour || ""),"pl",{numeric:true}));
     let html = lessons.length ? "" : "Brak lekcji w planie.";
     lessons.forEach(lesson => {
-        html += `<div class="lesson"><b>${lesson.day}</b>, ${lesson.hour}<br>${lesson.subject}, sala ${lesson.room}${canManage() ? `<br><button onclick="deleteLesson('${lesson.id}')">Usuń</button>` : ""}</div>`;
+        html += `<div class="lesson"><b>${escapeHtml(lesson.day)}</b>, ${escapeHtml(lesson.hour)}<br>${escapeHtml(lesson.subject)}, sala ${escapeHtml(lesson.room)}${canManage() ? `<br><button onclick="deleteLesson('${lesson.id}')">Usuń</button>` : ""}</div>`;
     });
     document.getElementById("lessonsBox").innerHTML = html;
 }
@@ -409,16 +570,21 @@ async function deleteLesson(id){
 
 function loadGrades(username){
     const user = users[username];
+    if(!user){
+        document.getElementById("gradesBox").innerHTML = "Brak ocen";
+        return;
+    }
+
     let list = [...subjects];
     user.grades.forEach(item => { if(!list.includes(item.subject)) list.push(item.subject); });
-    let html = `<div class="grades-header"><div class="student-name">👤 ${username}</div>`;
+    let html = `<div class="grades-header"><div class="student-name">👤 ${escapeHtml(username)}</div>`;
     list.forEach(subject => {
         const subjectGrades = user.grades.filter(item => item.subject === subject);
-        html += `<div class="subject-row"><div class="subject-name">${subject}</div><div class="grade-tiles">`;
+        html += `<div class="subject-row"><div class="subject-name">${escapeHtml(subject)}</div><div class="grade-tiles">`;
         subjectGrades.forEach(item => {
             const index = user.grades.indexOf(item);
             const del = canManage() ? `<button class="delete-grade-btn" onclick="deleteGrade('${username}',${index})">usuń</button>` : "";
-            html += `<div class="grade-tile ${item.color || "grade-green"} ${canManage() ? "grade-tile-manage" : ""}">${item.grade}<sup>${item.weight || "1"}</sup>${del}</div>`;
+            html += `<div class="grade-tile ${escapeHtml(item.color || "grade-green")} ${canManage() ? "grade-tile-manage" : ""}">${escapeHtml(item.grade)}<sup>${escapeHtml(item.weight || "1")}</sup>${del}</div>`;
         });
         html += `</div></div>`;
     });
@@ -431,21 +597,13 @@ function loadGrades(username){
 }
 
 function gradeToNumber(grade){
-    if(!grade){ return null; }
+    if(!grade) return null;
     grade = String(grade).trim();
-    if(grade === "nb" || grade === "."){ return null; }
-
+    if(grade === "nb" || grade === ".") return null;
     let base = parseInt(grade, 10);
-    if(isNaN(base)){ return null; }
-
-    if(grade.includes("+")){
-        base += 0.5;
-    }
-
-    if(grade.includes("-")){
-        base -= 0.25;
-    }
-
+    if(isNaN(base)) return null;
+    if(grade.includes("+")) base += 0.5;
+    if(grade.includes("-")) base -= 0.25;
     return Math.max(1, Math.min(6, base));
 }
 
@@ -456,26 +614,21 @@ function getSubjectAverage(grades, subject){
     grades.filter(item => item.subject === subject).forEach(item => {
         let value = gradeToNumber(item.grade);
         let weight = parseFloat(item.weight || "1");
-
         if(value !== null && !isNaN(weight)){
             sum += value * weight;
             weightSum += weight;
         }
     });
 
-    if(weightSum === 0){
-        return 0;
-    }
-
+    if(weightSum === 0) return 0;
     return sum / weightSum;
 }
 
 function getCurrentGradesUsername(){
     if(canManage()){
         let selected = document.getElementById("studentSelectViewGrades").value;
-        if(selected){ return selected; }
+        if(selected) return selected;
     }
-
     return loggedUser;
 }
 
@@ -501,11 +654,8 @@ function renderAverageChart(username){
     }
 
     let usedSubjects = subjects.filter(subject => user.grades.some(item => item.subject === subject));
-
     user.grades.forEach(item => {
-        if(!usedSubjects.includes(item.subject)){
-            usedSubjects.push(item.subject);
-        }
+        if(!usedSubjects.includes(item.subject)) usedSubjects.push(item.subject);
     });
 
     if(usedSubjects.length === 0){
@@ -516,26 +666,19 @@ function renderAverageChart(username){
     let barsHtml = "";
     let labelsHtml = "";
 
-    usedSubjects.forEach((subject, index) => {
+    usedSubjects.forEach(subject => {
         let studentAvg = getSubjectAverage(user.grades, subject);
-        let fakeSchoolAvg = studentAvg > 0 ? Math.max(1, Math.min(6, studentAvg + (((index % 3) - 1) * 0.25))) : 0;
-        let fakeClassAvg = studentAvg > 0 ? Math.max(1, Math.min(6, studentAvg + (((index % 2) ? -0.15 : 0.15)))) : 0;
-
-        let schoolHeight = (fakeSchoolAvg / 6) * 370;
-        let classHeight = (fakeClassAvg / 6) * 370;
         let studentHeight = (studentAvg / 6) * 370;
 
         barsHtml += `
             <div class="chart-group">
-                <div class="chart-bar bar-school" title="Śr. szkoły: ${fakeSchoolAvg.toFixed(2)}" style="height:${schoolHeight}px"></div>
-                <div class="chart-bar bar-class" title="Śr. klasy: ${fakeClassAvg.toFixed(2)}" style="height:${classHeight}px"></div>
-                <div class="chart-bar bar-student" title="Śr. ucznia: ${studentAvg.toFixed(2)}" style="height:${studentHeight}px"></div>
+                <div class="chart-bar" title="Śr. ucznia: ${studentAvg.toFixed(2)}" style="height:${studentHeight}px"></div>
             </div>
         `;
 
         labelsHtml += `
             <div class="chart-label">
-                ${subject.length > 7 ? subject.slice(0, 6) + "." : subject.toLowerCase()}
+                ${escapeHtml(subject.length > 7 ? subject.slice(0, 6) + "." : subject.toLowerCase())}
                 <span>(${studentAvg ? studentAvg.toFixed(2) : "0"})</span>
             </div>
         `;
@@ -545,9 +688,7 @@ function renderAverageChart(username){
         <div class="chart-wrap">
             <div class="chart">
                 <div class="chart-y"><span>0.0</span><span>1.0</span><span>2.0</span><span>3.0</span><span>4.0</span><span>5.0</span><span>6.0</span></div>
-                <div class="chart-legend">
-                    <div class="legend-row"><span class="legend-color bar-student"></span> Śr. ucznia</div>
-                </div>
+                <div class="chart-legend"><div class="legend-row"><span class="legend-color"></span> Śr. ucznia</div></div>
                 <div class="chart-bars">${barsHtml}</div>
                 <div class="chart-labels">${labelsHtml}</div>
             </div>
@@ -558,7 +699,18 @@ function renderAverageChart(username){
 async function addGrade(){
     if(!canManage()) return alert("Nie masz uprawnień.");
     const student = document.getElementById("studentSelectGrades").value;
-    users[student].grades.push({subject:document.getElementById("subjectSelect").value,grade:document.getElementById("gradeSelect").value,weight:document.getElementById("weightSelect").value,color:document.getElementById("colorSelect").value,teacher:loggedUser,date:new Date().toLocaleString("pl-PL"),timestamp:Date.now()});
+    if(!student || !users[student]) return alert("Wybierz ucznia.");
+
+    users[student].grades.push({
+        subject:document.getElementById("subjectSelect").value,
+        grade:document.getElementById("gradeSelect").value,
+        weight:document.getElementById("weightSelect").value,
+        color:document.getElementById("colorSelect").value,
+        teacher:loggedUser,
+        date:new Date().toLocaleString("pl-PL"),
+        timestamp:Date.now()
+    });
+
     await saveUser(student);
     alert("Dodano ocenę!");
 }
@@ -566,6 +718,8 @@ async function addGrade(){
 function viewStudentGrades(){
     if(!canManage()) return;
     const student = document.getElementById("studentSelectViewGrades").value;
+    if(!student || !users[student]) return;
+    selectedGradesStudent = student;
     document.getElementById("gradesBox").style.display = "block";
     loadGrades(student);
 
@@ -576,6 +730,7 @@ function viewStudentGrades(){
 
 async function deleteGrade(student,index){
     if(!canManage()) return;
+    if(!users[student] || !users[student].grades[index]) return;
     if(confirm("Czy na pewno chcesz usunąć tę ocenę?")){
         users[student].grades.splice(index,1);
         await saveUser(student);
@@ -590,16 +745,10 @@ function loadNotes(username){
         return;
     }
 
-    const notesWithIndex = user.notes.map((item, index) => ({
-        ...item,
-        realIndex:index,
-        student:username
-    }));
-
+    const notesWithIndex = user.notes.map((item, index) => ({...item, realIndex:index, student:username}));
     notesWithIndex.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
 
     let html = `<div class="small-info">Liczba uwag: ${notesWithIndex.length}</div>`;
-
     notesWithIndex.forEach(item => {
         html += buildNoteCard(item.student, item.realIndex, item);
     });
@@ -629,9 +778,9 @@ function buildNoteCard(student, index, item){
             <div class="note-icon">${icon}</div>
             <div style="width:100%;">
                 <div class="note-title">Uwaga: ${typeText}</div>
-                <div class="note-text"><b>Uczeń:</b> ${student}</div>
-                <div class="note-text"><b>Treść:</b> ${item.text || ""}</div>
-                <div class="small-info">Wpisał: ${item.author || "-"} | ${item.date || "-"}</div>
+                <div class="note-text"><b>Uczeń:</b> ${escapeHtml(student)}</div>
+                <div class="note-text"><b>Treść:</b> ${escapeHtml(item.text || "")}</div>
+                <div class="small-info">Wpisał: ${escapeHtml(item.author || "-")} | ${escapeHtml(item.date || "-")}</div>
                 ${canManage() ? `<button class="delete-note-btn" onclick="deleteNote('${student}',${index})">Usuń uwagę</button>` : ""}
             </div>
         </div>
@@ -639,21 +788,13 @@ function buildNoteCard(student, index, item){
 }
 
 function viewAllNotes(){
-    if(!canManage()){
-        return;
-    }
-
+    if(!canManage()) return;
     let allNotes = [];
 
     getStudents().forEach(student => {
         const studentNotes = Array.isArray(users[student].notes) ? users[student].notes : [];
-
         studentNotes.forEach((item, index) => {
-            allNotes.push({
-                ...item,
-                student:student,
-                realIndex:index
-            });
+            allNotes.push({...item, student:student, realIndex:index});
         });
     });
 
@@ -665,11 +806,11 @@ function viewAllNotes(){
     }
 
     let html = `<div class="small-info">Liczba wszystkich uwag: ${allNotes.length}</div>`;
-
     allNotes.forEach(item => {
         html += buildNoteCard(item.student, item.realIndex, item);
     });
 
+    selectedNotesStudent = null;
     document.getElementById("notesBox").style.display = "block";
     document.getElementById("notesBox").innerHTML = html;
 }
@@ -678,8 +819,17 @@ async function addNote(){
     if(!canManage()) return alert("Nie masz uprawnień.");
     const student = document.getElementById("studentSelectNotes").value;
     const text = document.getElementById("noteText").value.trim();
+    if(!student || !users[student]) return alert("Wybierz ucznia.");
     if(!text) return alert("Wpisz treść uwagi.");
-    users[student].notes.push({type:document.getElementById("noteType").value,text,author:loggedUser,date:new Date().toLocaleString("pl-PL"),timestamp:Date.now()});
+
+    users[student].notes.push({
+        type:document.getElementById("noteType").value,
+        text:text,
+        author:loggedUser,
+        date:new Date().toLocaleString("pl-PL"),
+        timestamp:Date.now()
+    });
+
     await saveUser(student);
     document.getElementById("noteText").value = "";
     alert("Dodano uwagę!");
@@ -688,32 +838,60 @@ async function addNote(){
 function viewStudentNotes(){
     if(!canManage()) return;
     const student = document.getElementById("studentSelectViewNotes").value;
+    if(!student || !users[student]) return;
+    selectedNotesStudent = student;
     document.getElementById("notesBox").style.display = "block";
     loadNotes(student);
 }
 
 async function deleteNote(student,index){
     if(!canManage()) return;
+    if(!users[student] || !users[student].notes[index]) return;
     if(confirm("Czy na pewno chcesz usunąć tę uwagę?")){
         users[student].notes.splice(index,1);
         await saveUser(student);
     }
 }
 
-function formatHistoryDay(timestamp){return timestamp ? new Date(timestamp).toLocaleDateString("pl-PL",{weekday:"long",day:"numeric",month:"long",year:"numeric"}) : "Bez daty";}
-function buildHistoryEntry(entry){
-    if(entry.kind === "grade") return `<div class="history-entry history-grade"><div class="history-left"><div class="history-icon">📝</div><div class="history-label">OCENA</div></div><div class="history-right"><div class="history-title">${entry.subject}: ${entry.grade}<sup>${entry.weight}</sup></div><div class="history-meta">Wpisał nauczyciel: ${entry.teacher || "-"}<br>Data wpisu: ${entry.date || "-"}</div></div></div>`;
-    let noteClass="history-note-negative", icon="❗", noteTypeText="negatywna";
-    if(entry.type === "positive"){noteClass="history-note-positive";icon="✅";noteTypeText="pozytywna";}
-    if(entry.type === "neutral"){noteClass="history-note-neutral";icon="ℹ️";noteTypeText="neutralna";}
-    return `<div class="history-entry ${noteClass}"><div class="history-left"><div class="history-icon">${icon}</div><div class="history-label">ZACHOWANIE</div></div><div class="history-right"><div class="history-text">${entry.text}</div><div class="history-meta">Rodzaj: ${noteTypeText}<br>Wpisał nauczyciel: ${entry.author || "-"}<br>Data wpisu: ${entry.date || "-"}</div></div></div>`;
+function formatHistoryDay(timestamp){
+    return timestamp ? new Date(timestamp).toLocaleDateString("pl-PL",{weekday:"long",day:"numeric",month:"long",year:"numeric"}) : "Bez daty";
 }
+
+function buildHistoryEntry(entry){
+    if(entry.kind === "grade"){
+        return `<div class="history-entry history-grade"><div class="history-left"><div class="history-icon">📝</div><div class="history-label">OCENA</div></div><div class="history-right"><div class="history-title">${escapeHtml(entry.subject)}: ${escapeHtml(entry.grade)}<sup>${escapeHtml(entry.weight)}</sup></div><div class="history-meta">Wpisał nauczyciel: ${escapeHtml(entry.teacher || "-")}<br>Data wpisu: ${escapeHtml(entry.date || "-")}</div></div></div>`;
+    }
+
+    let noteClass="history-note-negative", icon="❗", noteTypeText="negatywna";
+    if(entry.type === "positive"){
+        noteClass="history-note-positive";
+        icon="✅";
+        noteTypeText="pozytywna";
+    }
+    if(entry.type === "neutral"){
+        noteClass="history-note-neutral";
+        icon="ℹ️";
+        noteTypeText="neutralna";
+    }
+
+    return `<div class="history-entry ${noteClass}"><div class="history-left"><div class="history-icon">${icon}</div><div class="history-label">ZACHOWANIE</div></div><div class="history-right"><div class="history-text">${escapeHtml(entry.text)}</div><div class="history-meta">Rodzaj: ${noteTypeText}<br>Wpisał nauczyciel: ${escapeHtml(entry.author || "-")}<br>Data wpisu: ${escapeHtml(entry.date || "-")}</div></div></div>`;
+}
+
 function renderHistoryEntriesGrouped(entries){
     if(entries.length === 0) return `<div class="history-small-line">Brak wpisów.</div>`;
-    let html="", lastDay="";
-    entries.forEach(entry => {const day=formatHistoryDay(entry.timestamp);if(day!==lastDay){html+=`<div class="history-day">Wpisane w dniu: ${day}</div>`;lastDay=day;}html+=buildHistoryEntry(entry);});
+    let html="";
+    let lastDay="";
+    entries.forEach(entry => {
+        const day=formatHistoryDay(entry.timestamp);
+        if(day!==lastDay){
+            html+=`<div class="history-day">Wpisane w dniu: ${escapeHtml(day)}</div>`;
+            lastDay=day;
+        }
+        html+=buildHistoryEntry(entry);
+    });
     return html;
 }
+
 function loadHistory(username){
     const user = users[username];
 
@@ -724,21 +902,12 @@ function loadHistory(username){
     }
 
     let entries = [];
-
-    user.grades.forEach(item => {
-        entries.push({kind:"grade", ...item});
-    });
-
-    user.notes.forEach(item => {
-        entries.push({kind:"note", ...item});
-    });
-
+    user.grades.forEach(item => entries.push({kind:"grade", ...item}));
+    user.notes.forEach(item => entries.push({kind:"note", ...item}));
     entries.sort((a,b) => (b.timestamp || 0) - (a.timestamp || 0));
 
     const previousLoginRef = parseInt(localStorage.getItem("previousLoginRef_" + username) || "0", 10);
-    const sinceLastLogin = previousLoginRef > 0
-        ? entries.filter(entry => (entry.timestamp || 0) > previousLoginRef)
-        : [];
+    const sinceLastLogin = previousLoginRef > 0 ? entries.filter(entry => (entry.timestamp || 0) > previousLoginRef) : [];
 
     document.getElementById("historyInfoBox").innerHTML = `
         <div class="history-small-line">
@@ -752,18 +921,111 @@ function loadHistory(username){
 
 function loadMessages(username){
     const user = users[username];
-    let html = user.messages.length ? "" : "Brak wiadomości.";
-    user.messages.slice().reverse().forEach(item => html += `<div class="chat-message"><b>Od: ${item.from}</b><br>${item.text}<br><span class="small-info">${item.date}</span></div>`);
+
+    if(!user || !Array.isArray(user.messages) || user.messages.length === 0){
+        document.getElementById("messagesBox").innerHTML = "Brak wiadomości.";
+        return;
+    }
+
+    let html = "";
+
+    user.messages.slice().reverse().forEach(item => {
+        let attachmentHtml = "";
+
+        if(item.pdfUrl){
+            attachmentHtml = `
+                <br>
+                <a href="${item.pdfUrl}" target="_blank" rel="noopener">
+                    📎 Otwórz PDF: ${escapeHtml(item.pdfName || "plik.pdf")}
+                </a>
+            `;
+        }
+
+        html += `
+            <div class="chat-message">
+                <b>Od: ${escapeHtml(item.from)}</b><br>
+                ${escapeHtml(item.text || "")}
+                ${attachmentHtml}
+                <br>
+                <span class="small-info">${escapeHtml(item.date || "")}</span>
+            </div>
+        `;
+    });
+
     document.getElementById("messagesBox").innerHTML = html;
 }
+
 async function sendMessage(){
+    if(!loggedUser || !users[loggedUser]){
+        alert("Musisz być zalogowany.");
+        return;
+    }
+
     const receiver = document.getElementById("messageReceiver").value;
     const text = document.getElementById("messageText").value.trim();
-    if(!text) return alert("Wpisz wiadomość.");
-    users[receiver].messages.push({from:loggedUser,text,date:new Date().toLocaleString("pl-PL")});
-    await saveUser(receiver);
-    document.getElementById("messageText").value = "";
-    alert("Wiadomość wysłana!");
+    const fileInput = document.getElementById("messagePdf");
+    const file = fileInput && fileInput.files.length > 0 ? fileInput.files[0] : null;
+
+    if(!receiver || !users[receiver]){
+        alert("Wybierz odbiorcę.");
+        return;
+    }
+
+    if(!text && !file){
+        alert("Wpisz wiadomość albo dodaj plik PDF.");
+        return;
+    }
+
+    let pdfUrl = "";
+    let pdfName = "";
+
+    if(file){
+        const fileNameLower = file.name.toLowerCase();
+
+        if(file.type !== "application/pdf" && !fileNameLower.endsWith(".pdf")){
+            alert("Możesz wysłać tylko plik PDF.");
+            fileInput.value = "";
+            return;
+        }
+
+        if(!storage){
+            alert("Firebase Storage nie jest gotowe.");
+            return;
+        }
+
+        try{
+            const safeName = file.name.replace(/[^a-zA-Z0-9ąćęłńóśźżĄĆĘŁŃÓŚŹŻ._-]/g, "_");
+            const path = `messages/${receiver}/${Date.now()}_${safeName}`;
+            const snapshot = await storage.ref(path).put(file);
+            pdfUrl = await snapshot.ref.getDownloadURL();
+            pdfName = file.name;
+        }catch(error){
+            alert("Nie udało się wysłać PDF: " + error.message);
+            return;
+        }
+    }
+
+    if(!Array.isArray(users[receiver].messages)){
+        users[receiver].messages = [];
+    }
+
+    users[receiver].messages.push({
+        from:loggedUser,
+        text:text,
+        pdfUrl:pdfUrl,
+        pdfName:pdfName,
+        date:new Date().toLocaleString("pl-PL"),
+        timestamp:Date.now()
+    });
+
+    try{
+        await saveUser(receiver);
+        document.getElementById("messageText").value = "";
+        if(fileInput) fileInput.value = "";
+        alert("Wiadomość wysłana!");
+    }catch(error){
+        alert("Nie udało się zapisać wiadomości: " + error.message);
+    }
 }
 
 document.getElementById("username").addEventListener("keydown", e => {if(e.key === "Enter") login();});
@@ -776,11 +1038,7 @@ window.addEventListener("load", async () => {
     document.getElementById("mainPage").style.display = "none";
     document.getElementById("loginScreen").style.display = "flex";
 
-    const ok = await startApp();
-
-    if(!ok){
-        return;
-    }
+    await startApp();
 });
 </script>
 </body>
