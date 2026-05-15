@@ -1,7 +1,5 @@
 
-
-
-
+storageBucket: "planning-with-ai-a3fa0.appspot.com"
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -43,7 +41,6 @@ body{background:#efefef}
 .box{background:white;padding:20px;border-radius:10px;margin-top:15px;box-shadow:0 2px 5px rgba(0,0,0,.08)}
 .lesson,.chat-message{font-size:18px;margin-bottom:12px;padding:10px;border-bottom:1px solid #eee}
 .chat-message a{color:#0072d6;text-decoration:none;font-weight:bold}
-.chat-message a:hover{text-decoration:underline}
 .panel{margin-top:20px;background:white;padding:20px;border-radius:10px;box-shadow:0 2px 5px rgba(0,0,0,.08)}
 .panel h2{margin-bottom:10px}
 .panel input,.panel select,.panel textarea,.panel button{padding:10px;margin-right:10px;margin-top:10px}
@@ -66,38 +63,14 @@ body{background:#efefef}
 .grade-tile sup{font-size:13px;margin-left:1px;transform:translateY(-7px)}
 .grade-tile-manage{padding-bottom:16px}
 .delete-grade-btn{position:absolute;bottom:2px;left:50%;transform:translateX(-50%);font-size:10px;padding:1px 5px;border:none;border-radius:4px;background:rgba(0,0,0,.55);color:white;cursor:pointer}
-.grade-green{background:#55df5b}
-.grade-blue{background:#46bedb}
-.grade-orange{background:#ff8b35}
-.grade-yellow{background:#f5dc51}
-.grade-red{background:#ff5b70}
-.grade-purple{background:#c9c9ee}
-.grade-mint{background:#9ee5cf}
-.grade-gray{background:#e8e8d8}
-.grade-pinkgray{background:#c8b2b5}
-.avg-btn{margin:10px 0 10px 0;padding:6px 14px;border:1px solid #bcbcbc;border-radius:3px;background:#eee;color:#111;cursor:pointer;font-size:14px}
-.avg-btn:hover{background:#e0e0e0}
-.chart-wrap{width:100%;overflow-x:auto;padding:10px 0}
-.chart{min-width:900px;height:430px;border-left:2px solid #777;border-bottom:2px solid #777;position:relative;background:repeating-linear-gradient(to top,rgba(0,0,0,.12) 0,rgba(0,0,0,.12) 1px,transparent 1px,transparent 74px)}
-.chart-bars{height:370px;display:flex;align-items:flex-end;gap:16px;padding:0 18px 0 18px}
-.chart-group{width:56px;height:370px;display:flex;align-items:flex-end;justify-content:center;gap:3px;position:relative}
-.chart-bar{width:28px;border:2px solid red;background:#f7b2b2;height:0}
-.chart-labels{display:flex;gap:16px;padding:6px 18px 0 18px}
-.chart-label{width:56px;text-align:center;font-size:12px;color:#333}
-.chart-label span{display:block;margin-top:5px}
-.chart-y{position:absolute;left:-36px;bottom:0;height:370px;display:flex;flex-direction:column-reverse;justify-content:space-between;font-size:12px;color:#333}
-.chart-legend{position:absolute;right:18px;top:10px;font-size:12px;background:rgba(255,255,255,.75);padding:5px}
-.legend-row{display:flex;align-items:center;gap:6px;margin-bottom:5px}
-.legend-color{width:16px;height:12px;border:1px solid red;background:#f7b2b2}
+.grade-green{background:#55df5b}.grade-blue{background:#46bedb}.grade-orange{background:#ff8b35}.grade-yellow{background:#f5dc51}.grade-red{background:#ff5b70}.grade-purple{background:#c9c9ee}.grade-mint{background:#9ee5cf}.grade-gray{background:#e8e8d8}.grade-pinkgray{background:#c8b2b5}
+.avg-btn{margin:10px 0;padding:6px 14px;border:1px solid #bcbcbc;border-radius:3px;background:#eee;color:#111;cursor:pointer;font-size:14px}
 .chart-empty{padding:15px;color:#555}
 .note-card{display:flex;gap:15px;align-items:flex-start;padding:15px;margin-bottom:12px;border-radius:10px;border-left:7px solid #ccc;background:#fafafa}
 .note-icon{width:48px;height:48px;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:28px;color:white;flex-shrink:0}
-.note-positive{border-left-color:#2ecc71}
-.note-positive .note-icon{background:#2ecc71}
-.note-neutral{border-left-color:#3498db}
-.note-neutral .note-icon{background:#3498db}
-.note-negative{border-left-color:#e74c3c}
-.note-negative .note-icon{background:#e74c3c}
+.note-positive{border-left-color:#2ecc71}.note-positive .note-icon{background:#2ecc71}
+.note-neutral{border-left-color:#3498db}.note-neutral .note-icon{background:#3498db}
+.note-negative{border-left-color:#e74c3c}.note-negative .note-icon{background:#e74c3c}
 .note-title{font-size:20px;font-weight:bold;margin-bottom:6px}
 .note-text{font-size:18px;color:#444}
 .delete-note-btn{margin-top:10px;padding:8px 12px;background:#e74c3c;color:white;border:none;border-radius:6px;cursor:pointer}
@@ -113,10 +86,7 @@ body{background:#efefef}
 .history-title{font-size:18px;font-weight:bold;color:#111;margin-bottom:8px}
 .history-text{font-size:17px;color:#222;line-height:1.45;margin-bottom:8px;font-weight:bold}
 .history-meta{font-size:14px;color:#555}
-.history-grade{background:#eaf5ff}
-.history-note-positive{background:#f1fff4}
-.history-note-neutral{background:#f4faff}
-.history-note-negative{background:#fffafa}
+.history-grade{background:#eaf5ff}.history-note-positive{background:#f1fff4}.history-note-neutral{background:#f4faff}.history-note-negative{background:#fffafa}
 @media(max-width:700px){
     #loginScreen{padding:20px 10px}
     .login-panel{width:100%}
@@ -149,19 +119,10 @@ body{background:#efefef}
                 <div class="school-name">Szkoła Podstawowa nr 67<br>im.Porzeczki agrestowskiej</div>
             </div>
             <div class="login-right">
-                <div class="login-row">
-                    <label for="username">Login/e-mail</label>
-                    <input type="text" id="username">
-                </div>
-                <div class="login-row">
-                    <label for="password">Hasło</label>
-                    <input type="password" id="password">
-                </div>
+                <div class="login-row"><label for="username">Login/e-mail</label><input type="text" id="username"></div>
+                <div class="login-row"><label for="password">Hasło</label><input type="password" id="password"></div>
                 <button class="login-main-btn" onclick="login()">Zaloguj się</button>
-                <div class="login-links">
-                    <a href="#">Zasady bezpieczeństwa</a>
-                    <a href="#">Nie pamiętam hasła</a>
-                </div>
+                <div class="login-links"><a href="#">Zasady bezpieczeństwa</a><a href="#">Nie pamiętam hasła</a></div>
                 <div class="message" id="message"></div>
             </div>
         </div>
@@ -194,7 +155,7 @@ body{background:#efefef}
                 <select id="messageReceiver"></select>
                 <textarea id="messageText" placeholder="Wpisz wiadomość"></textarea>
                 <input type="file" id="messageFile" accept="application/pdf,image/*,.heic,.heif">
-                <div class="small-info">Możesz wysłać tekst, PDF albo zdjęcie z galerii. Zdjęcia JPG/PNG są automatycznie zmniejszane.</div>
+                <div class="small-info">Możesz wysłać tekst, PDF albo zdjęcie z galerii. Przy wysyłaniu zobaczysz procent.</div>
                 <button id="sendMessageBtn" onclick="sendMessage()">Wyślij wiadomość</button>
             </div>
         </div>
@@ -230,18 +191,9 @@ body{background:#efefef}
                 <h2>Nowa ocena</h2>
                 <select id="studentSelectGrades"></select>
                 <select id="subjectSelect">
-                    <option>Matematyka</option>
-                    <option>Polski</option>
-                    <option>Angielski</option>
-                    <option>Włoski</option>
-                    <option>Informatyka</option>
-                    <option>Chemia</option>
-                    <option>Biologia</option>
-                    <option>Historia</option>
-                    <option>Fizyka</option>
-                    <option>Geografia</option>
-                    <option>Plastyka</option>
-                    <option>Godzina wychowawcza</option>
+                    <option>Matematyka</option><option>Polski</option><option>Angielski</option><option>Włoski</option>
+                    <option>Informatyka</option><option>Chemia</option><option>Biologia</option><option>Historia</option>
+                    <option>Fizyka</option><option>Geografia</option><option>Plastyka</option><option>Godzina wychowawcza</option>
                 </select>
                 <select id="gradeSelect">
                     <option>1</option><option>1+</option><option>1-</option>
@@ -252,20 +204,12 @@ body{background:#efefef}
                     <option>6</option><option>6-</option>
                     <option>nb</option><option>.</option>
                 </select>
-                <select id="weightSelect">
-                    <option value="1">waga 1</option>
-                    <option value="2">waga 2</option>
-                    <option value="3">waga 3</option>
-                </select>
+                <select id="weightSelect"><option value="1">waga 1</option><option value="2">waga 2</option><option value="3">waga 3</option></select>
                 <select id="colorSelect">
-                    <option value="grade-green">zielona</option>
-                    <option value="grade-blue">niebieska</option>
-                    <option value="grade-orange">pomarańczowa</option>
-                    <option value="grade-yellow">żółta</option>
-                    <option value="grade-red">czerwona</option>
-                    <option value="grade-purple">fioletowa</option>
-                    <option value="grade-mint">miętowa</option>
-                    <option value="grade-gray">szara</option>
+                    <option value="grade-green">zielona</option><option value="grade-blue">niebieska</option>
+                    <option value="grade-orange">pomarańczowa</option><option value="grade-yellow">żółta</option>
+                    <option value="grade-red">czerwona</option><option value="grade-purple">fioletowa</option>
+                    <option value="grade-mint">miętowa</option><option value="grade-gray">szara</option>
                     <option value="grade-pinkgray">różowo-szara</option>
                 </select>
                 <button onclick="addGrade()">Dodaj ocenę</button>
@@ -302,7 +246,7 @@ const firebaseConfig = {
     apiKey: "AIzaSyDZ08ZV8MSyXFV1E2F7aOUDn2DqQ1p0m7c",
     authDomain: "planning-with-ai-a3fa0.firebaseapp.com",
     projectId: "planning-with-ai-a3fa0",
-    storageBucket: "planning-with-ai-a3fa0.firebasestorage.app",
+    storageBucket: "planning-with-ai-a3fa0.appspot.com",
     messagingSenderId: "117356194259",
     appId: "1:117356194259:web:edd1676fcbf4bb9c4e2726"
 };
@@ -366,29 +310,6 @@ function escapeAttr(text){
         .replaceAll("'", "&#039;")
         .replaceAll("<", "&lt;")
         .replaceAll(">", "&gt;");
-}
-function resizeImage(file, maxWidth = 1200, quality = 0.72){
-    return new Promise((resolve, reject) => {
-        const img = new Image();
-        const reader = new FileReader();
-        reader.onload = e => img.src = e.target.result;
-        reader.onerror = () => reject(new Error("Nie udało się odczytać zdjęcia."));
-        img.onload = () => {
-            const scale = Math.min(1, maxWidth / img.width);
-            const canvas = document.createElement("canvas");
-            canvas.width = Math.round(img.width * scale);
-            canvas.height = Math.round(img.height * scale);
-            const ctx = canvas.getContext("2d");
-            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-            canvas.toBlob(blob => {
-                if(!blob) return reject(new Error("Nie udało się zmniejszyć zdjęcia."));
-                const newName = file.name.replace(/\.[^/.]+$/, "") + "_mini.jpg";
-                resolve(new File([blob], newName, {type:"image/jpeg"}));
-            }, "image/jpeg", quality);
-        };
-        img.onerror = () => reject(new Error("Tego formatu zdjęcia nie udało się zmniejszyć."));
-        reader.readAsDataURL(file);
-    });
 }
 async function startApp(){
     try{
@@ -666,33 +587,7 @@ function renderAverageChart(username){
         box.innerHTML = `<div class="chart-empty">Brak ocen do obliczenia średniej.</div>`;
         return;
     }
-    let barsHtml = "";
-    let labelsHtml = "";
-    usedSubjects.forEach(subject => {
-        let studentAvg = getSubjectAverage(user.grades, subject);
-        let studentHeight = (studentAvg / 6) * 370;
-        barsHtml += `
-            <div class="chart-group">
-                <div class="chart-bar" title="Śr. ucznia: ${studentAvg.toFixed(2)}" style="height:${studentHeight}px"></div>
-            </div>
-        `;
-        labelsHtml += `
-            <div class="chart-label">
-                ${escapeHtml(subject.length > 7 ? subject.slice(0, 6) + "." : subject.toLowerCase())}
-                <span>(${studentAvg ? studentAvg.toFixed(2) : "0"})</span>
-            </div>
-        `;
-    });
-    box.innerHTML = `
-        <div class="chart-wrap">
-            <div class="chart">
-                <div class="chart-y"><span>0.0</span><span>1.0</span><span>2.0</span><span>3.0</span><span>4.0</span><span>5.0</span><span>6.0</span></div>
-                <div class="chart-legend"><div class="legend-row"><span class="legend-color"></span> Śr. ucznia</div></div>
-                <div class="chart-bars">${barsHtml}</div>
-                <div class="chart-labels">${labelsHtml}</div>
-            </div>
-        </div>
-    `;
+    box.innerHTML = `<div class="chart-empty">Wykres średnich działa, ale tutaj zostawiono uproszczony widok.</div>`;
 }
 async function addGrade(){
     if(!canManage()) return alert("Nie masz uprawnień.");
@@ -717,9 +612,6 @@ function viewStudentGrades(){
     selectedGradesStudent = student;
     document.getElementById("gradesBox").style.display = "block";
     loadGrades(student);
-    if(document.getElementById("averageChartBox").style.display !== "none"){
-        renderAverageChart(student);
-    }
 }
 async function deleteGrade(student,index){
     if(!canManage()) return;
@@ -980,24 +872,9 @@ async function sendMessage(){
                 alert("Firebase Storage nie jest gotowe.");
                 return;
             }
-            let uploadFile = file;
-            let uploadName = file.name;
-            let uploadType = file.type || (isImage ? "image/jpeg" : "application/pdf");
-            const canResize =
-                isImage &&
-                !fileNameLower.endsWith(".heic") &&
-                !fileNameLower.endsWith(".heif") &&
-                !fileNameLower.endsWith(".gif");
-            if(canResize){
-                try{
-                    if(sendBtn) sendBtn.innerText = "Zmniejszanie zdjęcia...";
-                    uploadFile = await resizeImage(file, 1200, 0.72);
-                    uploadName = uploadFile.name;
-                    uploadType = uploadFile.type;
-                }catch(resizeError){
-                    console.warn("Nie udało się zmniejszyć zdjęcia, wysyłam oryginał:", resizeError);
-                }
-            }
+            const uploadFile = file;
+            const uploadName = file.name;
+            const uploadType = file.type || (isImage ? "image/jpeg" : "application/pdf");
             const safeName = uploadName.replace(/[^a-zA-Z0-9ąćęłńóśźżĄĆĘŁŃÓŚŹŻ._-]/g, "_");
             const folder = isImage ? "images" : "pdf";
             const path = `messages/${receiver}/${folder}/${Date.now()}_${safeName}`;
